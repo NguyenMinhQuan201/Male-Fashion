@@ -1,0 +1,21 @@
+﻿using DataDemo.Common;
+using Domain.Common;
+using Domain.Models.Dto.RoleDto;
+using Domain.Models.Dto.UserDto;
+using Microsoft.AspNetCore.Authentication;
+
+namespace Domain.IServices.User
+{
+    public interface IUserService
+    {
+        public Task<string> Login(UserLoginRequestDto request);
+        public Task<bool> Create(UserCreateRequestDto request);
+        public Task<bool> Update(Guid id, UserUpdateRequestDto request);
+        public Task<bool> Delete(Guid id);
+        public Task<ApiResult<PagedResult<UserVmDto>>> GetAll(int? pageSize, int? pageIndex, string? name);
+        public Task<UserVmDto> GetById(Guid id);
+        public Task<bool> RoleAssign(Guid id, RoleAssignRequestDto request);
+        public AuthenticationProperties GetProperties(string redirectUrl);
+        public Task<string> GetTokenByLoginGG();
+    }
+}
