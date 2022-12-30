@@ -4,6 +4,7 @@ using Infrastructure.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(MaleFashionDbContext))]
-    partial class MaleFashionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221208090248_Init2")]
+    partial class Init2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -578,41 +580,6 @@ namespace Infrastructure.Migrations
                     b.ToTable("ProductDetails", (string)null);
                 });
 
-            modelBuilder.Entity("Infrastructure.Entities.ProductImg", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Caption")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("FileSize")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("ImagePath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDefault")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductImg");
-                });
-
             modelBuilder.Entity("Infrastructure.Entities.Promotion", b =>
                 {
                     b.Property<int>("IdPromotion")
@@ -940,17 +907,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("Size");
                 });
 
-            modelBuilder.Entity("Infrastructure.Entities.ProductImg", b =>
-                {
-                    b.HasOne("Infrastructure.Entities.Product", "Product")
-                        .WithMany("ProductImgs")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("ProductPromotion", b =>
                 {
                     b.HasOne("Infrastructure.Entities.Product", null)
@@ -998,8 +954,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("OrderDetails");
 
                     b.Navigation("ProductDetails");
-
-                    b.Navigation("ProductImgs");
                 });
 
             modelBuilder.Entity("Infrastructure.Entities.Size", b =>

@@ -9,7 +9,6 @@ namespace Api.Controllers
     
     [Route("api/[controller]")]
     [ApiController]
-    
     public class RolesController : ControllerBase
     {
         private readonly IServiceRole _serviceRole;
@@ -19,7 +18,6 @@ namespace Api.Controllers
             _serviceRole = ServiceRole;
         }
         [HttpGet("getroles")]
-        [Authorize]
         public async Task<IActionResult> GetAll()
         {
             var roles = await _serviceRole.GetAllRole();

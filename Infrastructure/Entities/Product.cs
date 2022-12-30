@@ -21,8 +21,9 @@ namespace Infrastructure.Entities
         public virtual Category? Categories { get; set; }
         public virtual ICollection<Promotion>? Promotion { get; set; }
         public ICollection<OrderDetails>? OrderDetails { get; set; }
-        public ICollection<ProductDetails>? ProductDetails { get; set; }
+        public ICollection<ProductDetail>? ProductDetails { get; set; }
         public ICollection<ImportInvoiceDetails>? ImportInvoiceDetails { get; set; }
+        public ICollection<ProductImg>? ProductImgs { get; set; }
 
 
     }

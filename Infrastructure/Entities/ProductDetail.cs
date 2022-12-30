@@ -6,19 +6,25 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Entities
 {
-    public class ProductDetails
+    public class ProductDetail
     {
-        public int IdProduct { get; set; }
-        public virtual Product? Product { get; set; }
+        public int Id{ get; set; }
+        public int ProductId { get; set; }
+        public Product Product { get; set; }
+        public Size Size { get; set; }
+        public Color Color { get; set; }
         public decimal Price { get; set; }
         public decimal Discount { get; set; }
         public int Quantity { get; set; }
         public DateTime NSX { get; set; }
         public DateTime HSD { get; set; }
-        public decimal Weight { get; set; }
-        public string? Status { get; set; }
+        public int SizeId { get; set; }
+        public int ColorId { get; set; }
+        public int Status { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
+
+        
 
     }
 }

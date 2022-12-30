@@ -1,17 +1,16 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers
+namespace Male_Fashion.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
     {
         [HttpGet("Call911")]
-        public  IActionResult Call()
+        public IActionResult De()
         {
-            return Ok("hahaha");
-            
+            return Ok("OKOKOK");
         }
     }
 }

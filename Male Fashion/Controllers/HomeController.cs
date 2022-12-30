@@ -15,7 +15,7 @@ namespace Male_Fashion.Controllers
 
         public IActionResult Index()
         {
-            return View("haha");
+            return View();
         }
 
         public IActionResult Privacy()

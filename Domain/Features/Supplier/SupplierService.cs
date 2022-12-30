@@ -1,12 +1,16 @@
-﻿using DataDemo.Common;
+﻿
+using DataDemo.Common;
 using Domain.Common;
 using Domain.Features.ManageSuppliers;
 using Domain.Features.Supplier.Dto;
 using Infrastructure.EF;
+using Infrastructure.Reponsitories.BaseReponsitory;
+using Infrastructure.Reponsitories.SupplierReponsitories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,9 +19,11 @@ namespace Domain.Features.Supplier
     public class SupplierService : ISupplierService
     {
         private readonly MaleFashionDbContext _dbContext;
-        public SupplierService(MaleFashionDbContext dbContext)
+        private readonly ISupplierReponsitories _supplierReponsitories;
+        public SupplierService(MaleFashionDbContext dbContext , ISupplierReponsitories supplierReponsitories)
         {
             _dbContext = dbContext;
+            _supplierReponsitories = supplierReponsitories;
         }
         public async Task<ApiResult<bool>> Create(SupplierCreateRequestDto request)
         {
@@ -36,8 +42,7 @@ namespace Domain.Features.Supplier
                 Phone = request.Phone,
                 IsEnable = true
             };
-            await _dbContext.Suppliers.AddAsync(obj);
-            await _dbContext.SaveChangesAsync();
+            await _supplierReponsitories.CreateAsync(obj);
             return new ApiSuccessResult<bool>();
         }
         public async Task<ApiResult<bool>> Delete(int id)
@@ -46,15 +51,22 @@ namespace Domain.Features.Supplier
             {
                 return new ApiErrorResult<bool>("Khong co Id");
             }
-            var findObj = await _dbContext.Suppliers.FindAsync(id);
+            var findObj = await _supplierReponsitories.GetById(id);
             if (findObj == null)
             {
                 return new ApiErrorResult<bool>("Khong co doi tuong");
             }
             findObj.IsEnable = false;
-            _dbContext.Suppliers.Update(findObj);
-            await _dbContext.SaveChangesAsync();
-            return new ApiSuccessResult<bool>();
+            
+            try
+            {
+                await _supplierReponsitories.UpdateAsync(findObj);
+            }
+            catch (Exception e)
+            {
+                return new ApiErrorResult<bool>();
+            }
+            return new ApiSuccessResult<bool>(true);
         }
 
         public async Task<ApiResult<PagedResult<GetSupplier>>> GetAll(int? pageSize, int? pageIndex)
@@ -128,14 +140,17 @@ namespace Domain.Features.Supplier
             {
                 pageIndex = pageIndex.Value;
             }
-            var query = from s in _dbContext.Suppliers
-                        select s;
+            var totalRow = await _supplierReponsitories.CountAsync();
+            var query = await _supplierReponsitories.GetAll(pageSize, pageIndex);
             if (!string.IsNullOrEmpty(name))
-                query = query.Where(x => x.Name.Contains(name));
+            {
+                Expression<Func<Infrastructure.Entities.Supplier, bool>> expression = x => x.Name.Contains(name);
+                query = await _supplierReponsitories.GetAll(pageSize, pageIndex, expression);
+                totalRow = await _supplierReponsitories.CountAsync(expression);
+            }
             //Paging
-            int totalRow = await query.CountAsync();
-            var data = await query.Skip((pageIndex.Value - 1) * pageSize.Value)
-                .Take(pageSize.Value)
+            /*totalRow = query.Result.Count();*/
+            var data = query
                 .Select(x => new GetSupplierWithConvertDate()
                 {
                     Id = x.IdSupplier,
@@ -146,7 +161,7 @@ namespace Domain.Features.Supplier
                     Email = x.Email,
                     Phone = x.Phone,
                     IsEnable = x.IsEnable,
-                }).ToListAsync();
+                }).ToList();
             var pagedResult = new PagedResult<GetSupplierWithConvertDate>()
             {
                 TotalRecord = totalRow,
@@ -238,7 +253,7 @@ namespace Domain.Features.Supplier
             findById.UpdatedAt = DateTime.Now;
             findById.Email = request.Email;
             findById.Phone = request.Phone;
-
+            findById.IsEnable=request.IsEnable;
             _dbContext.Suppliers.Update(findById);
             await _dbContext.SaveChangesAsync();
             return new ApiSuccessResult<bool>();

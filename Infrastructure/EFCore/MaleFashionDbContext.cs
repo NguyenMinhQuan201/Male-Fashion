@@ -54,7 +54,7 @@ namespace Infrastructure.EF
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetails> OrderDetails { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<ProductDetails> ProductDetails { get; set; }
+        public DbSet<ProductDetail> ProductDetails { get; set; }
         public DbSet<Promotion> Promotions { get; set; }
         public DbSet<QA> QAs { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }

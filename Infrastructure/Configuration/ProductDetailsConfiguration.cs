@@ -9,23 +9,32 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Configuration
 {
-    public class ProductDetailsConfiguration : IEntityTypeConfiguration<ProductDetails>
+    public class ProductDetailsConfiguration : IEntityTypeConfiguration<ProductDetail>
     {
-        public void Configure(EntityTypeBuilder<ProductDetails> builder)
+        public void Configure(EntityTypeBuilder<ProductDetail> builder)
         {
             builder.ToTable("ProductDetails");
 
-            builder.HasKey(x => x.IdProduct);
+            builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Price).HasColumnType("decimal(8, 2)");
 
             builder.Property(x => x.Discount).HasColumnType("decimal(8, 2)");
 
-            builder.Property(x => x.Weight).HasColumnType("decimal(8, 2)");
+            builder.Property(x => x.ColorId);
+            builder.Property(x => x.SizeId);
 
             builder.HasOne<Product>(x => x.Product)
                 .WithMany(g => g.ProductDetails)
-                .HasForeignKey(s => s.IdProduct).IsRequired();
+                .HasForeignKey(s => s.ProductId).IsRequired();
+
+            builder.HasOne<Size>(x => x.Size)
+                .WithMany(g => g.ProductDetails)
+                .HasForeignKey(s => s.SizeId).IsRequired();
+
+            builder.HasOne<Color>(x => x.Color)
+                .WithMany(g => g.ProductDetails)
+                .HasForeignKey(s => s.ColorId).IsRequired();
         }
     }
 }

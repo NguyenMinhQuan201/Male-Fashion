@@ -9,11 +9,16 @@ namespace Infrastructure.Reponsitories.BaseReponsitory
 {
     public interface IReponsitoryBase<T>
     {
-        Task<List<T>> GetAll();
+        Task<List<T>> GetAll(int? pageSize, int? pageIndex, Expression<Func<T, bool>> expression);
+        Task<List<T>> GetAll(int? pageSize, int? pageIndex);
+        Task<int> CountAsync();
+        Task<int> CountAsync(Expression<Func<T, bool>> expression);
+        Task<T> GetById(Expression<Func<T, bool>> expression);
+        Task<T> GetById(int id);
         Task<List<T>> GetByCondition(Expression<Func<T, bool>> expression);
-        void Update(T entity);
-        void Delete(T entity);
-        void Create(T entity);
+        Task UpdateAsync(T entity);
+        Task DeleteAsync(T entity);
+        Task CreateAsync(T entity);
     }
 
 }

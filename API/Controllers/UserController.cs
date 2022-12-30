@@ -13,11 +13,9 @@ namespace Api.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        /*private readonly IDemoService _demoService;*/
-        public UserController(IUserService userService /*IDemoService demoService*/)
+        public UserController(IUserService userService)
         {
             _userService = userService;
-            /*_demoService=demoService;*/
         }
         [HttpPost("authenticate")]
         [AllowAnonymous]
@@ -69,7 +67,7 @@ namespace Api.Controllers
             return Ok(result);
         }
         [HttpPut("update")]
-        public async Task<IActionResult> Update([FromBody] Guid id, UserUpdateRequestDto request)
+        public async Task<IActionResult> Update([FromForm] Guid id, UserUpdateRequestDto request)
         {
             if (!ModelState.IsValid)
             {
