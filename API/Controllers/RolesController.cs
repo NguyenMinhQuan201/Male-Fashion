@@ -23,7 +23,7 @@ namespace Api.Controllers
             var roles = await _serviceRole.GetAllRole();
             return Ok(roles);
         }
-        [HttpPost]
+        [HttpPost("add-role")]
         public async Task<IActionResult> CreaterRole(RoleRequestDto request)
         {
             var result = await _serviceRole.Register(request);

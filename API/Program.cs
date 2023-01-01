@@ -1,11 +1,15 @@
+using Domain.Features.Color;
 using Domain.Features.Discount;
 using Domain.Features.ManageSuppliers;
 using Domain.Features.Role;
+using Domain.Features.Size;
 using Domain.Features.Supplier;
 using Domain.IServices.User;
 using Infrastructure.EF;
 using Infrastructure.Entities;
 using Infrastructure.Reponsitories.BaseReponsitory;
+using Infrastructure.Reponsitories.ColorReponsitories;
+using Infrastructure.Reponsitories.SizeReponsitories;
 using Infrastructure.Reponsitories.SupplierReponsitories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -39,8 +43,13 @@ builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IServiceRole, ServiceRole>();
 builder.Services.AddTransient<ISupplierService, SupplierService>();
 builder.Services.AddTransient<IDiscountService, DiscountService>();
-builder.Services.AddTransient<IRepositoryWrapper, RepositoryWrapper>(); //ReponsitoriesISupplierReponsitories
+builder.Services.AddTransient<IColorService, ColorService>();
+builder.Services.AddTransient<ISizeService, SizeService>();
+//ReponsitoriesISupplierReponsitories
+builder.Services.AddTransient<IRepositoryWrapper, RepositoryWrapper>(); 
 builder.Services.AddTransient<ISupplierReponsitories, SupplierReponsitories>();
+builder.Services.AddTransient<IColorReponsitories, ColorReponsitories>();
+builder.Services.AddTransient<ISizeReponsitories, SizeReponsitories>();
 builder.Services.AddControllersWithViews();
 
 
