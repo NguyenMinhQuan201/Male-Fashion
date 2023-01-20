@@ -10,9 +10,9 @@ namespace Infrastructure.Entities
     {
         public int Id{ get; set; }
         public int ProductId { get; set; }
-        public Product Product { get; set; }
-        public Size Size { get; set; }
-        public Color Color { get; set; }
+        public Product Product { get; set; }= new Product();
+        public Size Size { get; set; } = new Size();
+        public Color Color { get; set; } = new Color();
         public decimal Price { get; set; }
         public decimal Discount { get; set; }
         public int Quantity { get; set; }

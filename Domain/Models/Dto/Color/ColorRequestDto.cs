@@ -9,6 +9,6 @@ namespace Domain.Models.Dto.Color
     public class ColorRequestDto
     {
         public int Id { get; set; }
-        public string ColorName { get; set; }
+        public string ColorName { get; set; } = string.Empty;
     }
 }

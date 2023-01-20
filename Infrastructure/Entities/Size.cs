@@ -9,7 +9,7 @@ namespace Infrastructure.Entities
     public class Size
     {
         public int Id { get; set; }
-        public string NameSize { get; set; }
-        public ICollection<ProductDetail> ProductDetails { get; set; }
+        public string NameSize { get; set; } = string.Empty;
+        public ICollection<ProductDetail> ProductDetails { get; set; } = new List<ProductDetail>();
     }
 }

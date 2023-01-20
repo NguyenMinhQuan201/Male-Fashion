@@ -1,6 +1,9 @@
+using Domain.Common.FileStorage;
+using Domain.Features.Category;
 using Domain.Features.Color;
 using Domain.Features.Discount;
 using Domain.Features.ManageSuppliers;
+using Domain.Features.Product;
 using Domain.Features.Role;
 using Domain.Features.Size;
 using Domain.Features.Supplier;
@@ -8,7 +11,9 @@ using Domain.IServices.User;
 using Infrastructure.EF;
 using Infrastructure.Entities;
 using Infrastructure.Reponsitories.BaseReponsitory;
+using Infrastructure.Reponsitories.CategoryReponsitories;
 using Infrastructure.Reponsitories.ColorReponsitories;
+using Infrastructure.Reponsitories.ProductReponsitories;
 using Infrastructure.Reponsitories.SizeReponsitories;
 using Infrastructure.Reponsitories.SupplierReponsitories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -45,11 +50,16 @@ builder.Services.AddTransient<ISupplierService, SupplierService>();
 builder.Services.AddTransient<IDiscountService, DiscountService>();
 builder.Services.AddTransient<IColorService, ColorService>();
 builder.Services.AddTransient<ISizeService, SizeService>();
+builder.Services.AddTransient<IProductService, ProductService>();
+builder.Services.AddTransient<ICategoryService, CategoryService>();
+builder.Services.AddTransient<IStorageService, FileStorageService>();
 //ReponsitoriesISupplierReponsitories
 builder.Services.AddTransient<IRepositoryWrapper, RepositoryWrapper>(); 
 builder.Services.AddTransient<ISupplierReponsitories, SupplierReponsitories>();
 builder.Services.AddTransient<IColorReponsitories, ColorReponsitories>();
 builder.Services.AddTransient<ISizeReponsitories, SizeReponsitories>();
+builder.Services.AddTransient<IProductReponsitories, ProductReponsitories>();
+builder.Services.AddTransient<ICategoryReponsitories, CategoryReponsitories>();
 builder.Services.AddControllersWithViews();
 
 

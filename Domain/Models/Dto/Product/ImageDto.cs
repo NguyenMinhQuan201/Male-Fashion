@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Entities
+namespace Domain.Models.Dto.Product
 {
-    public class ProductImg
+    public class ImageDto
     {
-
         public int Id { get; set; }
 
         public int ProductId { get; set; }
@@ -24,7 +23,5 @@ namespace Infrastructure.Entities
         //public int SortOrder { get; set; }
 
         public long FileSize { get; set; }
-
-        public Product Product { get; set; } = new Product();
     }
 }
