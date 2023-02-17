@@ -138,7 +138,7 @@ namespace Domain.IServices.User
                 Id = id,
                 LastName = user.LastName,
                 UserName = user.UserName,
-                Roles = roles
+                Roles = roles,
             };
             return Uservm;
         }
@@ -278,6 +278,8 @@ namespace Domain.IServices.User
             user.FirstName = request.FirstName;
             user.LastName = request.LastName;
             user.PhoneNumber = request.PhoneNumber;
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            await _userManager.ResetPasswordAsync(user, token, request.PassWord);
             var result = await _userManager.UpdateAsync(user);
             if (result.Succeeded)
             {

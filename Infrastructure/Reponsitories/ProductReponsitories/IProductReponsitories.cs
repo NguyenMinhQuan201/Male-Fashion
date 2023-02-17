@@ -10,5 +10,9 @@ namespace Infrastructure.Reponsitories.ProductReponsitories
 {
     public interface IProductReponsitories : IReponsitoryBase<Product>
     {
+        Task<IEnumerable<Product>> GetAllProduct(int? pageSize, int? pageIndex);
+        Task<IEnumerable<Product>> GetAllByCategoryId(int? pageSize, int? pageIndex);
+        Task<IEnumerable<Product>> GetAllByCategoryId(int? pageSize, int? pageIndex,int ?id);
+        Task<int> CountAsyncById(int? id);
     }
 }

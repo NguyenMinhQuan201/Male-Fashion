@@ -25,6 +25,6 @@ namespace Infrastructure.Entities
 
         public long FileSize { get; set; }
 
-        public Product Product { get; set; } = new Product();
+        /*public Product Product { get; set; } = new Product();*/
     }
 }

@@ -21,6 +21,7 @@ namespace Domain.Models.Dto.UserDto
         public string? Email { get; set; }
         [Display(Name = "Ngay sinh")]
         public DateTime Dob { get; set; }
+        public string PassWord { get; set; }
         public IList<string>? Roles { get; set; }
     }
 }

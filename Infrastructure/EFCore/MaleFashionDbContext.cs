@@ -45,7 +45,7 @@ namespace Infrastructure.EF
 
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<BlogImg> BlogImgs { get; set; }
-        public DbSet<Category> Categorys { get; set; }
+        public DbSet<Category> Categories { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Img> Imgs { get; set; }
         public DbSet<ImportInvoice> ImportInvoices { get; set; }
@@ -56,6 +56,7 @@ namespace Infrastructure.EF
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductDetail> ProductDetails { get; set; }
         public DbSet<Promotion> Promotions { get; set; }
+        public DbSet<ProductImg> ProductImgs { get; set; }
         public DbSet<QA> QAs { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
     }

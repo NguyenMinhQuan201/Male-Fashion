@@ -10,6 +10,7 @@ namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    /*[Authorize]*/
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -42,7 +43,7 @@ namespace Api.Controllers
 
                 return Ok(new LoginResponDto
                 {
-                    Time = "3",
+                    Time = 3,
                     Token = resultToken,
                     UserName = request.UserName,
                     Status = true
@@ -67,7 +68,7 @@ namespace Api.Controllers
             return Ok(result);
         }
         [HttpPut("update")]
-        public async Task<IActionResult> Update([FromForm] Guid id, UserUpdateRequestDto request)
+        public async Task<IActionResult> Update(Guid id, [FromBody] UserUpdateRequestDto request)
         {
             if (!ModelState.IsValid)
             {

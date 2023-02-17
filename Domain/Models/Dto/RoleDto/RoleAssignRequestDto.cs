@@ -9,7 +9,7 @@ namespace Domain.Models.Dto.RoleDto
 {
     public class RoleAssignRequestDto
     {
-        public Guid Id { get; set; }
+        /*public Guid Id { get; set; }*/
         public List<SelectItem> Roles { get; set; } = new List<SelectItem>();
     }
 }

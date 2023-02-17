@@ -1,3 +1,4 @@
+using API.Common;
 using Domain.Common.FileStorage;
 using Domain.Features.Category;
 using Domain.Features.Color;
@@ -13,6 +14,8 @@ using Infrastructure.Entities;
 using Infrastructure.Reponsitories.BaseReponsitory;
 using Infrastructure.Reponsitories.CategoryReponsitories;
 using Infrastructure.Reponsitories.ColorReponsitories;
+using Infrastructure.Reponsitories.ProductDetailReponsitories;
+using Infrastructure.Reponsitories.ProductImageReponsitories;
 using Infrastructure.Reponsitories.ProductReponsitories;
 using Infrastructure.Reponsitories.SizeReponsitories;
 using Infrastructure.Reponsitories.SupplierReponsitories;
@@ -30,6 +33,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -42,24 +46,24 @@ builder.Services.AddDbContext<MaleFashionDbContext>(options =>
 builder.Services.AddIdentity<AppUser, AppRole>()
                 .AddEntityFrameworkStores<MaleFashionDbContext>()
                 .AddDefaultTokenProviders();
-
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:4200")
+                                .AllowAnyHeader()
+                                .AllowAnyOrigin()
+                                .AllowAnyMethod();
+        });
+});
+builder.Services.AddControllersWithViews()
+    .AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
 //ADd services
-builder.Services.AddTransient<IUserService, UserService>();
-builder.Services.AddTransient<IServiceRole, ServiceRole>();
-builder.Services.AddTransient<ISupplierService, SupplierService>();
-builder.Services.AddTransient<IDiscountService, DiscountService>();
-builder.Services.AddTransient<IColorService, ColorService>();
-builder.Services.AddTransient<ISizeService, SizeService>();
-builder.Services.AddTransient<IProductService, ProductService>();
-builder.Services.AddTransient<ICategoryService, CategoryService>();
-builder.Services.AddTransient<IStorageService, FileStorageService>();
-//ReponsitoriesISupplierReponsitories
-builder.Services.AddTransient<IRepositoryWrapper, RepositoryWrapper>(); 
-builder.Services.AddTransient<ISupplierReponsitories, SupplierReponsitories>();
-builder.Services.AddTransient<IColorReponsitories, ColorReponsitories>();
-builder.Services.AddTransient<ISizeReponsitories, SizeReponsitories>();
-builder.Services.AddTransient<IProductReponsitories, ProductReponsitories>();
-builder.Services.AddTransient<ICategoryReponsitories, CategoryReponsitories>();
+builder.Services.AddMyLibraryServices();
+builder.Services.AddMyLibraryReponsitories();
 builder.Services.AddControllersWithViews();
 
 
@@ -113,17 +117,17 @@ builder.Services.AddAuthentication(opt =>
     options.SaveToken = true;
     options.TokenValidationParameters = new TokenValidationParameters()
     {
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey
+            (Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
         ValidateIssuer = true,
-        ValidIssuer = issuer,
         ValidateAudience = true,
-        ValidAudience = issuer,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ClockSkew = System.TimeSpan.Zero,
-        IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes)
+        ValidateLifetime = false,
+        ValidateIssuerSigningKey = true
     };
 });
-
+builder.Services.AddAuthorization();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -140,6 +144,13 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSwagger();
+app.UseCors(builder =>
+{
+    builder
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader();
+});
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger eShopSolution V1");
