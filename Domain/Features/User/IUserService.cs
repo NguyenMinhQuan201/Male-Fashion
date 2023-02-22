@@ -3,12 +3,14 @@ using Domain.Common;
 using Domain.Models.Dto.RoleDto;
 using Domain.Models.Dto.UserDto;
 using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
 
 namespace Domain.IServices.User
 {
     public interface IUserService
     {
-        public Task<string> Login(UserLoginRequestDto request);
+        public Task<ApiResult<Tokens>> Login(UserLoginRequestDto request);
+        public Task<string> GetNewToken(string token);
         public Task<bool> Create(UserCreateRequestDto request);
         public Task<bool> Update(Guid id, UserUpdateRequestDto request);
         public Task<bool> Delete(Guid id);
@@ -17,5 +19,7 @@ namespace Domain.IServices.User
         public Task<bool> RoleAssign(Guid id, RoleAssignRequestDto request);
         public AuthenticationProperties GetProperties(string redirectUrl);
         public Task<string> GetTokenByLoginGG();
+        string GenerateRefreshToken(string userName);
+        ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
     }
 }

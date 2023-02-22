@@ -20,6 +20,7 @@ namespace Infrastructure.Entities
         public string? CreatAtBy { get; set; } // duoc nhap boi ai
         public int IdSupplier { get; set; } // nha phan phoi
         public virtual Supplier? Supplier { get; set; }
+        
         public ICollection<ImportInvoiceDetails>? ImportInvoiceDetails { get; set; }
     }
 }

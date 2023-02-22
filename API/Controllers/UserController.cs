@@ -33,7 +33,7 @@ namespace Api.Controllers
             {
                 var resultToken = await _userService.Login(request);
 
-                if (string.IsNullOrEmpty(resultToken))
+                if (resultToken.IsSuccessed==false)
                 {
                     return BadRequest(new LoginResponDto
                     {
@@ -44,7 +44,8 @@ namespace Api.Controllers
                 return Ok(new LoginResponDto
                 {
                     Time = 3,
-                    Token = resultToken,
+                    Token = resultToken.ResultObj.Access_Token,
+                    RefreshToken = resultToken.ResultObj.Refresh_Token,
                     UserName = request.UserName,
                     Status = true
                 });
@@ -52,6 +53,7 @@ namespace Api.Controllers
 
 
         }
+        
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserCreateRequestDto request)
         {

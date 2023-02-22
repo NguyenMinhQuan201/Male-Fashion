@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Domain.IServices.User
@@ -143,6 +144,11 @@ namespace Domain.IServices.User
             return Uservm;
         }
 
+        public async Task<string> GetNewToken(string token)
+        {
+            throw new NotImplementedException();
+        }
+
         public AuthenticationProperties GetProperties(string redirectUrl)
         {
             var result = _signInManager.ConfigureExternalAuthenticationProperties("Google", redirectUrl);
@@ -207,15 +213,15 @@ namespace Domain.IServices.User
             }
         }
 
-        public async Task<string> Login(UserLoginRequestDto request)
+        public async Task<ApiResult<Tokens>> Login(UserLoginRequestDto request)
         {
             var user = _userManager.Users.FirstOrDefault(x => x.UserName == request.UserName);
             if (user == null)
-                return ("Tai khoan ko ton tai");
+                return new ApiErrorResult<Tokens>("Tai khoan ko ton tai");
             var result = await _signInManager.PasswordSignInAsync(user, request.Password, true, true);
             if (!result.Succeeded)
             {
-                return ("Đăng nhập không đúng");
+                return new ApiErrorResult<Tokens>("Đăng nhập không đúng");
             }
             var roles = await _userManager.GetRolesAsync(user);
             var claims = new[]
@@ -233,7 +239,13 @@ namespace Domain.IServices.User
                 claims,
                 expires: DateTime.Now.AddHours(3),
                 signingCredentials: creds);
-            return (new JwtSecurityTokenHandler().WriteToken(token));
+
+            var getToken = new Tokens()
+            {
+                Access_Token = new JwtSecurityTokenHandler().WriteToken(token),
+                Refresh_Token = "",
+            };
+            return new ApiSuccessResult<Tokens>(getToken);
         }
         public async Task<bool> RoleAssign(Guid id, RoleAssignRequestDto request)
         {
@@ -288,5 +300,39 @@ namespace Domain.IServices.User
             return false;
         }
 
+        public string GenerateRefreshToken(string userName)
+        {
+            var randomNumber = new byte[32];
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(randomNumber);
+                return Convert.ToBase64String(randomNumber);
+            }
+        }
+        ClaimsPrincipal IUserService.GetPrincipalFromExpiredToken(string token)
+        {
+            var Key = Encoding.UTF8.GetBytes(_configuration["JWT:Key"]);
+
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ValidateLifetime = false,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Key),
+                ClockSkew = TimeSpan.Zero
+            };
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken securityToken);
+            JwtSecurityToken jwtSecurityToken = securityToken as JwtSecurityToken;
+            if (jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
+            {
+                throw new SecurityTokenException("Invalid token");
+            }
+
+
+            return principal;
+        }
     }
 }

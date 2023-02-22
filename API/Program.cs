@@ -121,8 +121,8 @@ builder.Services.AddAuthentication(opt =>
         ValidAudience = builder.Configuration["Jwt:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey
             (Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
-        ValidateIssuer = true,
-        ValidateAudience = true,
+        ValidateIssuer = false, // on production make it true
+        ValidateAudience = false, // on production make it true
         ValidateLifetime = false,
         ValidateIssuerSigningKey = true
     };

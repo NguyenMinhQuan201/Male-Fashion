@@ -59,5 +59,6 @@ namespace Infrastructure.EF
         public DbSet<ProductImg> ProductImgs { get; set; }
         public DbSet<QA> QAs { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
+        public virtual DbSet<UserRefreshTokens> UserRefreshToken { get; set; }
     }
 }

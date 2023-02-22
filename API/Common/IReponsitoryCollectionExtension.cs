@@ -1,6 +1,8 @@
 ﻿using Infrastructure.Reponsitories.BaseReponsitory;
 using Infrastructure.Reponsitories.CategoryReponsitories;
 using Infrastructure.Reponsitories.ColorReponsitories;
+using Infrastructure.Reponsitories.ImportInvoiceDetailsReponsitories;
+using Infrastructure.Reponsitories.ImportInvoiceReponsitories;
 using Infrastructure.Reponsitories.ProductDetailReponsitories;
 using Infrastructure.Reponsitories.ProductImageReponsitories;
 using Infrastructure.Reponsitories.ProductReponsitories;
@@ -21,6 +23,8 @@ namespace API.Common
             services.AddTransient<ICategoryReponsitories, CategoryReponsitories>();
             services.AddTransient<IProductDetailReponsitories, ProductDetailReponsitories>();
             services.AddTransient<IProductImageReponsitories, ProductImageReponsitories>();
+            services.AddTransient<IImportInvoiceDetailsReponsitories,ImportInvoiceDetailsReponsitories>();
+            services.AddTransient<IImportInvoiceReponsitories, ImportInvoiceReponsitories>();
             return services;
         }
     }
