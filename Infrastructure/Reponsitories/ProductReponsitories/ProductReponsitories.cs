@@ -59,5 +59,12 @@ namespace Infrastructure.Reponsitories.ProductReponsitories
             return query.ToList();
 
         }
+
+        public async Task<Product> GetByIdFixed(int? id)
+        {
+            var query = _db.Products.Include(x => x.ProductImgs).Where(x => x.IdProduct == id).FirstOrDefault();
+            return query;
+            
+        }
     }
 }

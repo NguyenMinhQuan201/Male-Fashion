@@ -14,5 +14,6 @@ namespace Infrastructure.Reponsitories.ProductReponsitories
         Task<IEnumerable<Product>> GetAllByCategoryId(int? pageSize, int? pageIndex);
         Task<IEnumerable<Product>> GetAllByCategoryId(int? pageSize, int? pageIndex,int ?id);
         Task<int> CountAsyncById(int? id);
+        Task<Product> GetByIdFixed(int? id);
     }
 }
