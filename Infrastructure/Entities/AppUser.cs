@@ -12,6 +12,7 @@ namespace Infrastructure.Entities
         public string LastName { get; set; }
 
         public DateTime Dob { get; set; }
-        
+        public string? RefreshToken { get; set; }
+
     }
 }

@@ -18,7 +18,26 @@ namespace Api.Controllers
         {
             _userService = userService;
         }
-        [HttpPost("authenticate")]
+        [HttpPost("renewToken")]
+        public async Task<IActionResult> RenewToken(TokenRequestDto request)
+        {
+            if (ModelState.IsValid)
+            {
+                var resultToken = await _userService.RenewToken(request);
+                if (resultToken.IsSuccessed)
+                {
+                    return Ok(new LoginResponDto
+                    {
+                        Time = 3,
+                        Token = resultToken.ResultObj.Access_Token,
+                        RefreshToken = resultToken.ResultObj.Refresh_Token,
+                        Status = true
+                    });
+                }
+            }
+            return BadRequest();
+        }
+        [HttpPost("login")]
         [AllowAnonymous]
         public async Task<IActionResult> Authenticate([FromBody] UserLoginRequestDto request)
         {
@@ -46,7 +65,6 @@ namespace Api.Controllers
                     Time = 3,
                     Token = resultToken.ResultObj.Access_Token,
                     RefreshToken = resultToken.ResultObj.Refresh_Token,
-                    UserName = request.UserName,
                     Status = true
                 });
             }

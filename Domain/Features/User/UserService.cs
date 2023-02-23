@@ -119,7 +119,7 @@ namespace Domain.IServices.User
                 return new ApiErrorResult<PagedResult<UserVmDto>>("Khong co gi ca");
             }
             return new ApiSuccessResult<PagedResult<UserVmDto>>(pagedResult);
-           
+
         }
 
         public async Task<UserVmDto> GetById(Guid id)
@@ -212,7 +212,21 @@ namespace Domain.IServices.User
                 return "Dang Nhap khong thanh cong";
             }
         }
-
+        private string GenerateRefreshToken()
+        {
+            var random = new Byte[32];
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(random);
+                return Convert.ToBase64String(random);
+            };
+        }
+        private DateTime ConvertUnixTimeToDateTime(long utcExpireDate)
+        {
+            var dateTimeInterval = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+            dateTimeInterval.AddSeconds(utcExpireDate).ToUniversalTime();
+            return dateTimeInterval;
+        }
         public async Task<ApiResult<Tokens>> Login(UserLoginRequestDto request)
         {
             var user = _userManager.Users.FirstOrDefault(x => x.UserName == request.UserName);
@@ -226,10 +240,10 @@ namespace Domain.IServices.User
             var roles = await _userManager.GetRolesAsync(user);
             var claims = new[]
             {
-                new Claim(ClaimTypes.Email,user.Email),
-                new Claim(ClaimTypes.GivenName,user.FirstName),
-                new Claim(ClaimTypes.Role, string.Join(";",roles)),
-                new Claim(ClaimTypes.Name, request.UserName)
+                new Claim("email",user.Email),
+                new Claim("firstName",user.FirstName),
+                new Claim("role", string.Join(";",roles)),
+                new Claim("userName", request.UserName)
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -239,12 +253,15 @@ namespace Domain.IServices.User
                 claims,
                 expires: DateTime.Now.AddHours(3),
                 signingCredentials: creds);
-
+            string refreshToken = GenerateRefreshToken();
+            user.RefreshToken = refreshToken;
+            await _userManager.UpdateAsync(user);
             var getToken = new Tokens()
             {
                 Access_Token = new JwtSecurityTokenHandler().WriteToken(token),
-                Refresh_Token = "",
+                Refresh_Token = refreshToken
             };
+
             return new ApiSuccessResult<Tokens>(getToken);
         }
         public async Task<bool> RoleAssign(Guid id, RoleAssignRequestDto request)
@@ -333,6 +350,45 @@ namespace Domain.IServices.User
 
 
             return principal;
+        }
+
+        public async Task<ApiResult<Tokens>> RenewToken(TokenRequestDto request)
+        {
+            var jwtTokenSecurityHandler = new JwtSecurityTokenHandler();
+            var decodeToken = jwtTokenSecurityHandler.ReadJwtToken(request.Access_Token);
+            var email = decodeToken.Claims.First(claim => claim.Type == "email").Value;
+            var firstName = decodeToken.Claims.First(claim => claim.Type == "firstName").Value;
+            var role = decodeToken.Claims.First(claim => claim.Type == "role").Value;
+            var userName = decodeToken.Claims.First(claim => claim.Type == "userName").Value;
+            var user = await _userManager.FindByNameAsync(userName);
+
+           
+            var claims = new[]
+            {
+                new Claim("email",email),
+                new Claim("firstName",firstName),
+                new Claim("role", string.Join(";",role)),
+                new Claim("userName", userName)
+            };
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(_configuration["Jwt:Issuer"],
+                _configuration["Jwt:Issuer"],
+                claims,
+                expires: DateTime.Now.AddHours(3),
+                signingCredentials: creds);
+            string refreshToken = GenerateRefreshToken();
+
+            user.RefreshToken = refreshToken;
+            await _userManager.UpdateAsync(user);
+            var getToken = new Tokens()
+            {
+                Access_Token = new JwtSecurityTokenHandler().WriteToken(token),
+                Refresh_Token = refreshToken
+            };
+
+            return new ApiSuccessResult<Tokens>(getToken);
         }
     }
 }
