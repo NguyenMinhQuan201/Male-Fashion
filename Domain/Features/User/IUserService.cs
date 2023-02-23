@@ -10,6 +10,7 @@ namespace Domain.IServices.User
     public interface IUserService
     {
         public Task<ApiResult<Tokens>> Login(UserLoginRequestDto request);
+        public Task<ApiResult<Tokens>> RenewToken(TokenRequestDto request);
         public Task<string> GetNewToken(string token);
         public Task<bool> Create(UserCreateRequestDto request);
         public Task<bool> Update(Guid id, UserUpdateRequestDto request);
