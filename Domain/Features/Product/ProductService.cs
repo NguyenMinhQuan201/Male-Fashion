@@ -245,7 +245,7 @@ namespace Domain.Features.Product
 
         public async Task<GetProductDto> GetById(int productId, string langugeId)
         {
-            var findobj = await _productReponsitories.GetByIdFixed(productId);
+            var findobj = await _productReponsitories.GetByProductID(productId);
             if (findobj == null)
             {
                 return null;
