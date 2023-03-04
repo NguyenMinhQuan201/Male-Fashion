@@ -50,8 +50,6 @@ namespace API.Controllers
             }
             var result = await _productService.GetAllPaging( pageSize, pageIndex, search);
             if (result==null) return BadRequest();
-            /*var product = await _productService.GetById(result, request.LanguageId);
-            return CreatedAtAction(nameof(GetById), new { id = result }, product);*/
             return Ok(result);
         }
     }

@@ -78,7 +78,7 @@ namespace API.Controllers
                 var result = await _categoryService.GetAll(pageSize, pageIndex, name);
                 if (result.IsSuccessed)
                 {
-                    return Ok(result.ResultObj);
+                    return Ok(result);
                 }
 
             }

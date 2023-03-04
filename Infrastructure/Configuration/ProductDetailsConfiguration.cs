@@ -21,20 +21,15 @@ namespace Infrastructure.Configuration
 
             builder.Property(x => x.Discount).HasColumnType("decimal(8, 2)");
 
-            builder.Property(x => x.ColorId);
-            builder.Property(x => x.SizeId);
+
 
             builder.HasOne<Product>(x => x.Product)
                 .WithMany(g => g.ProductDetails)
                 .HasForeignKey(s => s.ProductId).IsRequired();
 
-            builder.HasOne<Size>(x => x.Size)
-                .WithMany(g => g.ProductDetails)
-                .HasForeignKey(s => s.SizeId).IsRequired();
 
-            builder.HasOne<Color>(x => x.Color)
-                .WithMany(g => g.ProductDetails)
-                .HasForeignKey(s => s.ColorId).IsRequired();
+
+
         }
     }
 }

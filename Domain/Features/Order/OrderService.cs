@@ -4,20 +4,15 @@ using Domain.Models.Dto.Order;
 using Infrastructure.Entities;
 using Infrastructure.Reponsitories.OrderDetailReponsitory;
 using Infrastructure.Reponsitories.OrderReponsitory;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Features.Order
 {
     public class OrderService : IOrderService
     {
         private readonly IOrderDetailReponsitory _orderDetailReponsitory;
-        private readonly IOrderReponsitory _orderReponsitory;
-        public OrderService(IOrderReponsitory orderReponsitory, IOrderDetailReponsitory orderDetailReponsitory)
+        private readonly IOrderRepository _orderReponsitory;
+        public OrderService(IOrderRepository orderReponsitory, IOrderDetailReponsitory orderDetailReponsitory)
         {
             _orderDetailReponsitory = orderDetailReponsitory;
             _orderReponsitory = orderReponsitory;

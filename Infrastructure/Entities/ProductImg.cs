@@ -21,10 +21,8 @@ namespace Infrastructure.Entities
 
         public DateTime DateCreated { get; set; }
 
-        //public int SortOrder { get; set; }
 
         public long FileSize { get; set; }
 
-        /*public Product Product { get; set; } = new Product();*/
     }
 }

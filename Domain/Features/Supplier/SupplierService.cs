@@ -19,8 +19,8 @@ namespace Domain.Features.Supplier
     public class SupplierService : ISupplierService
     {
         private readonly MaleFashionDbContext _dbContext;
-        private readonly ISupplierReponsitories _supplierReponsitories;
-        public SupplierService(MaleFashionDbContext dbContext , ISupplierReponsitories supplierReponsitories)
+        private readonly ISupplierRepository _supplierReponsitories;
+        public SupplierService(MaleFashionDbContext dbContext , ISupplierRepository supplierReponsitories)
         {
             _dbContext = dbContext;
             _supplierReponsitories = supplierReponsitories;

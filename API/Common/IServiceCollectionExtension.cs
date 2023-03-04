@@ -1,11 +1,9 @@
 ﻿using Domain.Common.FileStorage;
 using Domain.Features.Category;
-using Domain.Features.Color;
 using Domain.Features.Discount;
 using Domain.Features.ManageSuppliers;
 using Domain.Features.Product;
 using Domain.Features.Role;
-using Domain.Features.Size;
 using Domain.Features.Supplier;
 using Domain.IServices.User;
 
@@ -19,8 +17,6 @@ namespace API.Common
             services.AddTransient<IServiceRole, ServiceRole>();
             services.AddTransient<ISupplierService, SupplierService>();
             services.AddTransient<IDiscountService, DiscountService>();
-            services.AddTransient<IColorService, ColorService>();
-            services.AddTransient<ISizeService, SizeService>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IStorageService, FileStorageService>();

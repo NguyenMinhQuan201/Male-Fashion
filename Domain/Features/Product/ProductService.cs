@@ -20,12 +20,12 @@ namespace Domain.Features.Product
 {
     public class ProductService : IProductService
     {
-        private readonly IProductReponsitories _productReponsitories;
+        private readonly IProductRepository _productReponsitories;
         private readonly IProductDetailReponsitories _productDetailReponsitories;
-        private readonly ICategoryReponsitories _categoryReponsitories;
-        private readonly IProductImageReponsitories _productImageReponsitories;
+        private readonly ICategoryRepository _categoryReponsitories;
+        private readonly IProductImageRepository _productImageReponsitories;
         private readonly IStorageService _storageService;
-        public ProductService(ICategoryReponsitories categoryReponsitories, IProductImageReponsitories productImageReponsitories, IProductReponsitories productReponsitories, IStorageService storageService, IProductDetailReponsitories productDetailReponsitories)
+        public ProductService(ICategoryRepository categoryReponsitories, IProductImageRepository productImageReponsitories, IProductRepository productReponsitories, IStorageService storageService, IProductDetailReponsitories productDetailReponsitories)
         {
             _productDetailReponsitories = productDetailReponsitories;
             _productReponsitories = productReponsitories;

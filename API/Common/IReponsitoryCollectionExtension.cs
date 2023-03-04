@@ -1,12 +1,10 @@
 ﻿using Infrastructure.Reponsitories.BaseReponsitory;
 using Infrastructure.Reponsitories.CategoryReponsitories;
-using Infrastructure.Reponsitories.ColorReponsitories;
 using Infrastructure.Reponsitories.ImportInvoiceDetailsReponsitories;
 using Infrastructure.Reponsitories.ImportInvoiceReponsitories;
 using Infrastructure.Reponsitories.ProductDetailReponsitories;
 using Infrastructure.Reponsitories.ProductImageReponsitories;
 using Infrastructure.Reponsitories.ProductReponsitories;
-using Infrastructure.Reponsitories.SizeReponsitories;
 using Infrastructure.Reponsitories.SupplierReponsitories;
 
 namespace API.Common
@@ -15,16 +13,13 @@ namespace API.Common
     {
         public static IServiceCollection AddMyLibraryReponsitories(this IServiceCollection services)
         {
-            services.AddTransient<IRepositoryWrapper, RepositoryWrapper>();
-            services.AddTransient<ISupplierReponsitories, SupplierReponsitories>();
-            services.AddTransient<IColorReponsitories, ColorReponsitories>();
-            services.AddTransient<ISizeReponsitories, SizeReponsitories>();
-            services.AddTransient<IProductReponsitories, ProductReponsitories>();
-            services.AddTransient<ICategoryReponsitories, CategoryReponsitories>();
+            services.AddTransient<ISupplierRepository, SupplierRepository>();
+            services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IProductDetailReponsitories, ProductDetailReponsitories>();
-            services.AddTransient<IProductImageReponsitories, ProductImageReponsitories>();
-            services.AddTransient<IImportInvoiceDetailsReponsitories,ImportInvoiceDetailsReponsitories>();
-            services.AddTransient<IImportInvoiceReponsitories, ImportInvoiceReponsitories>();
+            services.AddTransient<IProductImageRepository, ProductImageReponsitories>();
+            services.AddTransient<IImportInvoiceDetailsRepository,ImportInvoiceDetailsReponsitories>();
+            services.AddTransient<IImportInvoiceRepository, ImportInvoiceRepository>();
             return services;
         }
     }
