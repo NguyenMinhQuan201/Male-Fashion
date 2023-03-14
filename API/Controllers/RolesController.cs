@@ -1,4 +1,4 @@
-﻿using Domain.Features.Role;
+﻿using Domain.Features;
 using Domain.Models.Dto.RoleDto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
-    
+
     [Route("api/[controller]")]
     [ApiController]
     public class RolesController : ControllerBase

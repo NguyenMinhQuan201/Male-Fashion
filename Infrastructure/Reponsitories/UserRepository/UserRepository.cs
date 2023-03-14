@@ -24,7 +24,7 @@ namespace Infrastructure.Reponsitories.UserReponsitories
             _userManager = userManager;
         }
 
-        public Tokens GenerateRefreshToken(string userName)
+        /*public Tokens GenerateRefreshToken(string userName)
         {
             throw new NotImplementedException();
         }
@@ -37,6 +37,6 @@ namespace Infrastructure.Reponsitories.UserReponsitories
         public ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
         {
             throw new NotImplementedException();
-        }
+        }*/
     }
 }

@@ -1,4 +1,4 @@
-﻿using Domain.Features.Discount;
+﻿using Domain.Features;
 using Domain.Models.Dto.Discount;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

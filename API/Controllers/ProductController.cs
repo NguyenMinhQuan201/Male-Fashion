@@ -1,4 +1,4 @@
-﻿using Domain.Features.Product;
+﻿using Domain.Features;
 using Domain.Models.Dto.Product;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,17 +15,15 @@ namespace API.Controllers
             _productService = productService;
 
         }
-        [HttpPost]
+        [HttpPost("post")]
         public async Task<IActionResult> Create([FromForm] ProductImage request)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || request.Description==null)
             {
                 return BadRequest(ModelState);
             }
             var result = await _productService.Create(request);
             if (result == 0) return BadRequest();
-            /*var product = await _productService.GetById(result, request.LanguageId);
-            return CreatedAtAction(nameof(GetById), new { id = result }, product);*/
             return Ok(result);
         }
 

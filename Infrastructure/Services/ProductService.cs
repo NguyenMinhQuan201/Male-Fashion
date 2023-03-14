@@ -1,4 +1,5 @@
-﻿using DataDemo.Common;
+﻿using AutoMapper;
+using DataDemo.Common;
 using Domain.Common;
 using Domain.Common.FileStorage;
 using Domain.Models.Dto.Product;
@@ -8,13 +9,8 @@ using Infrastructure.Reponsitories.ProductDetailReponsitories;
 using Infrastructure.Reponsitories.ProductImageReponsitories;
 using Infrastructure.Reponsitories.ProductReponsitories;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Features.Product
 {
@@ -25,14 +21,16 @@ namespace Domain.Features.Product
         private readonly ICategoryRepository _categoryReponsitories;
         private readonly IProductImageRepository _productImageReponsitories;
         private readonly IStorageService _storageService;
-        public ProductService(ICategoryRepository categoryReponsitories, IProductImageRepository productImageReponsitories, IProductRepository productReponsitories, IStorageService storageService, IProductDetailReponsitories productDetailReponsitories)
+        private readonly IMapper _mapper;
+        public ProductService(IMapper mapper ,ICategoryRepository categoryReponsitories, IProductImageRepository productImageReponsitories, IProductRepository productReponsitories, IStorageService storageService, IProductDetailReponsitories productDetailReponsitories)
         {
             _productDetailReponsitories = productDetailReponsitories;
             _productReponsitories = productReponsitories;
             _storageService = storageService;
             _categoryReponsitories=categoryReponsitories;
             _productDetailReponsitories=productDetailReponsitories;
-    }
+            _mapper = mapper; ;
+        }
 
         public async Task<ApiResult<bool>> AddImage(int productId, List<IFormFile> request)
         {
@@ -82,7 +80,6 @@ namespace Domain.Features.Product
                 Name = request.Name,
                 Quantity = request.Quantity,
                 CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now,
                 Status = request.Status,
                 IdCategory = request.IdCategory,
             };
@@ -182,7 +179,7 @@ namespace Domain.Features.Product
                     UpdatedAt = DateTime.Now,
                     Status = x.Status,
                     IdCategory = x.IdCategory,
-                    ProductImgs = x.ProductImgs,
+                    ImageDtos = _mapper.Map<List<ImageDto>>(x.ProductImgs),
                 }).ToList();
             var pagedResult = new PagedResult<GetProductDto>()
             {
@@ -227,7 +224,7 @@ namespace Domain.Features.Product
                     UpdatedAt = DateTime.Now,
                     Status = x.Status,
                     IdCategory = x.IdCategory,
-                    ProductImgs = x.ProductImgs,
+                    ImageDtos = _mapper.Map<List<ImageDto>>(x.ProductImgs)
                 }).ToList();
             var pagedResult = new PagedResult<GetProductDto>()
             {
@@ -261,7 +258,7 @@ namespace Domain.Features.Product
                 UpdatedAt = findobj.UpdatedAt,
                 Status = findobj.Status,
                 IdCategory = findobj.IdCategory,
-                ProductImgs = findobj.ProductImgs,
+                ImageDtos = _mapper.Map<List<ImageDto>>(findobj.ProductImgs),
             };
             return obj;
         }
@@ -368,8 +365,7 @@ namespace Domain.Features.Product
                     Price = request.Price,
                     Name = request.Name,
                     Quantity = request.Quantity,
-                    CreatedAt = request.CreatedAt,
-                    UpdatedAt = request.UpdatedAt,
+                    UpdatedAt = DateTime.Now,
                     Status = request.Status,
                     IdCategory = request.IdCategory,
                 };

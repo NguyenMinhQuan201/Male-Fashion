@@ -1,4 +1,4 @@
-﻿using Domain.Features.ManageSuppliers;
+﻿using Domain.Features;
 using Domain.Features.Supplier.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

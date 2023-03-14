@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Features.Category
+namespace Domain.Features
 {
     public interface ICategoryService
     {
@@ -17,6 +17,7 @@ namespace Domain.Features.Category
         public Task<ApiResult<CategoryRequestDto>> GetById(int id);
         public Task<ApiResult<bool>> Restore(int id);
         public Task<ApiResult<PagedResult<CategoryRequestDto>>> GetAll(int? pageSize, int? pageIndex, string search);
+        public Task<IEnumerable<CategoryRequestDto>> GetAll();
         public Task<ApiResult<PagedResult<CategoryRequestDto>>> GetDeletedDiscount(int? pageSize, int? pageIndex, string search);
     }
 }

@@ -10,6 +10,7 @@ namespace Infrastructure.Reponsitories.BaseReponsitory
     public interface IRepositoryBase<T>
     {
         Task<List<T>> GetAll(int? pageSize, int? pageIndex, Expression<Func<T, bool>> expression);
+        Task<IEnumerable<T>> GetAll();
         Task<List<T>> GetAll(int? pageSize, int? pageIndex);
         Task<int> CountAsync();
         Task<int> CountAsync(Expression<Func<T, bool>> expression);

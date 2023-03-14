@@ -2,6 +2,7 @@
 using Infrastructure.Entities;
 using Infrastructure.Reponsitories.BaseReponsitory;
 using Infrastructure.Reponsitories.ProductDetailReponsitories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace Infrastructure.Reponsitories.ProductImageReponsitories
         {
             _db = dbContext;
         }
-        public async Task<IEnumerable<ProductImg>> GetAllProduct(int? id)
+        public IEnumerable<ProductImg> GetAllProduct(int? id)
         {
             var query = _db.ProductImgs.Where(x=>x.ProductId==id).AsQueryable();
             var pageCount = query.Count();

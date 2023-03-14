@@ -15,8 +15,8 @@ namespace Infrastructure.Entities
         public string? Img { get; set; }
         public string? Description { get; set; }
         public bool? Status { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public DateTime UpdatedAt { get; set; } = DateTime.Now;
+        public DateTime?CreatedAt { get; set; } 
+        public DateTime?UpdatedAt { get; set; }
         public int IdCategory { get; set; }
         public virtual Category? Categories { get; set; }
         public virtual ICollection<Promotion>? Promotion { get; set; }

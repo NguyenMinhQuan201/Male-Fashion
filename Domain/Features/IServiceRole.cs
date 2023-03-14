@@ -1,6 +1,6 @@
 ﻿using Domain.Models.Dto.RoleDto;
 
-namespace Domain.Features.Role
+namespace Domain.Features
 {
     public interface IServiceRole
     {

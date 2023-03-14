@@ -99,6 +99,20 @@ namespace Domain.Features.Category
             return new ApiSuccessResult<PagedResult<CategoryRequestDto>>(pagedResult);
         }
 
+        public async Task<IEnumerable<CategoryRequestDto>> GetAll()
+        {
+            var result = await _categoryReponsitories.GetAll();
+            return result.Select(x => new CategoryRequestDto()
+            {
+                IdCategory = x.IdCategory,
+                Name = x.Name,
+                CreatedAt = x.CreatedAt,
+                Icon = x.Icon,
+                UpdatedAt = x.UpdatedAt,
+
+            }).ToList(); ;
+        }
+
         public async Task<ApiResult<CategoryRequestDto>> GetById(int id)
         {
             if (id == null)

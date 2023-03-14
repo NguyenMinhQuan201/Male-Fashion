@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Features.Discount
+namespace Domain.Features
 {
     public interface IDiscountService
     {

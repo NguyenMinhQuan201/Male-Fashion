@@ -1,5 +1,4 @@
-﻿using Domain.Features.Role;
-using Domain.Models.Dto.RoleDto;
+﻿using Domain.Models.Dto.RoleDto;
 using Infrastructure.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

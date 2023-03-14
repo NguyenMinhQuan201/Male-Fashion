@@ -5,13 +5,13 @@ using Domain.Models.Dto.UserDto;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 
-namespace Domain.IServices.User
+namespace Domain.Features
 {
     public interface IUserService
     {
         public Task<ApiResult<Tokens>> Login(UserLoginRequestDto request);
         public Task<ApiResult<Tokens>> RenewToken(TokenRequestDto request);
-        public Task<string> GetNewToken(string token);
+        /*public Task<string> GetNewToken(string token);*/
         public Task<bool> Create(UserCreateRequestDto request);
         public Task<bool> Update(Guid id, UserUpdateRequestDto request);
         public Task<bool> Delete(Guid id);

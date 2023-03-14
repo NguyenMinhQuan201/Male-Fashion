@@ -1,5 +1,6 @@
 ﻿using DataDemo.Common;
 using Domain.Common;
+using Domain.Features;
 using Domain.Features.Supplier.Dto;
 using Domain.Models.Dto.RoleDto;
 using Domain.Models.Dto.UserDto;
@@ -144,10 +145,10 @@ namespace Domain.IServices.User
             return Uservm;
         }
 
-        public async Task<string> GetNewToken(string token)
+        /*public async Task<string> GetNewToken(string token)
         {
             throw new NotImplementedException();
-        }
+        }*/
 
         public AuthenticationProperties GetProperties(string redirectUrl)
         {
@@ -390,5 +391,7 @@ namespace Domain.IServices.User
 
             return new ApiSuccessResult<Tokens>(getToken);
         }
+
+        
     }
 }

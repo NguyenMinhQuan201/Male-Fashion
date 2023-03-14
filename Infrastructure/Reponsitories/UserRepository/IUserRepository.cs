@@ -12,8 +12,8 @@ namespace Infrastructure.Reponsitories.UserReponsitories
 {
     public interface IUserRepository : IRepositoryBase<AppUser>
     {
-        Tokens GenerateToken(string userName);
+        /*Tokens GenerateToken(string userName);
         Tokens GenerateRefreshToken(string userName);
-        ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
+        ClaimsPrincipal GetPrincipalFromExpiredToken(string token);*/
     }
 }

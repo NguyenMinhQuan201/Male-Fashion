@@ -1,17 +1,18 @@
 ﻿using Domain.Common.FileStorage;
+using Domain.Features;
 using Domain.Features.Category;
 using Domain.Features.Discount;
-using Domain.Features.ManageSuppliers;
 using Domain.Features.Product;
 using Domain.Features.Role;
 using Domain.Features.Supplier;
 using Domain.IServices.User;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace API.Common
+namespace Library.Extensions.ExtensionServices
 {
     public static class IServiceCollectionExtension
     {
-        public static IServiceCollection AddMyLibraryServices(this IServiceCollection services)
+        public static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IServiceRole, ServiceRole>();

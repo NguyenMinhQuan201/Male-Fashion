@@ -1,7 +1,6 @@
 ﻿
 using DataDemo.Common;
 using Domain.Common;
-using Domain.Features.ManageSuppliers;
 using Domain.Features.Supplier.Dto;
 using Infrastructure.EF;
 using Infrastructure.Reponsitories.BaseReponsitory;
@@ -62,7 +61,7 @@ namespace Domain.Features.Supplier
             {
                 await _supplierReponsitories.UpdateAsync(findObj);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return new ApiErrorResult<bool>();
             }
@@ -148,8 +147,6 @@ namespace Domain.Features.Supplier
                 query = await _supplierReponsitories.GetAll(pageSize, pageIndex, expression);
                 totalRow = await _supplierReponsitories.CountAsync(expression);
             }
-            //Paging
-            /*totalRow = query.Result.Count();*/
             var data = query
                 .Select(x => new GetSupplierWithConvertDate()
                 {

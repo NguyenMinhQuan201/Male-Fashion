@@ -10,6 +10,6 @@ namespace Infrastructure.Reponsitories.ProductImageReponsitories
 {
     public interface IProductImageRepository : IRepositoryBase<ProductImg>
     {
-        public Task<IEnumerable<ProductImg>> GetAllProduct(int? id);
+        public IEnumerable<ProductImg> GetAllProduct(int? id);
     }
 }

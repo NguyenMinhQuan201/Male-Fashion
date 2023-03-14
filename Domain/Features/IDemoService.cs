@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.IServices.User
+namespace Domain.Features
 {
     public interface IDemoService
     {

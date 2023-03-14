@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Features.Order
+namespace Domain.Features
 {
     public interface IOrderService
     {

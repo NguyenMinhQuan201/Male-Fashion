@@ -24,7 +24,7 @@ namespace API.Controllers
             };
             y.List = lst;
             Console.WriteLine(y);
-            return Ok(y);
+            throw new Exception("Lalala");
 
         }
     }

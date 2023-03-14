@@ -78,5 +78,11 @@ namespace Infrastructure.Reponsitories.BaseReponsitory
             var query = await _db.Set<T>().Where(expression).CountAsync();
             return query;
         }
+
+        public async Task<IEnumerable<T>> GetAll()
+        {
+            var query = _db.Set<T>().ToList();
+            return query;
+        }
     }
 }

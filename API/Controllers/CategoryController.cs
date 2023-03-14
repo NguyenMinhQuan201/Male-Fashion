@@ -1,4 +1,4 @@
-﻿using Domain.Features.Category;
+﻿using Domain.Features;
 using Domain.Models.Dto.Category;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -101,6 +101,19 @@ namespace API.Controllers
                 }
             }
             return BadRequest();
+        }
+        [HttpGet("get-full")]
+        public async Task<IActionResult> GetFull()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                var result = await _categoryService.GetAll();
+                return Ok(result);
+            }
         }
     }
 }

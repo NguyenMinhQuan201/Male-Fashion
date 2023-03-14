@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace Domain.Features.ManageSuppliers
+namespace Domain.Features
 {
     public interface ISupplierService
     {
@@ -15,7 +15,7 @@ namespace Domain.Features.ManageSuppliers
         public Task<ApiResult<bool>> Restore(int id);
         public Task<ApiResult<bool>> Delete(int id);
         public Task<ApiResult<PagedResult<GetSupplier>>> GetAll(int? pageSize, int? pageIndex);
-        public Task<ApiResult<PagedResult<GetSupplierWithConvertDate>>> GetByName(int? pageSize, int? pageIndex, string?name);
+        public Task<ApiResult<PagedResult<GetSupplierWithConvertDate>>> GetByName(int? pageSize, int? pageIndex, string? name);
         public Task<ApiResult<GetSupplier>> GetById(int Id);
         public Task<ApiResult<PagedResult<GetSupplierWithConvertDate>>> GetDeletedSupplier(int? pageSize, int? pageIndex, string name);
         /*public Task<UserVmDto> GetById(Guid id);*/

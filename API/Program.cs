@@ -1,36 +1,13 @@
-using API.Common;
-using Domain.Common.FileStorage;
-using Domain.Features.Category;
-using Domain.Features.Discount;
-using Domain.Features.ManageSuppliers;
-using Domain.Features.Product;
-using Domain.Features.Role;
-using Domain.Features.Supplier;
-using Domain.IServices.User;
 using Infrastructure.EF;
 using Infrastructure.Entities;
-using Infrastructure.Reponsitories.BaseReponsitory;
-using Infrastructure.Reponsitories.CategoryReponsitories;
-using Infrastructure.Reponsitories.ProductDetailReponsitories;
-using Infrastructure.Reponsitories.ProductImageReponsitories;
-using Infrastructure.Reponsitories.ProductReponsitories;
-using Infrastructure.Reponsitories.SupplierReponsitories;
+using Library.Common;
+using Library.Extensions.ExceptionMiddleware;
+using Library.Extensions.ExtensionServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<MaleFashionDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("MaleFashionDb")));
-
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddIdentity<AppUser, AppRole>()
                 .AddEntityFrameworkStores<MaleFashionDbContext>()
                 .AddDefaultTokenProviders();
@@ -58,46 +35,13 @@ builder.Services.AddControllersWithViews()
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
 );
 //ADd services
-builder.Services.AddMyLibraryServices();
-builder.Services.AddMyLibraryReponsitories();
+builder.Services.AddServices();
+builder.Services.AddReponsitories();
+builder.Services.AddSwagger();
 builder.Services.AddControllersWithViews();
 
 
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Swagger eShop Solution", Version = "v1" });
-    c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n
-                      Enter 'Bearer' [space] and then your token in the text input below.
-                      \r\n\r\nExample: 'Bearer 12345abcdef'",
-        Name = "Authorization",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer"
-    });
 
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement()
-                  {
-                    {
-                      new OpenApiSecurityScheme
-                      {
-                        Reference = new OpenApiReference
-                          {
-                            Type = ReferenceType.SecurityScheme,
-                            Id = "Bearer"
-                          },
-                          Scheme = "oauth2",
-                          Name = "Bearer",
-                          In = ParameterLocation.Header,
-                        },
-                        new List<string>()
-                      }
-                    });
-
-
-});
 string issuer = builder.Configuration.GetValue<string>("Tokens:Issuer");
 string signingKey = builder.Configuration.GetValue<string>("Tokens:Key");
 byte[] signingKeyBytes = System.Text.Encoding.UTF8.GetBytes(signingKey);
@@ -124,6 +68,10 @@ builder.Services.AddAuthentication(opt =>
     };
 });
 builder.Services.AddAuthorization();
+/*var logger = builder.Logging.Services.BuildServiceProvider().GetRequiredService<ILogger<Program>>();*/
+var serviceProvider = builder.Services.BuildServiceProvider();
+var logger = serviceProvider.GetService<ILogger<Program>>();
+builder.Services.AddSingleton(typeof(ILogger), logger);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -134,6 +82,8 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+/*app.ConfigureExceptionHandle(logger);*/
+app.ConfigureCustomExceptionMiddleware();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();

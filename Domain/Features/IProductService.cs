@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Features.Product
+namespace Domain.Features
 {
     public interface IProductService
     {
@@ -21,7 +21,7 @@ namespace Domain.Features.Product
         Task<ApiResult<bool>> UpdatePrice(int ProductId, decimal newPrice);
         Task<ApiResult<bool>> UpdateStock(int productId, int addedQuantity);
         Task AddViewCount(int productId);
-        Task<ApiResult<PagedResult<GetProductDto>>> GetAllPaging(int? pageSize, int? pageIndex, string?search);
+        Task<ApiResult<PagedResult<GetProductDto>>> GetAllPaging(int? pageSize, int? pageIndex, string? search);
         Task<ApiResult<bool>> AddImage(int productId, List<IFormFile> request);
         Task<int> RemoveImage(int imageId);
         Task<int> UpdateImage(int imageId, ImageDto request);
