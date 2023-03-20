@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Reponsitories.OrderDetailReponsitory
 {
-    public interface IOrderDetailReponsitory : IRepositoryBase<OrderDetails>
+    public interface IOrderDetailRepository : IRepositoryBase<OrderDetails>
     {
     }
 }

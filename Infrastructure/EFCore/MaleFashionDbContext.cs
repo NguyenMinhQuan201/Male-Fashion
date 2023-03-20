@@ -42,7 +42,6 @@ namespace Infrastructure.EF
             modelBuilder.Entity<IdentityRoleClaim<Guid>>().ToTable("AppRoleClaims");
             modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("AppUserTokens").HasKey(x => x.UserId);
         }
-
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<BlogImg> BlogImgs { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -60,5 +59,12 @@ namespace Infrastructure.EF
         public DbSet<QA> QAs { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<UserRefreshTokens> UserRefreshToken { get; set; }
+
+        /*public override async Task<int> SaveChangesAsync()
+        {
+            
+            int result = await base.SaveChangesAsync();
+            return result;
+        }*/
     }
 }

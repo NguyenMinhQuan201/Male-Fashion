@@ -84,5 +84,10 @@ namespace Infrastructure.Reponsitories.BaseReponsitory
             var query = _db.Set<T>().ToList();
             return query;
         }
+
+        public Task<IEnumerable<T>> GetAll(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Models.Dto.Product
 {
-    public class ProductImage
+    public class ProductDto
     {
         /*public int IdProduct { get; set; }*/
         public string? Name { get; set; }
@@ -17,5 +17,10 @@ namespace Domain.Models.Dto.Product
         public string? Description { get; set; }
         public bool? Status { get; set; }
         public int IdCategory { get; set; }
+    }
+    public class AddImageRequest
+    {
+        public int Id { get; set; }
+        public List<IFormFile> ProductImageVMs { get; set; }
     }
 }

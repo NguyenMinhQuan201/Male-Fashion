@@ -2,6 +2,7 @@
 using Domain.Features;
 using Domain.Features.Category;
 using Domain.Features.Discount;
+using Domain.Features.Order;
 using Domain.Features.Product;
 using Domain.Features.Role;
 using Domain.Features.Supplier;
@@ -21,6 +22,7 @@ namespace Library.Extensions.ExtensionServices
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IStorageService, FileStorageService>();
+            services.AddTransient<IOrderService, OrderService>();
             return services;
         }
     }

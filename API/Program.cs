@@ -86,6 +86,7 @@ if (!app.Environment.IsDevelopment())
 app.ConfigureCustomExceptionMiddleware();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseStatusCodePages();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();

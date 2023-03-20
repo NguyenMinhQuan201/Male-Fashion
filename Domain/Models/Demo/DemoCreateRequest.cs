@@ -10,5 +10,6 @@ namespace Domain.Modles.Demo
     {
         public string ?Description { get; set; }
         public DateTime Date { get; set; }
+        
     }
 }

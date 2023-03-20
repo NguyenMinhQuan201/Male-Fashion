@@ -10,5 +10,14 @@ namespace Domain.Models.Dto.Color
     {
         public int Id { get; set; }
         public string ColorName { get; set; } = string.Empty;
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

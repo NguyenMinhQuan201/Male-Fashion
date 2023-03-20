@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Reponsitories.OrderReponsitory
 {
-    public class OrderReponsitory : RepositoryBase<Order>, IOrderRepository
+    public class OrderRepository : RepositoryBase<Order>, IOrderRepository
     {
-        public OrderReponsitory(MaleFashionDbContext dbContext) : base(dbContext)
+        public OrderRepository(MaleFashionDbContext dbContext) : base(dbContext)
         {
 
         }

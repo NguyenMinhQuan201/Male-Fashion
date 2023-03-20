@@ -10,9 +10,9 @@ namespace Domain.Features.Order
 {
     public class OrderService : IOrderService
     {
-        private readonly IOrderDetailReponsitory _orderDetailReponsitory;
+        private readonly IOrderDetailRepository _orderDetailReponsitory;
         private readonly IOrderRepository _orderReponsitory;
-        public OrderService(IOrderRepository orderReponsitory, IOrderDetailReponsitory orderDetailReponsitory)
+        public OrderService(IOrderRepository orderReponsitory, IOrderDetailRepository orderDetailReponsitory)
         {
             _orderDetailReponsitory = orderDetailReponsitory;
             _orderReponsitory = orderReponsitory;
@@ -21,13 +21,12 @@ namespace Domain.Features.Order
         {
             var order = new Infrastructure.Entities.Order()
             {
-                Status = "false",
+                Status = request.Status,
                 SumPrice = 0,
                 Address = request.Address,
                 CreatedAt = DateTime.Now,
                 DeliveryAt = DateTime.Now,
                 Email = request.Email,
-                /*FinishAt = null,*/
                 NameCustomer = request.NameCustomer,
                 Note = request.Note,
                 Payments = request.Payments,
@@ -40,6 +39,7 @@ namespace Domain.Features.Order
                 {
                     var _productOrder = new OrderDetails()
                     {
+                        IdProduct=orderDetail.IdProduct,
                         CreatedAt = DateTime.Now,
                         DeliveryAt  = DateTime.Now,
                         Discounnt = orderDetail.Discounnt,
@@ -89,7 +89,18 @@ namespace Domain.Features.Order
             var data = query
                 .Select(x => new GetOrderDto()
                 {
-                   
+                   IdOrder=x.IdOrder,
+                   Status=x.Status,
+                   SumPrice=x.SumPrice,
+                   NameCustomer=x.NameCustomer,
+                   Address=x.Address,
+                   Phone=x.Phone,
+                   Email=x.Email,
+                   CreatedAt=x.CreatedAt,
+                   DeliveryAt=x.DeliveryAt,
+                   FinishAt=x.FinishAt,
+                   Note=x.Note,
+                   Payments=x.Payments,
                 }).ToList();
             var pagedResult = new PagedResult<GetOrderDto>()
             {
@@ -105,9 +116,55 @@ namespace Domain.Features.Order
             return new ApiSuccessResult<PagedResult<GetOrderDto>>(pagedResult);
         }
 
-        public Task<ApiResult<GetOrderDto>> GetById(int id)
+        public async Task<ApiResult<List<OrderDetailDto>>> GetAllOrderDetail(int id)
+        {
+            Expression<Func<Infrastructure.Entities.OrderDetails, bool>> expression = x => x.IdOrder==id;
+            var query = await _orderDetailReponsitory.GetByCondition(expression);
+            var data = query
+                .Select(x => new OrderDetailDto()
+                {
+                    IdOrder=x.IdOrder,
+                    IdProduct=x.IdProduct,
+                    Discounnt=x.Discounnt,
+                    Quantity=x.Quantity,
+                    Price=x.Price,
+                }).ToList();
+            if (data == null)
+            {
+                return new ApiErrorResult<List<OrderDetailDto>>("Khong co gi ca");
+            }
+            return new ApiSuccessResult<List<OrderDetailDto>>(data);
+        }
+
+        public Task<ApiResult<PagedResult<GetOrderDto>>> GetAllPagingRemoved(int? pageSize, int? pageIndex, string? search)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<GetOrderDto>GetById(int id)
+        {
+            var findobj = await _orderReponsitory.GetById(id);
+            if (findobj == null)
+            {
+                return null;
+            }
+
+            var obj = new GetOrderDto()
+            {
+                IdOrder = findobj.IdOrder,
+                Status = findobj.Status,
+                SumPrice = findobj.SumPrice,
+                NameCustomer = findobj.NameCustomer,
+                Address = findobj.Address,
+                Phone = findobj.Phone,
+                Email = findobj.Email,
+                CreatedAt = findobj.CreatedAt,
+                DeliveryAt = findobj.DeliveryAt,
+                FinishAt = findobj.FinishAt,
+                Note = findobj.Note,
+                Payments = findobj.Payments,
+            };
+            return obj;
         }
 
         public Task<ApiResult<bool>> Restore(int id)
@@ -115,9 +172,31 @@ namespace Domain.Features.Order
             throw new NotImplementedException();
         }
 
-        public Task<ApiResult<bool>> Update(int id, OrderDto request)
+        public async Task<ApiResult<bool>> Update(int id, OrderDto request)
         {
-            throw new NotImplementedException();
+            if (id != null)
+            {
+                var findobj = await _orderReponsitory.GetById(id);
+                if (findobj == null)
+                {
+                    return new ApiErrorResult<bool>("Không tìm thấy đối tượng");
+                }
+                findobj.Status = request.Status;
+                findobj.SumPrice = request.SumPrice;
+                findobj.NameCustomer = request.NameCustomer;
+                findobj.Address = request.Address;
+                findobj.Email = request.Email;
+                findobj.Phone = request.Phone;
+                findobj.Payments = request.Payments;
+                findobj.DeliveryAt = request.DeliveryAt;
+                if (findobj.Status == true)
+                {
+                    findobj.FinishAt = DateTime.Now;
+                }
+                await _orderReponsitory.UpdateAsync(findobj);
+                return new ApiSuccessResult<bool>(true);
+            }
+            return new ApiErrorResult<bool>("Lỗi tham số chuyền về null hoặc trống");
         }
     }
 }

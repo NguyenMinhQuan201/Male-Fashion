@@ -14,8 +14,10 @@ namespace Domain.Features
         public Task<ApiResult<bool>> Create(OrderDto request);
         public Task<ApiResult<bool>> Update(int id, OrderDto request);
         public Task<ApiResult<bool>> Delete(int id);
-        public Task<ApiResult<GetOrderDto>> GetById(int id);
+        public Task<GetOrderDto> GetById(int id);
         public Task<ApiResult<bool>> Restore(int id);
         public Task<ApiResult<PagedResult<GetOrderDto>>> GetAll(int? pageSize, int? pageIndex, string search);
+        public Task<ApiResult<List<OrderDetailDto>>> GetAllOrderDetail(int id);
+        public Task<ApiResult<PagedResult<GetOrderDto>>> GetAllPagingRemoved(int? pageSize, int? pageIndex, string? search);
     }
 }

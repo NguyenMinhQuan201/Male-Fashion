@@ -110,12 +110,12 @@ namespace Domain.Features.Category
                 Icon = x.Icon,
                 UpdatedAt = x.UpdatedAt,
 
-            }).ToList(); ;
+            }).ToList(); 
         }
 
         public async Task<ApiResult<CategoryRequestDto>> GetById(int id)
         {
-            if (id == null)
+            if (id != null)
             {
                 var findobj = await _categoryReponsitories.GetById(id);
                 if (findobj == null)

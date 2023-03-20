@@ -17,12 +17,6 @@ namespace Infrastructure.Configuration
 
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.Price).HasColumnType("decimal(8, 2)");
-
-            builder.Property(x => x.Discount).HasColumnType("decimal(8, 2)");
-
-
-
             builder.HasOne<Product>(x => x.Product)
                 .WithMany(g => g.ProductDetails)
                 .HasForeignKey(s => s.ProductId).IsRequired();

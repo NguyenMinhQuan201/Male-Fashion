@@ -15,7 +15,7 @@ namespace Infrastructure.Entities
         public int Phone { get; set; }
         public string? Email { get; set; }
         public string? Note { get; set; } // chu thich
-        public string? Status { get; set; } // trang thai cua don hang
+        public bool? Status { get; set; } // trang thai cua don hang
         public string? Payments { get; set; } // hinh thuc thanh toan
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime DeliveryAt { get; set; } // ngay giao hang
