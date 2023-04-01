@@ -69,38 +69,47 @@ namespace Domain.Features.Product
             throw new NotImplementedException();
         }
 
-        public async Task<int> Create(ProductDto request)
+        public async Task<ApiResult<bool>> Create(ProductDto request)
         {
-            var product = new Infrastructure.Entities.Product()
+            Expression<Func<Infrastructure.Entities.Product, bool>> expression = x => x.Name == request.Name;
+            var check = await _productReponsitories.FindByName(expression);
+            if (check==null)
             {
-                Price = request.Price,
-                Name = request.Name,
-                Quantity = request.Quantity,
-                CreatedAt = DateTime.Now,
-                Status = request.Status,
-                IdCategory = request.IdCategory,
-                Description = request.Description,
-            };
-            var temp = new List<ProductImg>();
-
-            if (request.Img != null)
-            {
-                foreach (var img in request.Img)
+                var product = new Infrastructure.Entities.Product()
                 {
-                    var _productImage = new ProductImg()
+                    Price = request.Price,
+                    Name = request.Name,
+                    Quantity = request.Quantity,
+                    CreatedAt = DateTime.Now,
+                    Status = request.Status,
+                    IdCategory = request.IdCategory,
+                    Description = request.Description,
+                };
+                var temp = new List<ProductImg>();
+
+                if (request.Img != null)
+                {
+                    foreach (var img in request.Img)
                     {
-                        Caption = request.Name,
-                        DateCreated = DateTime.Now,
-                        FileSize = img.Length,
-                        ImagePath = await this.SaveFile(img),
-                        IsDefault = true,
-                    };
-                    temp.Add(_productImage);
+                        var _productImage = new ProductImg()
+                        {
+                            Caption = request.Name,
+                            DateCreated = DateTime.Now,
+                            FileSize = img.Length,
+                            ImagePath = await this.SaveFile(img),
+                            IsDefault = true,
+                        };
+                        temp.Add(_productImage);
+                    }
+                    product.ProductImgs = temp;
                 }
-                product.ProductImgs = temp;
+                await _productReponsitories.CreateAsync(product);
+                return new ApiSuccessResult<bool>(true);
             }
-            await _productReponsitories.CreateAsync(product);
-            return product.IdProduct;
+            else
+            {
+                return new ApiErrorResult<bool>("Product name has existed");
+            }
         }
 
         public async Task<ApiResult<ProductDetailDto>> CreateDetailProduct(ProductDetailDto request)
@@ -117,6 +126,7 @@ namespace Domain.Features.Product
                 Size=request.Size,
                 Color = request.Color,
                 CreatedAt = DateTime.Now,
+                ProductName = request.ProductName,
             };
             await _productDetailReponsitories.CreateAsync(productDetail);
             return new ApiSuccessResult<ProductDetailDto>(request);
@@ -225,13 +235,14 @@ namespace Domain.Features.Product
             {
                 pageIndex = pageIndex.Value;
             }
-            var totalRow = await _productReponsitories.CountAsync();
-            var query = await _productReponsitories.GetAllProduct(pageSize, pageIndex);
+            Expression<Func<Infrastructure.Entities.Product, bool>> expression1 = x => x.Status == true;
+            var totalRow = await _productReponsitories.CountAsync(expression1);
+            var query = await _productReponsitories.GetAllProduct(pageSize, pageIndex, expression1);
             if (!string.IsNullOrEmpty(search))
             {
-                Expression<Func<Infrastructure.Entities.Product, bool>> expression = x => x.Name.Contains(search);
-                query = await _productReponsitories.GetAllProduct(pageSize, pageIndex, expression);
-                totalRow = await _productReponsitories.CountAsync(expression);
+                Expression<Func<Infrastructure.Entities.Product, bool>> expression2 = x => x.Name.Contains(search)&&x.Status==true;
+                query = await _productReponsitories.GetAllProduct(pageSize, pageIndex, expression2);
+                totalRow = await _productReponsitories.CountAsync(expression2);
             }
             var data = query
                 .Select(x => new GetProductDto()
@@ -252,7 +263,8 @@ namespace Domain.Features.Product
                 TotalRecord = totalRow,
                 PageSize = pageSize.Value,
                 PageIndex = pageIndex.Value,
-                Items = data
+                Items = data,
+                Status = true
             };
             if (pagedResult == null)
             {
@@ -271,8 +283,9 @@ namespace Domain.Features.Product
             {
                 pageIndex = pageIndex.Value;
             }
-            var totalRow = await _productDetailReponsitories.CountAsync();
-            var query = await _productDetailReponsitories.GetAll(pageSize, pageIndex);
+            Expression<Func<Infrastructure.Entities.ProductDetail, bool>> expression = x => x.Status == 1;
+            var totalRow = await _productDetailReponsitories.CountAsync(expression);
+            var query = await _productDetailReponsitories.GetAll(pageSize, pageIndex, expression);
             var data = query
                 .Select(x => new ProductDetailDto()
                 {
@@ -282,13 +295,15 @@ namespace Domain.Features.Product
                     Quantity=x.Quantity,
                     Status=x.Status,
                     ProductId=x.ProductId,
+                    ProductName=x.ProductName,
                 }).ToList();
             var pagedResult = new PagedResult<ProductDetailDto>()
             {
                 TotalRecord = totalRow,
                 PageSize = pageSize.Value,
                 PageIndex = pageIndex.Value,
-                Items = data
+                Items = data,
+                Status=true
             };
             if (pagedResult == null)
             {
@@ -318,13 +333,15 @@ namespace Domain.Features.Product
                     Size = x.Size,
                     Quantity = x.Quantity,
                     Status = x.Status,
+                    ProductName = x.ProductName,
                 }).ToList();
             var pagedResult = new PagedResult<ProductDetailDto>()
             {
                 TotalRecord = totalRow,
                 PageSize = pageSize.Value,
                 PageIndex = pageIndex.Value,
-                Items = data
+                Items = data,
+                Status = false
             };
             if (pagedResult == null)
             {
@@ -420,6 +437,7 @@ namespace Domain.Features.Product
                 Status = findobj.Status,
                 ProductId = findobj.ProductId,
                 Quantity = findobj.Quantity,
+                ProductName = findobj.ProductName,
             };
             return obj;
         }
@@ -485,6 +503,38 @@ namespace Domain.Features.Product
             return 1;
         }
 
+        public async Task<ApiResult<bool>> RestoreProduct(int id)
+        {
+            if (id != null)
+            {
+                var findobj = await _productReponsitories.GetById(id);
+                if (findobj == null)
+                {
+                    return new ApiErrorResult<bool>("Không tìm thấy đối tượng");
+                }
+                findobj.Status = true;
+                await _productReponsitories.UpdateAsync(findobj);
+                return new ApiSuccessResult<bool>(true);
+            }
+            return new ApiErrorResult<bool>("Lỗi tham số chuyền về null hoặc trống");
+        }
+
+        public async Task<ApiResult<bool>> RestoreProductDetail(int id)
+        {
+            if (id != null)
+            {
+                var findobj = await _productDetailReponsitories.GetById(id);
+                if (findobj == null)
+                {
+                    return new ApiErrorResult<bool>("Không tìm thấy đối tượng");
+                }
+                findobj.Status = 1;
+                await _productDetailReponsitories.UpdateAsync(findobj);
+                return new ApiSuccessResult<bool>(true);
+            }
+            return new ApiErrorResult<bool>("Lỗi tham số chuyền về null hoặc trống");
+        }
+
         public Task<int> Update(ProductDto request)
         {
             throw new NotImplementedException();
@@ -505,6 +555,7 @@ namespace Domain.Features.Product
                 findobj.UpdatedAt = DateTime.Now;
                 findobj.Status = request.Status;
                 findobj.ProductId = request.ProductId;
+                findobj.ProductName = request.ProductName;
                 await _productDetailReponsitories.UpdateAsync(findobj);
                 return new ApiSuccessResult<bool>(true);
             }

@@ -1,0 +1,327 @@
+*{
+	margin: 0;
+	padding: 0;
+/*	border: 0;*/
+}
+.layout-main{
+	width:100%;
+	height:149px;
+	background-color:#FFF;
+	border-bottom: 1px solid #CCC;
+}
+.bia-1{
+	width:70%;
+	height:149px;
+	background-color: #FFF;
+	float:left;
+
+}
+.bia-2{
+	width:30%;
+	height:149px;
+	background-color: #FFF;
+	float :left;
+	display: block;
+}
+.logo{
+	padding-left: 550px;
+	padding-top: 30px;
+}
+.logo-2{
+	padding-left: 200px;
+	padding-top: 60px;
+}
+/*MENU*/
+#menu ul{
+	list-style-type: none;
+	background: #F5CFD1;
+	text-align: center;
+}
+#menu ul li{
+	color: #000;
+	display: inline-table;
+	width: 180px;
+	height: 40px;
+	line-height: 40px;
+	position: relative;
+}
+#menu ul li a{
+	color: #000;
+	text-decoration: none;
+	display: block;
+}
+#menu ul li a:hover{
+	background: #f1f1f1;
+	color: #333;
+	transition: 2s;
+}
+#menu ul li >.sub-menu{
+	display: none;
+}
+#menu ul li:hover .sub-menu{
+	display: block;
+	position: absolute;
+	transition: 1s;
+}
+.hang:hover{
+	transition: 0.5s;
+	padding-top: 4px;
+}
+/*MENU*/
+
+/*CUOI*/
+.layout-3{
+	width:100%;
+	height: 200px;
+	background-color: #F5CFD1;
+	margin-top: 60px;
+}
+.layout-3-1{
+	height: 200px;
+	width:30%;
+	
+	float: left;
+}
+.layout-3-2{
+	height: 200px;
+	width:40%;
+	float: left;
+	background-color: #F5CFD1;
+}
+.layout-3-3{
+	height: 200px;
+	width:30%;
+	float: left;
+}
+h1.h1-cuoi{
+
+	margin-top: 10px;
+	margin-left: 20px;
+    font-family: "Avenir Next", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.2;
+    overflow-wrap: break-word;
+    word-wrap: break-word
+}
+h5.h5-cuoi{
+	margin-left: 20px;
+}
+a{
+	text-decoration: none;
+	color: #000;
+}
+
+a:hover{
+	text-decoration: underline;
+}
+/*SEACH*/
+.tim-kiem{
+	height: 40px;
+	width: 433px;
+	float: left;
+	font-family: "Avenir Next", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.2;
+}
+h3.h3-cuoi{
+	margin-top: 10px;
+	float: right;
+	color: #000;
+	margin-right: 5px;
+    font-family: "Avenir Next", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    white-space: normal;
+    font-size: 14px
+}
+.dangky{
+	display: block;
+	height: 40px;
+
+}
+.dangky:hover{
+	transition: 1s;
+	background-color: #ECA5A9;
+}
+
+/*	<!-- CHI TIẾT HÀNG HÓA -->*/
+/*.body{
+	width: 100%;
+}*/
+.buy{
+	width: 700px;
+	height: 380px;
+}
+.img_hang1{
+	width: 45%;
+	float: left;
+
+}
+.thong_tin_mua{
+	width: 55%;
+	float: left;
+}
+.name{
+	margin-top: 50px;
+	margin-left: 20px;
+    font-family: "Avenir Next", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.2;
+    font-size: 20px;
+}
+
+.size{
+
+}
+.label_size{
+	margin-left: 20px;
+	width: 300px;
+	height: 24px;
+	float: left;
+	font-family: "Avenir Next", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.2;
+    font-size: 16px;
+}
+.option_size{
+	margin-left: 20px;
+	width: 300px;
+	height: 44px;
+	float: left;
+	font-size: 16px;
+}
+
+.colour{
+
+}
+.label_colour{
+	width: 300px;
+	height: 24px;
+	float: left;
+	margin-left: 20px;
+	font-family: "Avenir Next", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.2;
+    font-size: 16px;
+}
+.option_colour{
+	width: 300px;
+	height: 44px;
+	float: left;
+	margin-left: 20px;
+	font-size: 16px;
+}
+
+.label_quantity{
+	width: 600px;
+	height: 24px;
+	float: left;
+	margin-left: 20px;
+	margin-top: 20px;
+	font-family: "Avenir Next", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.2;
+    font-size: 16px;
+}
+.number{
+	margin-left: 20px;
+	width: 80px;
+	height: 44px;
+	font-size: 16px;
+}
+
+.button_add_to_cart{
+	width: 620px;
+	height: 44px;
+	margin-left: 20px;
+	margin-top: 20px;
+	font-size: 16px;
+	background: #FFF;
+	border: 1px #000 solid;
+}
+.button_add_to_cart:hover{
+	border: 1px #ECA5A9 solid;
+	color: #ECA5A9;
+}
+
+.button_buy_it_now{
+	width: 620px;
+	height: 44px;
+	margin-left: 20px;
+	margin-top: 20px;
+	font-size: 16px;
+	background: #F5CFD1;
+	border: 1px #F5CFD1 solid;
+}
+.button_buy_it_now:hover{
+	border: 1px #ECA5A9 solid;
+	background: #ECA5A9;
+}
+
+.information{
+	width: 100%;
+}
+.infor{
+	margin-left: 250px;
+	font-size: 16px;
+    font-family: "Avenir Next", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    color: #3a3a3a;
+    line-height: 1.5;
+}
+.back{
+	width: 100%;
+	padding-left: 55px;
+    padding-right: 55px;
+    padding-top: 55px; 
+    margin-top: 100px;
+    max-width: 620px;
+    margin: 0 auto;
+}
+.button_back{
+	width: 620px;
+	height: 44px;
+	font-size: 16px;
+	background: #FFF;
+	border: 1px #000 solid;
+}
+.button_back:hover{
+	border: 1px #ECA5A9 solid;
+	color: #ECA5A9;
+}
+
+/* last footer */
+.footer{
+	width: 100%;
+	background-color: #F5CFD1;
+}
+.last_footer{
+	width: 80%;
+	height: 60px;
+	margin: 0 auto;
+	background-color: #F5CFD1;
+}
+
+.last_footer>ul{
+	display: inline-block;
+	padding-left: 40px;
+	padding-right: 40px;
+
+}
+
+.last_footer>ul>img{
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.fb_insta{
+	float: right;
+}

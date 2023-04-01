@@ -23,8 +23,9 @@ namespace API.Controllers
                 return BadRequest(ModelState);
             }
             var result = await _productService.Create(request);
-            if (result == 0) return BadRequest();
-            return Ok(result);
+            if (result.IsSuccessed==false) return BadRequest(result.Message);
+
+            return Ok();
         }
         [HttpPost("post-detail")]
         public async Task<IActionResult> CreateDetail([FromBody] ProductDetailDto request)
@@ -138,6 +139,17 @@ namespace API.Controllers
             if (result == null) return BadRequest();
             return Ok(result);
         }
+        [HttpGet("get-all-detail-removed")]
+        public async Task<IActionResult> GetAllDetailRemoved(int? pageSize, int? pageIndex, string? search)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var result = await _productService.GetAllPagingDetailRemoved(pageSize, pageIndex, search);
+            if (result == null) return BadRequest();
+            return Ok(result);
+        }
         [HttpGet("get-all-removed")]
         public async Task<IActionResult> GetAllProductRemoved(int? pageSize, int? pageIndex, string? search)
         {
@@ -186,6 +198,28 @@ namespace API.Controllers
 
                 return Ok();
             }
+        }
+        [HttpDelete("un-remove")]
+        public async Task<IActionResult> UnDelete(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var result = await _productService.RestoreProduct(id);
+            if (result.IsSuccessed == false) return BadRequest();
+            return Ok(result);
+        }
+        [HttpDelete("un-remove-detail")]
+        public async Task<IActionResult> UnDeleteDetail(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var result = await _productService.RestoreProductDetail(id);
+            if (result.IsSuccessed == false) return BadRequest();
+            return Ok(result);
         }
     }
 }

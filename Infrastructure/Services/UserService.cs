@@ -96,7 +96,7 @@ namespace Domain.IServices.User
             if (!string.IsNullOrEmpty(name))
                 query = query.Where(x => x.UserName.Contains(name));
             //Paging
-            int totalRow = await query.CountAsync();
+            int totalRow =await query.CountAsync();
             var data = await query.Skip((pageIndex.Value - 1) * pageSize.Value)
                 .Take(pageSize.Value)
                 .Select(x => new UserVmDto()

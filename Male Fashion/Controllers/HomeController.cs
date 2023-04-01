@@ -1,32 +1,48 @@
-﻿using Male_Fashion.Models;
+﻿/*using AdminWeb.Services;
+using Data.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using RazorWeb.Models;
 using System.Diagnostics;
 
-namespace Male_Fashion.Controllers
+namespace RazorWeb.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IAPISanPham _aPISanPham;
+        private readonly IAPITinTuc _aPITinTuc;
+        public HomeController(IAPISanPham aPISanPham, IAPITinTuc aPITinTuc)
         {
-            _logger = logger;
+            _aPISanPham = aPISanPham;
+            _aPITinTuc = aPITinTuc;
         }
-
-        public IActionResult Index()
+        public async Task<ActionResult> Index()
         {
             return View();
         }
-
-        public IActionResult Privacy()
+        public async Task<ActionResult> ProductsHot()
         {
+            var lst = await _aPISanPham.GetSanPhamPagings();
+            return PartialView("ProductsHot",lst.data);
+        }
+        public async Task<ActionResult> News()
+        {
+            *//*var lst = await _db.TinTucs.OrderByDescending(x => x.CreatedDate).Take(3).ToListAsync();*//*
+            var lst = await _aPITinTuc.GetPagings();
+            return PartialView("News",lst.data);
+        }
+        public ActionResult About()
+        {
+            ViewBag.Message = "Your application description page.";
+
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public ActionResult Contact()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            ViewBag.Message = "Your contact page.";
+
+            return View();
         }
     }
-}
+}*/

@@ -18,6 +18,6 @@ namespace Domain.Features
         public Task<ApiResult<bool>> Restore(int id);
         public Task<ApiResult<PagedResult<CategoryRequestDto>>> GetAll(int? pageSize, int? pageIndex, string search);
         public Task<IEnumerable<CategoryRequestDto>> GetAll();
-        public Task<ApiResult<PagedResult<CategoryRequestDto>>> GetDeletedDiscount(int? pageSize, int? pageIndex, string search);
+        public Task<ApiResult<PagedResult<CategoryRequestDto>>> GetDeletedCategories(int? pageSize, int? pageIndex, string search);
     }
 }

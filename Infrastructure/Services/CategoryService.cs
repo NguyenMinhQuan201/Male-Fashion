@@ -27,6 +27,7 @@ namespace Domain.Features.Category
                 Name = request.Name,
                 Icon= request.Icon,
                 UpdatedAt = DateTime.Now,
+                Status = request.Status,
             };
             await _categoryReponsitories.CreateAsync(obj);
             return new ApiSuccessResult<bool>(true);
@@ -34,23 +35,16 @@ namespace Domain.Features.Category
 
         public async Task<ApiResult<bool>> Delete(int id)
         {
-            if (id == null)
+            if (id != null)
             {
                 var findobj = await _categoryReponsitories.GetById(id);
                 if (findobj == null)
                 {
                     return new ApiErrorResult<bool>("Không tìm thấy đối tượng");
                 }
-                var obj = new Infrastructure.Entities.Category()
-                {
-                    IdCategory = id,
-                    CreatedAt = findobj.CreatedAt,
-                    Name = findobj.Name,
-                    Icon = findobj.Icon,
-                    UpdatedAt = findobj.UpdatedAt,
-
-                };
-                await _categoryReponsitories.DeleteAsync(obj);
+                findobj.Status = false;
+                await _categoryReponsitories.UpdateAsync(findobj);
+                return new ApiSuccessResult<bool>(true);
             }
             return new ApiErrorResult<bool>("Lỗi tham số chuyền về null hoặc trống");
         }
@@ -65,16 +59,16 @@ namespace Domain.Features.Category
             {
                 pageIndex = pageIndex.Value;
             }
-            var totalRow = await _categoryReponsitories.CountAsync();
-            var query = await _categoryReponsitories.GetAll(pageSize, pageIndex);
+            Expression<Func<Infrastructure.Entities.Category, bool>> expression = x =>x.Status == true;
+            var totalRow = await _categoryReponsitories.CountAsync(expression);
+            var query = await _categoryReponsitories.GetAll(pageSize, pageIndex, expression);
             if (!string.IsNullOrEmpty(search))
             {
-                Expression<Func<Infrastructure.Entities.Category, bool>> expression = x => x.Name.Contains(search);
-                query = await _categoryReponsitories.GetAll(pageSize, pageIndex, expression);
-                totalRow = await _categoryReponsitories.CountAsync(expression);
+                Expression<Func<Infrastructure.Entities.Category, bool>> expression2 = x => x.Name.Contains(search)&&x.Status==true;
+                query = await _categoryReponsitories.GetAll(pageSize, pageIndex, expression2);
+                totalRow = await _categoryReponsitories.CountAsync(expression2);
             }
             //Paging
-            /*totalRow = query.Result.Count();*/
             var data = query
                 .Select(x => new CategoryRequestDto()
                 {
@@ -83,6 +77,7 @@ namespace Domain.Features.Category
                     CreatedAt = x.CreatedAt,
                     Icon = x.Icon,
                     UpdatedAt = x.UpdatedAt,
+                    Status = x.Status,
 
                 }).ToList();
             var pagedResult = new PagedResult<CategoryRequestDto>()
@@ -90,7 +85,8 @@ namespace Domain.Features.Category
                 TotalRecord = totalRow,
                 PageSize = pageSize.Value,
                 PageIndex = pageIndex.Value,
-                Items = data
+                Items = data,
+                Status=true
             };
             if (pagedResult == null)
             {
@@ -129,6 +125,7 @@ namespace Domain.Features.Category
                     CreatedAt = findobj.CreatedAt,
                     Icon = findobj.Icon,
                     UpdatedAt = findobj.UpdatedAt,
+                    Status = findobj.Status,
 
                 };
                 return new ApiSuccessResult<CategoryRequestDto>(obj);
@@ -136,35 +133,83 @@ namespace Domain.Features.Category
             return new ApiErrorResult<CategoryRequestDto>("Lỗi tham số chuyền về null hoặc trống");
         }
 
-        public Task<ApiResult<PagedResult<CategoryRequestDto>>> GetDeletedDiscount(int? pageSize, int? pageIndex, string search)
+        public async Task<ApiResult<PagedResult<CategoryRequestDto>>> GetDeletedCategories(int? pageSize, int? pageIndex, string search)
         {
-            throw new NotImplementedException();
+            if (pageSize != null)
+            {
+                pageSize = pageSize.Value;
+            }
+            if (pageIndex != null)
+            {
+                pageIndex = pageIndex.Value;
+            }
+            Expression<Func<Infrastructure.Entities.Category, bool>> expression = x => x.Status == false;
+            var totalRow = await _categoryReponsitories.CountAsync(expression);
+            var query = await _categoryReponsitories.GetAll(pageSize, pageIndex, expression);
+            if (!string.IsNullOrEmpty(search))
+            {
+                Expression<Func<Infrastructure.Entities.Category, bool>> expression2 = x => x.Name.Contains(search) && x.Status == false;
+                query = await _categoryReponsitories.GetAll(pageSize, pageIndex, expression2);
+                totalRow = await _categoryReponsitories.CountAsync(expression2);
+            }
+            //Paging
+            var data = query
+                .Select(x => new CategoryRequestDto()
+                {
+                    IdCategory = x.IdCategory,
+                    Name = x.Name,
+                    CreatedAt = x.CreatedAt,
+                    Icon = x.Icon,
+                    UpdatedAt = x.UpdatedAt,
+                    Status = x.Status,
+
+                }).ToList();
+            var pagedResult = new PagedResult<CategoryRequestDto>()
+            {
+                TotalRecord = totalRow,
+                PageSize = pageSize.Value,
+                PageIndex = pageIndex.Value,
+                Items = data,
+                Status = false
+            };
+            if (pagedResult == null)
+            {
+                return new ApiErrorResult<PagedResult<CategoryRequestDto>>("Khong co gi ca");
+            }
+            return new ApiSuccessResult<PagedResult<CategoryRequestDto>>(pagedResult);
         }
 
-        public Task<ApiResult<bool>> Restore(int id)
+        public async Task<ApiResult<bool>> Restore(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public async Task<ApiResult<bool>> Update(int id, CategoryRequestDto request)
-        {
-            if (id == null)
+            if (id != null)
             {
                 var findobj = await _categoryReponsitories.GetById(id);
                 if (findobj == null)
                 {
                     return new ApiErrorResult<bool>("Không tìm thấy đối tượng");
                 }
-                var obj = new Infrastructure.Entities.Category()
-                {
-                    IdCategory = findobj.IdCategory,
-                    Name = findobj.Name,
-                    CreatedAt = findobj.CreatedAt,
-                    Icon = findobj.Icon,
-                    UpdatedAt = findobj.UpdatedAt,
+                findobj.Status = true;
+                await _categoryReponsitories.UpdateAsync(findobj);
+                return new ApiSuccessResult<bool>(true);
+            }
+            return new ApiErrorResult<bool>("Lỗi tham số chuyền về null hoặc trống");
+        }
 
-                };
-                await _categoryReponsitories.UpdateAsync(obj);
+        public async Task<ApiResult<bool>> Update(int id, CategoryRequestDto request)
+        {
+            if (id != null)
+            {
+                var findobj = await _categoryReponsitories.GetById(id);
+                if (findobj == null)
+                {
+                    return new ApiErrorResult<bool>("Không tìm thấy đối tượng");
+                }
+                findobj.Status = request.Status;
+                findobj.Name = request.Name;
+                findobj.Icon = request.Icon;
+                findobj.UpdatedAt = DateTime.Now;
+                await _categoryReponsitories.UpdateAsync(findobj);
+                return new ApiSuccessResult<bool>(true);
             }
             return new ApiErrorResult<bool>("Lỗi tham số chuyền về null hoặc trống");
         }

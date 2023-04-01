@@ -14,6 +14,7 @@ namespace Infrastructure.Entities
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
         public ICollection<Product>? Products { get; set; }
+        public bool Status { get; set; }
 
     }
 }

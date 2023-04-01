@@ -70,6 +70,17 @@ namespace API.Controllers
             if (result == null) return BadRequest();
             return Ok(result);
         }
+        [HttpGet("get-all-removed")]
+        public async Task<IActionResult> GetAllRemoved(int? pageSize, int? pageIndex, string? search)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var result = await _orderService.GetAllPagingRemoved(pageSize, pageIndex, search);
+            if (result == null) return BadRequest();
+            return Ok(result);
+        }
         [HttpGet("get-all-order-detail")]
         public async Task<IActionResult> GetAllOrderDetail(int id)
         {
@@ -81,16 +92,22 @@ namespace API.Controllers
             if (result == null) return BadRequest();
             return Ok(result);
         }
-        [HttpGet("get-all-removed")]
-        public async Task<IActionResult> GetAllProductRemoved(int? pageSize, int? pageIndex, string? search)
+        [HttpDelete("unremove")]
+        public async Task<IActionResult> UnDelete(int id)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest();
             }
-            var result = await _orderService.GetAllPagingRemoved(pageSize, pageIndex, search);
-            if (result == null) return BadRequest();
-            return Ok(result);
+            else
+            {
+                var result = await _orderService.Restore(id);
+                if (result.IsSuccessed)
+                {
+                    return Ok(result.ResultObj);
+                }
+            }
+            return BadRequest();
         }
     }
 }

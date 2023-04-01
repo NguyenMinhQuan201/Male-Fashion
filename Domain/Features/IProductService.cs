@@ -12,7 +12,7 @@ namespace Domain.Features
 {
     public interface IProductService
     {
-        Task<int> Create(ProductDto request);
+        Task<ApiResult<bool>> Create(ProductDto request);
         Task<ApiResult<ProductDetailDto>> CreateDetailProduct(ProductDetailDto request);
         Task<ApiResult<bool>> UpdateProductWithoutImage(int productId, ProductDto request);
         Task<ApiResult<bool>> UpdateDetail(int id, ProductDetailDto request);
@@ -36,5 +36,7 @@ namespace Domain.Features
         Task<List<ProductDto>> GetAll(string languageId);
         public Task<ApiResult<bool>> AddImage(int productId, List<IFormFile> request);
         public Task<int> RemoveImage(int imageId);
+        public Task<ApiResult<bool>> RestoreProduct(int id);
+        public Task<ApiResult<bool>> RestoreProductDetail(int id);
     }
 }

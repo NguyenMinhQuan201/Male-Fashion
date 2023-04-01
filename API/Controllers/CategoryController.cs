@@ -85,6 +85,25 @@ namespace API.Controllers
 
             return BadRequest();
         }
+        [HttpGet("get-by-name-category-removed")]
+        public async Task<IActionResult> GetBynameRemoved(int? pageSize, int? pageIndex, string? name)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                var result = await _categoryService.GetDeletedCategories(pageSize, pageIndex, name);
+                if (result.IsSuccessed)
+                {
+                    return Ok(result);
+                }
+
+            }
+
+            return BadRequest();
+        }
         [HttpGet("get-by-id")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -114,6 +133,23 @@ namespace API.Controllers
                 var result = await _categoryService.GetAll();
                 return Ok(result);
             }
+        }
+        [HttpDelete("unremove")]
+        public async Task<IActionResult> UnDelete(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                var result = await _categoryService.Restore(id);
+                if (result.IsSuccessed)
+                {
+                    return Ok(result.ResultObj);
+                }
+            }
+            return BadRequest();
         }
     }
 }

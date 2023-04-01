@@ -61,9 +61,20 @@ namespace Domain.Features.Order
             return new ApiSuccessResult<bool>();
         }
 
-        public Task<ApiResult<bool>> Delete(int id)
+        public async Task<ApiResult<bool>> Delete(int id)
         {
-            throw new NotImplementedException();
+            if (id != null)
+            {
+                var findobj = await _orderReponsitory.GetById(id);
+                if (findobj == null)
+                {
+                    return new ApiErrorResult<bool>("Không tìm thấy đối tượng");
+                }
+                findobj.Status = false;
+                await _orderReponsitory.UpdateAsync(findobj);
+                return new ApiSuccessResult<bool>(true);
+            }
+            return new ApiErrorResult<bool>("Lỗi tham số chuyền về null hoặc trống");
         }
 
         public async Task<ApiResult<PagedResult<GetOrderDto>>> GetAll(int? pageSize, int? pageIndex, string search)
@@ -76,13 +87,14 @@ namespace Domain.Features.Order
             {
                 pageIndex = pageIndex.Value;
             }
-            var totalRow = await _orderReponsitory.CountAsync();
-            var query = await _orderReponsitory.GetAll(pageSize, pageIndex);
+            Expression<Func<Infrastructure.Entities.Order, bool>> expression = x => x.Status == true;
+            var totalRow = await _orderReponsitory.CountAsync(expression);
+            var query = await _orderReponsitory.GetAll(pageSize, pageIndex, expression);
             if (!string.IsNullOrEmpty(search))
             {
-                Expression<Func<Infrastructure.Entities.Order, bool>> expression = x => x.NameCustomer.Contains(search);
-                query = await _orderReponsitory.GetAll(pageSize, pageIndex, expression);
-                totalRow = await _orderReponsitory.CountAsync(expression);
+                Expression<Func<Infrastructure.Entities.Order, bool>> expression2 = x => x.NameCustomer.Contains(search) && x.Status == true;
+                query = await _orderReponsitory.GetAll(pageSize, pageIndex, expression2);
+                totalRow = await _orderReponsitory.CountAsync(expression2);
             }
             //Paging
             /*totalRow = query.Result.Count();*/
@@ -107,7 +119,8 @@ namespace Domain.Features.Order
                 TotalRecord = totalRow,
                 PageSize = pageSize.Value,
                 PageIndex = pageIndex.Value,
-                Items = data
+                Items = data,
+                Status=true
             };
             if (pagedResult == null)
             {
@@ -136,9 +149,55 @@ namespace Domain.Features.Order
             return new ApiSuccessResult<List<OrderDetailDto>>(data);
         }
 
-        public Task<ApiResult<PagedResult<GetOrderDto>>> GetAllPagingRemoved(int? pageSize, int? pageIndex, string? search)
+        public async Task<ApiResult<PagedResult<GetOrderDto>>> GetAllPagingRemoved(int? pageSize, int? pageIndex, string? search)
         {
-            throw new NotImplementedException();
+            if (pageSize != null)
+            {
+                pageSize = pageSize.Value;
+            }
+            if (pageIndex != null)
+            {
+                pageIndex = pageIndex.Value;
+            }
+            Expression<Func<Infrastructure.Entities.Order, bool>> expression = x => x.Status == false;
+            var totalRow = await _orderReponsitory.CountAsync(expression);
+            var query = await _orderReponsitory.GetAll(pageSize, pageIndex, expression);
+            if (!string.IsNullOrEmpty(search))
+            {
+                Expression<Func<Infrastructure.Entities.Order, bool>> expression2 = x => x.NameCustomer.Contains(search)&&x.Status==false;
+                query = await _orderReponsitory.GetAll(pageSize, pageIndex, expression2);
+                totalRow = await _orderReponsitory.CountAsync(expression2);
+            }
+            //Paging
+            var data = query
+                .Select(x => new GetOrderDto()
+                {
+                    IdOrder = x.IdOrder,
+                    Status = x.Status,
+                    SumPrice = x.SumPrice,
+                    NameCustomer = x.NameCustomer,
+                    Address = x.Address,
+                    Phone = x.Phone,
+                    Email = x.Email,
+                    CreatedAt = x.CreatedAt,
+                    DeliveryAt = x.DeliveryAt,
+                    FinishAt = x.FinishAt,
+                    Note = x.Note,
+                    Payments = x.Payments,
+                }).ToList();
+            var pagedResult = new PagedResult<GetOrderDto>()
+            {
+                TotalRecord = totalRow,
+                PageSize = pageSize.Value,
+                PageIndex = pageIndex.Value,
+                Items = data,
+                Status=false
+            };
+            if (pagedResult == null)
+            {
+                return new ApiErrorResult<PagedResult<GetOrderDto>>("Khong co gi ca");
+            }
+            return new ApiSuccessResult<PagedResult<GetOrderDto>>(pagedResult);
         }
 
         public async Task<GetOrderDto>GetById(int id)
@@ -167,9 +226,20 @@ namespace Domain.Features.Order
             return obj;
         }
 
-        public Task<ApiResult<bool>> Restore(int id)
+        public async Task<ApiResult<bool>> Restore(int id)
         {
-            throw new NotImplementedException();
+            if (id != null)
+            {
+                var findobj = await _orderReponsitory.GetById(id);
+                if (findobj == null)
+                {
+                    return new ApiErrorResult<bool>("Không tìm thấy đối tượng");
+                }
+                findobj.Status = true;
+                await _orderReponsitory.UpdateAsync(findobj);
+                return new ApiSuccessResult<bool>(true);
+            }
+            return new ApiErrorResult<bool>("Lỗi tham số chuyền về null hoặc trống");
         }
 
         public async Task<ApiResult<bool>> Update(int id, OrderDto request)

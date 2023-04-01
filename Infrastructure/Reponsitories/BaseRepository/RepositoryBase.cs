@@ -20,7 +20,7 @@ namespace Infrastructure.Reponsitories.BaseReponsitory
             var query = _db.Set<T>().Where(expression).AsQueryable();
             var pageCount = query.Count();
                 query =  query.Skip((pageIndex.Value - 1) * pageSize.Value)
-                .Take(pageSize.Value);
+                .Take(pageSize.Value).AsNoTracking();
             return await query.ToListAsync();
         }
         public async Task<List<T>> GetAll(int? pageSize, int? pageIndex)
@@ -28,12 +28,12 @@ namespace Infrastructure.Reponsitories.BaseReponsitory
             var query = _db.Set<T>().AsQueryable();
             var pageCount = query.Count();
             query = query.Skip((pageIndex.Value - 1) * pageSize.Value)
-            .Take(pageSize.Value);
-            return query.ToList();
+            .Take(pageSize.Value).AsNoTracking();
+            return await query.ToListAsync();
         }
         public async Task<List<T>> GetByCondition(Expression<Func<T, bool>> expression)
         {
-            var a = await _db.Set<T>().Where(expression).ToListAsync();
+            var a = await _db.Set<T>().Where(expression).AsNoTracking().ToListAsync();
             return a;
         }
 
@@ -88,6 +88,12 @@ namespace Infrastructure.Reponsitories.BaseReponsitory
         public Task<IEnumerable<T>> GetAll(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<T> FindByName(Expression<Func<T, bool>> expression)
+        {
+            var query = _db.Set<T>().Where(expression).FirstOrDefault();
+            return query;
         }
     }
 }

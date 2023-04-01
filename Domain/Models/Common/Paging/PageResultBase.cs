@@ -19,5 +19,6 @@ namespace Domain.Common
                 return (int)Math.Ceiling(pageCount);
             }
         }
+        public bool Status { get; set; }
     }
 }

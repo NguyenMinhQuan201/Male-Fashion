@@ -14,7 +14,6 @@ namespace Domain.Models.Dto.Product
         public string Size { get; set; }
         public string Color { get; set; }
         public int Status { get; set; }
-        /*public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public DateTime UpdatedAt { get; set; } = DateTime.Now;*/
+        public string? ProductName { get; set; }
     }
 }

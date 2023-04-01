@@ -16,7 +16,6 @@ namespace Infrastructure.EF
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //Configure using Fluent API
-
             modelBuilder.ApplyConfiguration(new AppRoleConfiguration());
             modelBuilder.ApplyConfiguration(new AppUserConfiguration());
             modelBuilder.ApplyConfiguration(new BlogConfiguration());
@@ -34,7 +33,6 @@ namespace Infrastructure.EF
             modelBuilder.ApplyConfiguration(new PromotionConfiguration());
             modelBuilder.ApplyConfiguration(new QAConfiguration());
             modelBuilder.ApplyConfiguration(new SupplierConfiguration());
-
             //Tạo bảng được cung cấp từ Identity
             modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims");
             modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles").HasKey(x => new { x.UserId, x.RoleId });

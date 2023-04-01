@@ -14,7 +14,8 @@ namespace Domain.Models.Dto.Category
         public string Name { get; set; } = string.Empty;
         [Required]
         public string Icon { get; set; } = string.Empty;
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public DateTime ? CreatedAt { get; set; }
+        public DateTime ? UpdatedAt { get; set; }
+        public bool Status { get; set; }
     }
 }

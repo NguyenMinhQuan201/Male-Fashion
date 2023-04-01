@@ -1,0 +1,251 @@
+*{
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+.layout-main{
+	width:100%;
+	height:149px;
+	background-color:#FFFFFF;
+	border-bottom: 1px solid #CCCCCC;
+}
+.bia-1{
+	width:70%;
+	height:149px;
+	background-color: #FFFFFF;
+	float:left;
+
+}
+.bia-2{
+	width:30%;
+	height:149px;
+	background-color: #FFFFFF;
+	float :left;
+	display: block;
+}
+.logo{
+	padding-left: 550px;
+	padding-top: 30px;
+}
+.logo-2{
+	padding-left: 200px;
+	padding-top: 60px;
+}
+/*MENU*/
+#menu ul{
+	list-style-type: none;
+	background: #f5cfd1;
+	text-align: center;
+}
+#menu ul li{
+	color: #000;
+	display: inline-table;
+	width: 180px;
+	height: 40px;
+	line-height: 40px;
+	position: relative;
+}
+#menu ul li a{
+	color: #000;
+	text-decoration: none;
+	display: block;
+}
+#menu ul li a:hover{
+	background: #f1f1f1;
+	color: #333;
+	transition: 2s;
+}
+#menu ul li >.sub-menu{
+	display: none;
+}
+#menu ul li:hover .sub-menu{
+	display: block;
+	position: absolute;
+	transition: 1s;
+}
+.hang:hover{
+	transition: 0.5s;
+	padding-top: 4px;
+}
+/*MENU*/
+/*CUOI*/
+.layout-3{
+	width:100%;
+	height: 200px;
+	background-color: #f5cfd1;
+}
+.layout-3-1{
+	height: 200px;
+	width:30%;
+	
+	float: left;
+}
+.layout-3-2{
+	height: 200px;
+	width:40%;
+	float: left;
+	background-color: #f5cfd1;
+}
+.layout-3-3{
+	height: 200px;
+	width:30%;
+	float: left;
+}
+h1.h1-cuoi{
+
+	margin-top: 10px;
+	margin-left: 20px;
+    font-family: "Avenir Next", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.2;
+    overflow-wrap: break-word;
+    word-wrap: break-word
+}
+h5.h5-cuoi{
+	margin-left: 20px;
+}
+a{
+	text-decoration: none;
+	color: black;
+}
+a:hover{
+	text-decoration: underline;
+}
+/*SEACH*/
+.tim-kiem{
+	height: 40px;
+	width: 433px;
+	float: left;
+	font-family: "Avenir Next", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.2;
+}
+h3.h3-cuoi{
+	margin-top: 10px;
+	float: right;
+	color: black;
+	margin-right: 5px;
+    font-family: "Avenir Next", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    white-space: normal;
+    font-size: 14px
+}
+.dangky{
+	display: block;
+	height: 40px;
+
+}
+.dangky:hover{
+	transition: 1s;
+	background-color: #ECA5A9;
+}
+/*LAYOUT-MAIN*/
+.layout-2{
+	width:100%;
+	height:100px;
+	background-color:#FFFFFF;
+}
+.tieu-de{
+	width:100%;
+	height:100px;
+	background-color: white;
+}
+h1.h1-dau{
+	text-align: center;
+	font-family: "Avenir Next", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.2;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+/*  */
+.main{
+	padding-top: 50px;
+	border-top: 1px solid black;
+	height: 800px;
+	width: 100%;
+	background-color: white;
+	margin: auto;
+}
+.box{
+	width: 40%;
+	margin: auto;
+}
+
+.labelInputArea{
+	margin-bottom: 30px;
+}
+
+.labelInputArea label{
+	font-family: "Avenir Next", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+	font-size: 20px;
+    line-height: 1.2;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+.text{
+	border: 1px solid black;
+	height: 40px;
+	width: 100%;
+	font-family: "Avenir Next", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+#submit{
+	height: 40px;
+	width: 100px;
+	background-color: #f5cfd1;
+	display: block;
+	margin: 0 auto;
+}
+.labelInputArea p{
+	margin: auto;
+}
+
+.box a{
+	display: block;
+	text-align: center;
+	margin: 0 auto;
+	margin-top: 20px;
+	font-size: 18px;;
+}
+
+/* last footer */
+.footer{
+	width: 100%;
+	background-color: #F5CFD1;
+}
+.last_footer{
+	width: 80%;
+	height: 60px;
+	margin: 0 auto;
+	background-color: #F5CFD1;
+}
+
+.last_footer>ul{
+	display: inline-block;
+	padding-left: 40px;
+	padding-right: 40px;
+
+}
+
+.last_footer>ul>img{
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.fb_insta{
+	float: right;
+}
