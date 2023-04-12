@@ -27,7 +27,8 @@ namespace Infrastructure.Reponsitories.BaseReponsitory
         {
             var query = _db.Set<T>().AsQueryable();
             var pageCount = query.Count();
-            query = query.Skip((pageIndex.Value - 1) * pageSize.Value)
+
+            query = query.Skip((pageIndex ?? 1 - 1) * pageSize ?? 10)
             .Take(pageSize.Value).AsNoTracking();
             return await query.ToListAsync();
         }

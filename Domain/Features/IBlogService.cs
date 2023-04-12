@@ -16,8 +16,8 @@ namespace Domain.Features
         public Task<ApiResult<bool>> Delete(int id);
         public Task<ApiResult<BlogVm>> GetById(int id);
         public Task<ApiResult<bool>> Restore(int id);
-        public Task<ApiResult<PagedResult<BlogVm>>> GetAll(int? pageSize, int? pageIndex, string search);
+        public Task<ApiResult<PagedResult<BlogVm>>> GetAll(int? pageSize, int? pageIndex, string?search);
         public Task<IEnumerable<BlogVm>> GetAll();
-        public Task<ApiResult<PagedResult<BlogVm>>> GetDeletedCategories(int? pageSize, int? pageIndex, string search);
+        public Task<ApiResult<PagedResult<BlogVm>>> GetDeleted(int? pageSize, int? pageIndex, string?search);
     }
 }

@@ -24,7 +24,8 @@ namespace Domain.Features
         Task<ApiResult<bool>> UpdatePrice(int ProductId, decimal newPrice);
         Task<ApiResult<bool>> UpdateStock(int productId, int addedQuantity);
         Task AddViewCount(int productId);
-        public Task<IEnumerable<GetProductDto>> GetAll();
+        Task<ApiResult<List<ProductDetailDto>>> GetAllDetailByIdPoduct(int id);
+        Task<IEnumerable<GetProductDto>> GetAll();
         Task<ApiResult<PagedResult<GetProductDto>>> GetAllPaging(int? pageSize, int? pageIndex, string? search);
         Task<ApiResult<PagedResult<ProductDetailDto>>> GetAllPagingDetail(int? pageSize, int? pageIndex, string? search);
         Task<ApiResult<PagedResult<ProductDetailDto>>> GetAllPagingDetailRemoved(int? pageSize, int? pageIndex, string? search);

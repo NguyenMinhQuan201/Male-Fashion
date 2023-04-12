@@ -15,8 +15,9 @@ namespace Infrastructure.Entities
         public string? SubTitle { get; set; }
         public string? Description { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public DateTime UpdatedAt { get; set; } = DateTime.Now;
+        public DateTime?UpdatedAt { get; set; }
         public string? CreateAtBy { get; set; } // duoc tao boi ai do
+        public bool Status { get; set; }
         public ICollection<BlogImg>? BlogImgs { get; set; }
 
     }

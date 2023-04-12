@@ -27,29 +27,23 @@ namespace RazorWeb.Controllers
             var environment = new SandboxEnvironment(_clientId, _secretKey);
             var client = new PayPalHttpClient(environment);
             double Tygia = 23300;
-            /*#region Create Paypal Order*/
             var itemList = new ItemList()
             {
                 Items = new List<Item>()
             };
-            /*var total = Math.Round(Carts.Sum(p => p.ThanhTien) / TyGiaUSD, 2);*/
             var total = Math.Round(100000 / Tygia, 2);
             var tax = 1;
             var shipping = 1;
             itemList.Items.Add(new Item()
             {
-                /*Name = item.TenHh,*/
                 Name = "test",
                 Currency = "USD",
-                /*Price = Math.Round(item.DonGia / TyGiaUSD, 2).ToString(),*/
                 Price = Math.Round(100000 / Tygia, 2).ToString(),
                 Quantity = (1).ToString(),
                 Sku = "sku",
                 Tax = "0",
 
             });
-            /*#endregion*/
-
             var paypalOrderId = DateTime.Now.Ticks;
             var hostname = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
             var payment = new Payment()

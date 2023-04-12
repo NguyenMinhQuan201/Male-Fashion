@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <h4>Check Out</h4>
+                    <div class="breadcrumb__links">
+                        <a href="./index.html">Home</a>
+                        <a href="./shop.html">Shop</a>
+                        <span>Check Out</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+<!-- Checkout Section Begin -->
+<section class="checkout spad">
+    <div class="container">
+        <div class="checkout__form">
+            
+                <div class="row">
+                    <div class="col-lg-8 col-md-6">
+                        <h6 class="coupon__code">
+                            <span class="icon_tag_alt"></span> Have a coupon? <a href="#">
+                                Click
+                                here
+                            </a> to enter your code
+                        </h6>
+                        <h6 class="checkout__title">Billing Details</h6>
+                        <div class="row">
+                        </div>
+                        <div class="checkout__input">
+                        </div>
+                        <div class="checkout__input">
+                            <p>Address<span>*</span><span id="textAddress"></span></p>
+                            <input id="DC"type="text" placeholder="Street Address" class="checkout__input__add">
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Phone<span id="hong">*</span><span id="textPhone"></span></p>
+                                    <input id="SDT"type="text">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Email<span>*</span><span id="textEmail"></span></p>
+                                    <input id="Gmail" type="text">
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="checkout__order">
+                            <h4 class="order__title">Your order</h4>
+                            <div class="checkout__order__products"><h5 style="float:left;">Quantity</h5> <h5 style="margin-left: 18%; float: left">Product</h5><h5 style="margin-left: 24%; float: left">Total</h5> </div>
+                            <ul class="checkout__total__products" id="vailon">
+                                <li>01. Vanilla salted caramel <span>$ 300.0</span></li>
+
+
+
+
+                            </ul>
+                            <ul class="checkout__total__all">
+                                <li>Subtotal  <span class="tongphu">$750.99</span><span>$</span></li>
+                                <li>Total <span class="tongchinh">$750.99</span><span>$</span></li>
+                            </ul>
+                            <button class="site-btn" id="make_order">PLACE ORDER</button>
+                            <button class="site-btn" id="paypal" >PLACE ORDER WITH PAYPAL</button>
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+    </div>
+</section>
+<!-- Checkout Section End -->

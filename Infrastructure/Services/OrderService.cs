@@ -22,7 +22,7 @@ namespace Domain.Features.Order
             var order = new Infrastructure.Entities.Order()
             {
                 Status = request.Status,
-                SumPrice = 0,
+                SumPrice = request.SumPrice,
                 Address = request.Address,
                 CreatedAt = DateTime.Now,
                 DeliveryAt = DateTime.Now,

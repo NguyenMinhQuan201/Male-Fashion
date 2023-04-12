@@ -14,8 +14,9 @@ namespace Domain.Models.Dto.Blog
         public string? Title { get; set; }
         public string? SubTitle { get; set; }
         public string? Description { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public DateTime UpdatedAt { get; set; } = DateTime.Now;
+        public bool Status { get; set; }
+        public DateTime?CreatedAt { get; set; }
+        public DateTime?UpdatedAt { get; set; }
         public string? CreateAtBy { get; set; } // duoc tao boi ai do
     }
 }

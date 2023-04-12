@@ -1,0 +1,137 @@
+﻿@model Domain.Models.Dto.Product.GetProductDto
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section jsFooter{
+    <script>
+        $('#MoreToYou').load("/Events/MoreToYou")
+    </script>
+    <script src="~/Content/js/CartControler.js"></script>
+
+}
+    <link rel="stylesheet" type="text/css" href="~/Content/css/Chi-tiet-hang1.css">
+    <section class="shop-details">
+        <div class="product__details__pic">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="product__details__breadcrumb">
+                            <a href="@Url.Action("Index", "Home")">Home</a>
+                            <a href="@Url.Action("Index", "Events")">Shop</a>
+                            <span>Product Details</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3">
+                        <ul class="nav nav-tabs" role="tablist">
+                            @for (int i = 0; i < @Model.ProductImgs.Count(); i++)
+                        {
+                            if (i == 0)
+                            {
+                                <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#tabs-@i" role="tab">
+
+                                    <div class="product__thumb__pic set-bg" data-setbg="https://localhost:7179/user_content/@Model.ProductImgs[i].ImagePath">
+                                    </div>
+                                </a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tabs-@i" role="tab">
+
+                                    <div class="product__thumb__pic set-bg" data-setbg="https://localhost:7179/user_content/@Model.ProductImgs[i].ImagePath">
+                                    </div>
+                                </a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+                <div class="col-lg-6 col-md-9">
+                    <div class="tab-content">
+                        @for (int i = 0; i < @Model.ProductImgs.Count(); i++)
+                        {
+                            if (i == 0)
+                            {
+                                <div class="tab-pane active" id="tabs-@i" role="tabpanel">
+                                    <div class="product__details__pic__item">
+                                        <img style="height:500px" src="https://localhost:7179/user_content/@Model.ProductImgs[i].ImagePath" alt="">
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="tab-pane" id="tabs-@i" role="tabpanel">
+                                    <div class="product__details__pic__item">
+                                        <img style="height:500px" src="https://localhost:7179/user_content/@Model.ProductImgs[i].ImagePath" alt="">
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="product__details__content">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-lg-8">
+                    <div class="product__details__text">
+
+                        <h3>@Model.Price $</h3>
+                        <p>
+                            Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable
+                            cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening
+                            with placket.
+                        </p>
+                        <div class="product__details__option">
+                            <div class="product__details__option__size">
+                                <span>Size:</span>
+                                <!-- SIZE -->
+                                @foreach (var item in ViewBag.KichCoSP)
+                                {
+                                    <label for="@item.Text" class="size" id="@Model.IdProduct" data-id2="@Model.IdProduct" data-id="@item.Text">
+                                        @item.Text
+                                        <input name="kich" type="radio" id="@item.Value">
+                                    </label>
+                                }
+                            </div>
+                            <br />
+                            <div class="product__details__option__size2" id="ngu">
+                                <span>Color:</span>
+                                <span>Hãy chọn Size trước </span>
+                            </div>
+                        </div>
+                        <div class="product__details__cart__option">
+                            <button type="button" class="button_add_to_cart_new" data-id="@Model.IdProduct">
+                                <span class="primary-btn">add to cart</span>
+                            </button>
+                        </div>
+                        <div class="product__details__btns__option">
+                            <a href="#"><i class="fa fa-heart"></i> add to wishlist</a>
+                            <a href="#"><i class="fa fa-exchange"></i> Add To Compare</a>
+                        </div>
+                        <div class="product__details__last__option">
+                            <h5><span>Guaranteed Safe Checkout</span></h5>
+                            <img src="img/shop-details/details-payment.png" alt="">
+                            <ul>
+                                <li><span>SKU:</span> 3812912</li>
+                                <li><span>Categories:</span> Clothes</li>
+                                <li><span>Tag:</span> Clothes, Skin, Body</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shop Details Section End -->
+<!-- Related Section Begin -->
+<div id="MoreToYou"></div>
+<!-- Related Section End -->

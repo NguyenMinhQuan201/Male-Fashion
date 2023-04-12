@@ -1,4 +1,5 @@
 ﻿using Infrastructure.Reponsitories.BaseReponsitory;
+using Infrastructure.Reponsitories.BlogRepository;
 using Infrastructure.Reponsitories.CategoryReponsitories;
 using Infrastructure.Reponsitories.ImportInvoiceDetailsReponsitories;
 using Infrastructure.Reponsitories.ImportInvoiceReponsitories;
@@ -25,6 +26,7 @@ namespace Library.Extensions.ExtensionServices
             services.AddTransient<IProductImageRepository, ProductImageReponsitories>();
             services.AddTransient<IImportInvoiceDetailsRepository, ImportInvoiceDetailsReponsitories>();
             services.AddTransient<IImportInvoiceRepository, ImportInvoiceRepository>();
+            services.AddTransient<IBlogRepository, BlogRepository>();
             return services;
         }
     }

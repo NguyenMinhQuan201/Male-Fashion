@@ -221,5 +221,16 @@ namespace API.Controllers
             if (result.IsSuccessed == false) return BadRequest();
             return Ok(result);
         }
+        [HttpGet("get-all-detail-with-productid")]
+        public async Task<IActionResult> GetAllDetailByIdPoduct(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var result = await _productService.GetAllDetailByIdPoduct(id);
+            if (result.IsSuccessed == false) return BadRequest();
+            return Ok(result);
+        }
     }
 }

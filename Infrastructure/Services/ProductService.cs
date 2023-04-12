@@ -31,7 +31,6 @@ namespace Domain.Features.Product
             _productImageRepository= productImageReponsitories;
             _mapper = mapper; ;
         }
-
         public async Task<ApiResult<bool>> AddImage(int productId, List<IFormFile> request)
         {
             if (productId != null)
@@ -197,20 +196,7 @@ namespace Domain.Features.Product
                 query = await _productReponsitories.GetAllByCategoryId(pageSize, pageIndex, id);
                 totalRow = await _productReponsitories.CountAsyncById(id);
             }
-            var data = query
-                .Select(x => new GetProductDto()
-                {
-                    IdProduct = x.IdProduct,
-                    Description = x.Description,
-                    Price = x.Price,
-                    Name = x.Name,
-                    Quantity = x.Quantity,
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
-                    Status = x.Status,
-                    IdCategory = x.IdCategory,
-                    ImageDtos = _mapper.Map<List<ImageDto>>(x.ProductImgs),
-                }).ToList();
+            var data = _mapper.Map<List<GetProductDto>>(query.ToList());
             var pagedResult = new PagedResult<GetProductDto>()
             {
                 TotalRecord = totalRow,
@@ -223,6 +209,34 @@ namespace Domain.Features.Product
                 return new ApiErrorResult<PagedResult<GetProductDto>>("Khong co gi ca");
             }
             return new ApiSuccessResult<PagedResult<GetProductDto>>(pagedResult);
+        }
+
+        public async Task<ApiResult<List<ProductDetailDto>>> GetAllDetailByIdPoduct(int id)
+        {
+            if(id != null)
+            {
+                var findobj = await _productReponsitories.GetById(id);
+                if (findobj == null)
+                {
+                    return new ApiErrorResult<List<ProductDetailDto>> ("Không tìm thấy đối tượng");
+                }
+                Expression<Func<Infrastructure.Entities.ProductDetail, bool>> expression = x => x.ProductId == id;
+                var totalRow = await _productDetailReponsitories.CountAsync(expression);
+                var query = await _productDetailReponsitories.GetByCondition(expression);
+                var data = query
+                .Select(x => new ProductDetailDto()
+                {
+                    Id = x.Id,
+                    Color = x.Color,
+                    Size = x.Size,
+                    Quantity = x.Quantity,
+                    Status = x.Status,
+                    ProductId = x.ProductId,
+                    ProductName = x.ProductName,
+                }).ToList();
+                return new ApiSuccessResult<List<ProductDetailDto>>(data);
+            }
+            return new ApiErrorResult<List<ProductDetailDto>> ("Lỗi tham số chuyền về null hoặc trống");
         }
 
         public async Task<ApiResult<PagedResult<GetProductDto>>> GetAllPaging(int? pageSize, int? pageIndex, string? search)
@@ -244,7 +258,8 @@ namespace Domain.Features.Product
                 query = await _productReponsitories.GetAllProduct(pageSize, pageIndex, expression2);
                 totalRow = await _productReponsitories.CountAsync(expression2);
             }
-            var data = query
+            
+            var data = /*query
                 .Select(x => new GetProductDto()
                 {
                     IdProduct = x.IdProduct,
@@ -257,7 +272,8 @@ namespace Domain.Features.Product
                     Status = x.Status,
                     IdCategory = x.IdCategory,
                     ImageDtos = _mapper.Map<List<ImageDto>>(x.ProductImgs)
-                }).ToList();
+                }).ToList();*/
+                _mapper.Map<List<GetProductDto>>(query.ToList());
             var pagedResult = new PagedResult<GetProductDto>()
             {
                 TotalRecord = totalRow,
@@ -369,20 +385,7 @@ namespace Domain.Features.Product
                 query = await _productReponsitories.GetAllProduct(pageSize, pageIndex, expression2);
                 totalRow = await _productReponsitories.CountAsync(expression2);
             }
-            var data = query
-                .Select(x => new GetProductDto()
-                {
-                    IdProduct = x.IdProduct,
-                    Description = x.Description,
-                    Price = x.Price,
-                    Name = x.Name,
-                    Quantity = x.Quantity,
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
-                    Status = x.Status,
-                    IdCategory = x.IdCategory,
-                    ImageDtos = _mapper.Map<List<ImageDto>>(x.ProductImgs)
-                }).ToList();
+            var data = _mapper.Map<List<GetProductDto>>(query.ToList());
             var pagedResult = new PagedResult<GetProductDto>()
             {
                 TotalRecord = totalRow,
@@ -416,7 +419,7 @@ namespace Domain.Features.Product
                 Status = findobj.Status,
                 IdCategory = findobj.IdCategory,
                 Description = findobj.Description,
-                ImageDtos = _mapper.Map<List<ImageDto>>(findobj.ProductImgs),
+                ProductImgs = _mapper.Map<List<ImageDto>>(findobj.ProductImgs),
             };
             return obj;
         }

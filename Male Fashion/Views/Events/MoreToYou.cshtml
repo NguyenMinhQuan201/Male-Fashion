@@ -1,0 +1,42 @@
+﻿
+@model List<Domain.Models.Dto.Product.GetProductDto>
+@using PagedList.Mvc;
+<section class="related spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="related-title">Related Product</h3>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
+                    <div class="product__item">
+                        <div class="product__item__pic set-bg" style="background-image: url(https://localhost:7179/user_content/@Html.DisplayFor(moldelItem => item.ProductImgs[0].ImagePath)">
+                            <span class="label">New</span>
+                            <ul class="product__hover">
+                                <li><a href="#"><img src="~/Content/img/icon/heart.png" alt=""></a></li>
+                                <li>
+                                    <a href="#"><img src="~/Content/img/icon/compare.png" alt=""> <span>Compare</span></a>
+                                </li>
+                                <li><a href="#"><img src="~/Content/img/icon/search.png" alt=""></a></li>
+                            </ul>
+                        </div>
+                        <div class="product__item__text">
+                            <h6>@Html.DisplayFor(modelItem => item.Name)</h6>
+                            <a class="add-cart" href="@Url.Action("Details", "Events", new { id = item.IdProduct })">=>Go Detail </a>
+                            <div class="rating">
+                                
+                            </div>
+                            <h5>$@Html.DisplayFor(modelItem => item.Price)</h5>
+                            <div class="product__color__select">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

@@ -7,6 +7,7 @@ using Domain.Features.Product;
 using Domain.Features.Role;
 using Domain.Features.Supplier;
 using Domain.IServices.User;
+using Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Library.Extensions.ExtensionServices
@@ -23,6 +24,7 @@ namespace Library.Extensions.ExtensionServices
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IStorageService, FileStorageService>();
             services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IBlogService, BlogService>();
             return services;
         }
     }

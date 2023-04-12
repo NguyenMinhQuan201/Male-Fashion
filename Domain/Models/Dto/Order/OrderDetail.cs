@@ -14,4 +14,12 @@ namespace Domain.Models.Dto.Order
         public decimal Discounnt { get; set; }
         public int Quantity { get; set; }
     }
+    public class OrderDetailRequest
+    {
+        public int Id { get; set; }
+        public int IdOrder { get; set; }
+        public decimal Price { get; set; }
+        public decimal Discounnt { get; set; }
+        public int Quantity { get; set; }
+    }
 }

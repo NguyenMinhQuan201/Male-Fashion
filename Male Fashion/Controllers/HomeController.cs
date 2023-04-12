@@ -1,20 +1,17 @@
-﻿/*using AdminWeb.Services;
-using Data.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using RazorWeb.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Male_Fashion.Services;
 
-namespace RazorWeb.Controllers
+namespace Male_Fashion.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IAPISanPham _aPISanPham;
-        private readonly IAPITinTuc _aPITinTuc;
-        public HomeController(IAPISanPham aPISanPham, IAPITinTuc aPITinTuc)
+        private readonly IBlogService _blogService;
+        private readonly IProductService  _productService;
+        public HomeController(IBlogService blogService, IProductService productService)
         {
-            _aPISanPham = aPISanPham;
-            _aPITinTuc = aPITinTuc;
+            _blogService = blogService;
+            _productService = productService;
         }
         public async Task<ActionResult> Index()
         {
@@ -22,14 +19,13 @@ namespace RazorWeb.Controllers
         }
         public async Task<ActionResult> ProductsHot()
         {
-            var lst = await _aPISanPham.GetSanPhamPagings();
-            return PartialView("ProductsHot",lst.data);
+            var lst = await _productService.GetSanPhamPagings(8,1,"");
+            return PartialView("ProductsHot", lst.ResultObj.Items);
         }
         public async Task<ActionResult> News()
         {
-            *//*var lst = await _db.TinTucs.OrderByDescending(x => x.CreatedDate).Take(3).ToListAsync();*//*
-            var lst = await _aPITinTuc.GetPagings();
-            return PartialView("News",lst.data);
+            var lst = await _blogService.GetPagings(3, 1, "");
+            return PartialView("News", lst.ResultObj.Items);
         }
         public ActionResult About()
         {
@@ -45,4 +41,4 @@ namespace RazorWeb.Controllers
             return View();
         }
     }
-}*/
+}

@@ -17,6 +17,6 @@ namespace Domain.Models.Dto.Product
         public DateTime?CreatedAt { get; set; }
         public DateTime?UpdatedAt { get; set; }
         public int IdCategory { get; set; }
-        public List<ImageDto>? ImageDtos { get; set; }
+        public List<ImageDto>? ProductImgs { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-/*  ---------------------------------------------------
+﻿/*  ---------------------------------------------------
     Template Name: Male Fashion
     Description: Male Fashion - ecommerce teplate
     Author: Colorib
@@ -33,17 +33,32 @@
         if (localStorage) {
             var cartsDataAsJson = localStorage.getItem("Carts")
             var carts = JSON.parse(cartsDataAsJson);
-            console.log(carts);
             var tongSoLuong = 0;
             var tongGia = 0;
+            var rows=""
             for (var i = 0; i < carts.length; i++) {
                 var cart = carts[i];
-                tongSoLuong = tongSoLuong + cart.SoLuong;
-                tongGia = tongGia + cart.Gia * cart.SoLuong;
+                tongSoLuong = tongSoLuong + Number(cart.quantity);
+                tongGia = tongGia + cart.price * cart.quantity;
+                rows += `
+                                                                <div class="cart-sub">
+                                                                    <img class="image-cart-sub" src="https://localhost:7179/user_content/${cart.imagePath}" />
+                                                                        <div>
+                                                                            <span>${cart.name}</span>
+                                                                            <p>Số lượng : ${cart.quantity}</p>
+                                                                            <button class="button-remove-cart-sub" data-id="${cart.id}">
+                                                                                Xóa
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                               
+                                                            `
             }
-
+            $('.cart-sub-render').html(rows);
+            console.log(tongSoLuong)
             $('.conut-number').html(tongSoLuong);
             $('.price').html(tongGia + "$");
+            new CartController();
         }
     });
 
@@ -256,13 +271,11 @@
         }
     });
     $('#cart_icon_close').off('click').on('click', function () {
-        /*document.getElementById("mini_cart_id").style.display = "none";*/
         $("#mini_cart_id").slideUp();
         status = false;
         document.getElementById("get_blur").style.display = "none";
     });
     $('#get_blur').off('click').on('click', function () {
-        /*document.getElementById("mini_cart_id").style.display = "none";*/
         $("#mini_cart_id").slideUp();
         status = false;
         document.getElementById("get_blur").style.display = "none";
