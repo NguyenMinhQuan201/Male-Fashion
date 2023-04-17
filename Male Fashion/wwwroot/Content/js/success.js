@@ -18,9 +18,9 @@
                     Carts.push(cart);
                 }
             }
+            var Orders = [];
             let orderDataAsJson = localStorage.getItem('Order');
             if (orderDataAsJson) {
-                var Orders = [];
                 var orders = JSON.parse(orderDataAsJson);
                 for (var i = 0; i < orders.length; i++) {
                     var order = orders[i];
@@ -28,8 +28,8 @@
                 }
             }
             $.ajax({
-                url: "/Order/MakeOrderPaypal",
-                data: { cartUser: JSON.stringify(Carts), thongtin: JSON.stringify(Orders) },
+                url: "/Order/MakeOrder",
+                data: { cartUser: JSON.stringify(Carts), addRess: Orders[0].address, phone: Orders[0].phone },
                 dataType: "json",
                 type: "POST",
                 success: function (response) {

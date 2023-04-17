@@ -354,13 +354,8 @@ class CartController {
                     success: function (response) {
                         if (response.status == true) {
                             var link = response.link;
-
-                            /*alert("XONG!");*/
-                            /*window.location.href = "";*/
                             location.href = link
-                            /*window.location.href = "/Carts";*/
                         }
-
                         else {
                             window.location.href = "/Carts";
                         }
@@ -368,17 +363,6 @@ class CartController {
                 })
             }
         });
-        /*$('.make-order').off('click').on('click', function () {
-            if (localStorage) {
-                var TT = localStorage.getItem('TT')
-                if (TT > 0) {
-                    window.location.href = "/Order/Index";
-                }
-                else {
-                    alert("Gio hang dang ko co gi ! ");
-                }
-            }
-        });*/
         $('#make_order').off('click').on('click', function () {
             var check = true;
             var AddRess = $('#DC').val();
