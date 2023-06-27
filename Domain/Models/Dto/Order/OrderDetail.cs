@@ -13,6 +13,7 @@ namespace Domain.Models.Dto.Order
         public decimal Price { get; set; }
         public decimal Discounnt { get; set; }
         public int Quantity { get; set; }
+        public string?NameProduct { get; set; }
     }
     public class OrderDetailRequest
     {

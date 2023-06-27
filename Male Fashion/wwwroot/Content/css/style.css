@@ -697,7 +697,7 @@ ol {
     height: auto;
     background-color: black;
     right: 0;
-    width: 20%;
+    width: 300px;
     z-index: 3;
     display: none;
     border-radius: 5px;

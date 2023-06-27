@@ -29,21 +29,32 @@ namespace Infrastructure.Reponsitories.ProductReponsitories
             return pageCount;
         }
 
-        public async Task<IEnumerable<Product>> GetAllByCategoryId(int? pageSize, int? pageIndex)
+        public async Task<int> CountByCateIdAsync(int? idCategory)
         {
             var query = from p in _db.Products
                         join c in _db.Categories on p.IdCategory equals c.IdCategory
+                        where c.IdCategory == idCategory && p.Status == true
+                        select p;
+            var pageCount = query.Count();
+            return pageCount;
+        }
+
+        public async Task<IEnumerable<Product>> GetAllByCategoryId(int? pageSize, int? pageIndex, int? idCategory)
+        {
+            var query = from p in _db.Products.Include(x => x.ProductImgs).AsQueryable()
+                        join c in _db.Categories on p.IdCategory equals c.IdCategory
+                        where c.IdCategory == idCategory && p.Status==true
                         select p;
             var pageCount = query.Count();
             query = query.Skip((pageIndex.Value - 1) * pageSize.Value)
             .Take(pageSize.Value);
             return query.ToList();
         }
-        public async Task<IEnumerable<Product>> GetAllByCategoryId(int? pageSize, int? pageIndex,int? idCategory)
+        public async Task<IEnumerable<Product>> GetAllByCategoryId(int? pageSize, int? pageIndex,int? idCategory,string ? search)
         {
-            var query = from p in _db.Products
+            var query = from p in _db.Products.Include(x => x.ProductImgs).AsQueryable()
                         join c in _db.Categories on p.IdCategory equals c.IdCategory
-                        where c.IdCategory == idCategory
+                        where c.IdCategory == idCategory && c.Name.Contains(search) && p.Status == true
                         select p;
             var pageCount = query.Count();
             query = query.Skip((pageIndex.Value - 1) * pageSize.Value)

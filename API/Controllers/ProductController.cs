@@ -232,5 +232,16 @@ namespace API.Controllers
             if (result.IsSuccessed == false) return BadRequest();
             return Ok(result);
         }
+        [HttpGet("get-all-with-categoryId")]
+        public async Task<IActionResult> GetAllProductByCate(int? pageSize, int? pageIndex,int?id, string? search)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var result = await _productService.GetAllbyCategoryId(pageSize, pageIndex, id, search);
+            if (result.IsSuccessed == false) return BadRequest();
+            return Ok(result);
+        }
     }
 }

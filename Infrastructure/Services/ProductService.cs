@@ -179,7 +179,7 @@ namespace Domain.Features.Product
             }).ToList();
         }
 
-        public async Task<ApiResult<PagedResult<GetProductDto>>> GetAllbyCategoryId(int? pageSize, int? pageIndex, int? id)
+        public async Task<ApiResult<PagedResult<GetProductDto>>> GetAllbyCategoryId(int? pageSize, int? pageIndex, int? id,string?search)
         {
             if (pageSize != null)
             {
@@ -189,11 +189,11 @@ namespace Domain.Features.Product
             {
                 pageIndex = pageIndex.Value;
             }
-            var totalRow = await _productReponsitories.CountAsync();
-            var query = await _productReponsitories.GetAllProduct(pageSize, pageIndex);
-            if (id != null)
+            var totalRow = await _productReponsitories.CountByCateIdAsync(id);
+            var query = await _productReponsitories.GetAllByCategoryId(pageSize, pageIndex, id);
+            if (search != null)
             {
-                query = await _productReponsitories.GetAllByCategoryId(pageSize, pageIndex, id);
+                query = await _productReponsitories.GetAllByCategoryId(pageSize, pageIndex, id,search);
                 totalRow = await _productReponsitories.CountAsyncById(id);
             }
             var data = _mapper.Map<List<GetProductDto>>(query.ToList());

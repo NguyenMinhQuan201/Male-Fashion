@@ -14,9 +14,19 @@ namespace Domain.Models.Dto.Order
         public int Phone { get; set; }
         public string? Email { get; set; }
         public string? Note { get; set; } // chu thich
-        public bool? Status { get; set; } // trang thai cua don hang
+        public int? Status { get; set; } // trang thai cua don hang
         public string? Payments { get; set; } // hinh thuc thanh toan
         public DateTime DeliveryAt { get; set; } // ngay giao hang
         public ICollection<OrderDetailDto> ? OrderDetails { get; set; } //List OrderDetail
+    }
+    public class ChartCol
+    {
+        public decimal ChartPrice { get; set; }
+        public decimal Month { get; set; }
+    }
+    public class ChartRadius
+    {
+        public decimal ChartPrice { get; set; }
+        public decimal Year { get; set; }
     }
 }

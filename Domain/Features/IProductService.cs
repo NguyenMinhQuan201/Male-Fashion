@@ -33,7 +33,7 @@ namespace Domain.Features
         Task<int> UpdateImage(int imageId, ImageDto request);
         Task<ApiResult<PagedResult<ImageDto>>> GetListImages(int productId);
         Task<ImageDto> GetImageByID(int imageId);
-        Task<ApiResult<PagedResult<GetProductDto>>> GetAllbyCategoryId(int? pageSize, int? pageIndex, int? search);
+        Task<ApiResult<PagedResult<GetProductDto>>> GetAllbyCategoryId(int? pageSize, int? pageIndex, int? id,string ? search);
         Task<List<ProductDto>> GetAll(string languageId);
         public Task<ApiResult<bool>> AddImage(int productId, List<IFormFile> request);
         public Task<int> RemoveImage(int imageId);

@@ -19,5 +19,7 @@ namespace Domain.Features
         public Task<ApiResult<PagedResult<GetOrderDto>>> GetAll(int? pageSize, int? pageIndex, string search);
         public Task<ApiResult<List<OrderDetailDto>>> GetAllOrderDetail(int id);
         public Task<ApiResult<PagedResult<GetOrderDto>>> GetAllPagingRemoved(int? pageSize, int? pageIndex, string? search);
+        public Task<IEnumerable<ChartRadius>> GetAllByYear();
+        public Task<IEnumerable<ChartCol>> GetAllByMonth();
     }
 }

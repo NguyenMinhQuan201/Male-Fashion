@@ -275,6 +275,10 @@
         status = false;
         document.getElementById("get_blur").style.display = "none";
     });
+
+
+
+
     $('#get_blur').off('click').on('click', function () {
         $("#mini_cart_id").slideUp();
         status = false;

@@ -13,7 +13,7 @@ namespace Male_Fashion.Services
         Task<GetProductDto> GetByIdSanPham(int id);
         Task<ProductDetailDto> GetByIdProductDetail(int id);
         Task<ApiResult<List<ProductDetailDto>>> GetAllDetailByIdPoduct(int id);
-        Task<ApiResult<PagedResult<GetProductDto>>> GetProductWithCatePagings(int? pageSize, int? pageIndex, string? search);
+        Task<ApiResult<PagedResult<GetProductDto>>> GetProductWithCatePagings(int? pageSize, int? pageIndex,int?id, string? search);
         Task<List<Color>> ListAllColor(List<ProductDetailDto> pro);
         Task<List<Size>> ListAllSize(List<ProductDetailDto> pro);
         Task<IEnumerable<CategoryRequestDto>> GetAllCate();
@@ -106,9 +106,22 @@ namespace Male_Fashion.Services
             throw new NotImplementedException();
         }
 
-        public Task<ApiResult<PagedResult<GetProductDto>>> GetProductWithCatePagings(int? pageSize, int? pageIndex, string? search)
+        public async Task<ApiResult<PagedResult<GetProductDto>>> GetProductWithCatePagings(int? pageSize, int? pageIndex,int?id, string? search)
         {
-            throw new NotImplementedException();
+            var client = _httpClientFactory.CreateClient();
+            try
+            {
+                client.BaseAddress = new Uri(_configuration["BaseAddress"]);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            var response = await client.GetAsync
+                ($"/api/Product/get-all-with-categoryId?pageSize={pageSize}&pageIndex={pageIndex}&id={id}&search={search}");
+            var body = await response.Content.ReadAsStringAsync();
+            var sanpham = JsonConvert.DeserializeObject<ApiSuccessResult<PagedResult<GetProductDto>>>(body);
+            return sanpham;
         }
 
         public async Task<ApiResult<PagedResult<GetProductDto>>> GetSanPhamPagings(int? pageSize, int? pageIndex, string? search)

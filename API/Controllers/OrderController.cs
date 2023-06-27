@@ -109,5 +109,15 @@ namespace API.Controllers
             }
             return BadRequest();
         }
+        [HttpGet("chart-col")]
+        public async Task<IActionResult> GetCol()
+        {
+            return Ok(await _orderService.GetAllByMonth());
+        }
+        [HttpGet("chart-rad")]
+        public async Task<IActionResult> GetRad()
+        {
+            return Ok(await _orderService.GetAllByYear());
+        }
     }
 }

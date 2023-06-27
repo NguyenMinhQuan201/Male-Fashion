@@ -12,17 +12,29 @@ namespace Male_Fashion.Controllers
         {
             _productService = productService;
         }
-        public async Task<ActionResult> Index(int? pageIndex, string? search)
+        public async Task<ActionResult> Index(int? pageIndex, string? search,int ? idCate)
         {
             var list = await _productService.GetAllCate();
             ViewBag.data = new SelectList(list, "IdCategory", "Name");
             ViewBag.data2 = new SelectList(list.ToList());
             if (pageIndex == null) pageIndex = 1;
-            /*if (id != null)
+            
+            if(idCate == null)
             {
-                var result = await _productService.GetProductWithCatePagings(pageSize,pageIndex,search);
-                return View((result.data.ToPagedList(pageNumber, pageSize)));
-            }*/
+                idCate = 0;
+                TempData["idCate"] = 0;
+            }
+            var val = TempData["idCate"] as string;
+            if (idCate > 0 || Convert.ToInt32(val)>0 )
+            {
+                if (Convert.ToInt32(val) > 0)
+                {
+                    idCate = Convert.ToInt32(val);
+                }
+                var data = await _productService.GetProductWithCatePagings(4, pageIndex,idCate, search);
+                TempData["idCate"] = idCate;
+                return View(data.ResultObj);
+            }
             var result = await _productService.GetSanPhamPagings(4, pageIndex, search);
             return View(result.ResultObj);
         }

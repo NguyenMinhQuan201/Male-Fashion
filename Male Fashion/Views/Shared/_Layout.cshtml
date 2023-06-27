@@ -53,7 +53,7 @@
             <div class="offcanvas__nav__option">
                 <a href="#" class="search-switch"><img src="~/Content/img/icon/search.png" alt=""></a>
                 <a href="#"><img src="~/Content/img/icon/heart.png" alt=""></a>
-                <a href=""><img src="~/Content/img/icon/cart.png" alt=""> <span class="conut-number"></span></a>
+                <a class="cart_icon" href="#"><img src="~/Content/img/icon/cart.png" alt=""> <span class="conut-number"></span></a>
                 <div class="price">$0.00</div>
             </div>
             <div id="mobile-menu-wrap"></div>
@@ -115,14 +115,9 @@
                                 <li>
                                     <a href="#">Pages</a>
                                     <ul class="dropdown">
-                                        @*<li><a href="./about.html">About Us</a></li>
-                                        <li><a href="./shop-details.html">Shop Details</a></li>*@
                                         <li><a href="@Url.Action("Index", "Carts")">Shopping Cart</a></li>
-                                        @*<li><a href="./checkout.html">Check Out</a></li>
-                                        <li><a href="./blog-details.html">Blog Details</a></li>*@
                                     </ul>
                                 </li>
-                                @*<li><a href="./blog.html">Blog</a></li>*@
                                 <li><a href="@Url.Action("Index", "Contacts")">Contacts</a></li>
                             </ul>
                         </nav>
@@ -151,23 +146,18 @@
                         <button style="border:none;background-color: wheat">X</button>
                     </span>
                 </h5>
-                @*<div class="cart-sub">
-
-                </div>
-                <div class="cart-sub">
-                </div>*@
-                    <div class="cart-sub-render">
-                        <div class="cart-sub">
-                            <img class="image-cart-sub" src="~/Content/img/hang1.jpg" />
-                            <div>
-                                <span>Áo hồng - 3</span>
-                                <p>Số lượng : 1</p>
-                                <button class="cart__close button-remove-cart-sub">
-                                    Xóa
-                                </button>
-                            </div>
+                <div class="cart-sub-render">
+                    <div class="cart-sub">
+                        <img class="image-cart-sub" src="~/Content/img/hang1.jpg" />
+                        <div>
+                            <span>Áo hồng - 3</span>
+                            <p>Số lượng : 1</p>
+                            <button class="cart__close button-remove-cart-sub">
+                                Xóa
+                            </button>
                         </div>
                     </div>
+                </div>
                 <div class="cart-sub-total">
                     @*<button class="cart-sub-button"> Checkout </button>*@
                     <a class="cart-sub-button" href="@Url.Action("Index", "Carts")">Your Cart </a>
@@ -269,7 +259,7 @@
     <script src="~/Content/js/owl.carousel.min.js"></script>
     <script src="~/Content/js/main.js"></script>
     @*<script src="~/Content/js/"></script>*@
-    
+
     <script src="~/Content/js/CartControler.js"></script>
     @RenderSection("jsFooter", required: false)
 </body>

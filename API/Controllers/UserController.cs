@@ -54,7 +54,7 @@ namespace Api.Controllers
 
                 if (resultToken.IsSuccessed==false)
                 {
-                    return BadRequest(new LoginResponDto
+                    return Ok(new LoginResponDto
                     {
                         Status = false
                     });

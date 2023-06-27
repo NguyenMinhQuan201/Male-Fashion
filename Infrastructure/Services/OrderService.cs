@@ -4,6 +4,7 @@ using Domain.Models.Dto.Order;
 using Infrastructure.Entities;
 using Infrastructure.Reponsitories.OrderDetailReponsitory;
 using Infrastructure.Reponsitories.OrderReponsitory;
+using Infrastructure.Reponsitories.ProductReponsitories;
 using System.Linq.Expressions;
 
 namespace Domain.Features.Order
@@ -12,10 +13,12 @@ namespace Domain.Features.Order
     {
         private readonly IOrderDetailRepository _orderDetailReponsitory;
         private readonly IOrderRepository _orderReponsitory;
-        public OrderService(IOrderRepository orderReponsitory, IOrderDetailRepository orderDetailReponsitory)
+        private readonly IProductRepository _productReponsitory;
+        public OrderService(IOrderRepository orderReponsitory, IOrderDetailRepository orderDetailReponsitory, IProductRepository productRepository)
         {
             _orderDetailReponsitory = orderDetailReponsitory;
             _orderReponsitory = orderReponsitory;
+            _productReponsitory = productRepository;
         }
         public async Task<ApiResult<bool>> Create(OrderDto request)
         {
@@ -70,7 +73,7 @@ namespace Domain.Features.Order
                 {
                     return new ApiErrorResult<bool>("Không tìm thấy đối tượng");
                 }
-                findobj.Status = false;
+                findobj.Status = 0;
                 await _orderReponsitory.UpdateAsync(findobj);
                 return new ApiSuccessResult<bool>(true);
             }
@@ -87,12 +90,12 @@ namespace Domain.Features.Order
             {
                 pageIndex = pageIndex.Value;
             }
-            Expression<Func<Infrastructure.Entities.Order, bool>> expression = x => x.Status == true;
+            Expression<Func<Infrastructure.Entities.Order, bool>> expression = x => x.Status != 0;
             var totalRow = await _orderReponsitory.CountAsync(expression);
             var query = await _orderReponsitory.GetAll(pageSize, pageIndex, expression);
             if (!string.IsNullOrEmpty(search))
             {
-                Expression<Func<Infrastructure.Entities.Order, bool>> expression2 = x => x.NameCustomer.Contains(search) && x.Status == true;
+                Expression<Func<Infrastructure.Entities.Order, bool>> expression2 = x => x.NameCustomer.Contains(search) && x.Status != 0;
                 query = await _orderReponsitory.GetAll(pageSize, pageIndex, expression2);
                 totalRow = await _orderReponsitory.CountAsync(expression2);
             }
@@ -129,11 +132,14 @@ namespace Domain.Features.Order
             return new ApiSuccessResult<PagedResult<GetOrderDto>>(pagedResult);
         }
 
+        
+
         public async Task<ApiResult<List<OrderDetailDto>>> GetAllOrderDetail(int id)
         {
             Expression<Func<Infrastructure.Entities.OrderDetails, bool>> expression = x => x.IdOrder==id;
             var query = await _orderDetailReponsitory.GetByCondition(expression);
-            var data = query
+            var queryProduct = await _productReponsitory.GetAll();
+            /*var data = query
                 .Select(x => new OrderDetailDto()
                 {
                     IdOrder=x.IdOrder,
@@ -141,7 +147,19 @@ namespace Domain.Features.Order
                     Discounnt=x.Discounnt,
                     Quantity=x.Quantity,
                     Price=x.Price,
-                }).ToList();
+                }).ToList();*/
+            var data = (from orderDetailtbl in query
+                        join producttbl in queryProduct on orderDetailtbl.IdProduct equals producttbl.IdProduct
+                        select new OrderDetailDto()
+                        {
+                            IdOrder = orderDetailtbl.IdOrder,
+                            IdProduct = orderDetailtbl.IdProduct,
+                            Discounnt = orderDetailtbl.Discounnt,
+                            Quantity = orderDetailtbl.Quantity,
+                            Price = orderDetailtbl.Price,
+                            NameProduct = producttbl.Name,
+                        }).ToList();
+            var temp = new List<OrderDetailDto>();
             if (data == null)
             {
                 return new ApiErrorResult<List<OrderDetailDto>>("Khong co gi ca");
@@ -159,12 +177,12 @@ namespace Domain.Features.Order
             {
                 pageIndex = pageIndex.Value;
             }
-            Expression<Func<Infrastructure.Entities.Order, bool>> expression = x => x.Status == false;
+            Expression<Func<Infrastructure.Entities.Order, bool>> expression = x => x.Status == 0;
             var totalRow = await _orderReponsitory.CountAsync(expression);
             var query = await _orderReponsitory.GetAll(pageSize, pageIndex, expression);
             if (!string.IsNullOrEmpty(search))
             {
-                Expression<Func<Infrastructure.Entities.Order, bool>> expression2 = x => x.NameCustomer.Contains(search)&&x.Status==false;
+                Expression<Func<Infrastructure.Entities.Order, bool>> expression2 = x => x.NameCustomer.Contains(search)&&x.Status==0;
                 query = await _orderReponsitory.GetAll(pageSize, pageIndex, expression2);
                 totalRow = await _orderReponsitory.CountAsync(expression2);
             }
@@ -235,7 +253,7 @@ namespace Domain.Features.Order
                 {
                     return new ApiErrorResult<bool>("Không tìm thấy đối tượng");
                 }
-                findobj.Status = true;
+                findobj.Status = 1;
                 await _orderReponsitory.UpdateAsync(findobj);
                 return new ApiSuccessResult<bool>(true);
             }
@@ -259,7 +277,7 @@ namespace Domain.Features.Order
                 findobj.Phone = request.Phone;
                 findobj.Payments = request.Payments;
                 findobj.DeliveryAt = request.DeliveryAt;
-                if (findobj.Status == true)
+                if (findobj.Status == 2)
                 {
                     findobj.FinishAt = DateTime.Now;
                 }
@@ -267,6 +285,45 @@ namespace Domain.Features.Order
                 return new ApiSuccessResult<bool>(true);
             }
             return new ApiErrorResult<bool>("Lỗi tham số chuyền về null hoặc trống");
+        }
+        public async Task<IEnumerable<ChartCol>> GetAllByMonth()
+        {
+            DateTime now = DateTime.Now;
+            // Lấy năm từ ngày giờ hiện tại
+            int currentYear = now.Year;
+            var lst = new List<ChartCol>();
+
+            var getAll = _orderReponsitory.GetAll().Result.Where(x => x.CreatedAt.Year==currentYear).ToList();
+            for(int i = 0; i < 12; i++)
+            {
+                var obj = new ChartCol()
+                {
+                    ChartPrice = getAll.Where(x => x.CreatedAt.Month == (i + 1)).Sum(x => x.SumPrice),
+                    Month=i+1
+                };
+                lst.Add(obj);
+            }
+            return lst;
+        }
+        public async Task<IEnumerable<ChartRadius>> GetAllByYear()
+        {
+            DateTime now = DateTime.Now;
+            // Lấy năm từ ngày giờ hiện tại
+            int currentYear = now.Year;
+            var lst = new List<ChartRadius>();
+
+            var getAllYear = _orderReponsitory.GetAll().Result.Select(x=>x.CreatedAt.Year).Distinct().ToList();
+            var getAll = _orderReponsitory.GetAll().Result.ToList();
+            foreach(var item in getAllYear)
+            {
+                var obj = new ChartRadius()
+                {
+                    ChartPrice = getAll.Where(x => x.CreatedAt.Year == item).Sum(x => x.SumPrice),
+                    Year = item
+                };
+                lst.Add(obj);
+            }
+            return lst;
         }
     }
 }

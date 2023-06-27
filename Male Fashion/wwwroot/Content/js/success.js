@@ -28,12 +28,13 @@
                 }
             }
             $.ajax({
-                url: "/Order/MakeOrder",
+                url: "/Order/MakeOrderPayPal",
                 data: { cartUser: JSON.stringify(Carts), addRess: Orders[0].address, phone: Orders[0].phone },
                 dataType: "json",
                 type: "POST",
                 success: function (response) {
                     if (response.status == true) {
+                        console.log("FUCK")
                         Carts = [];
                         Orders = [];
                         localStorage.setItem('Carts', JSON.stringify(Carts));

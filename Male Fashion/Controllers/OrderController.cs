@@ -40,7 +40,41 @@ namespace RazorWeb.Controllers
                 var Order = new OrderDto()
                 {
                     Payments = "Affter receive product",
-                    Status = false,
+                    Status = 1,
+                    SumPrice = jsoncart.Sum(x => x.Quantity * x.Price),
+                    Address = addRess,
+                    DeliveryAt = DateTime.Now,
+                    NameCustomer = null,
+                    Email = null,
+                    Note = "",
+                    Phone = phone,
+                    OrderDetails = jsoncart
+                };
+                var result = await _orderService.MakeOrder(Order);
+                return Json(new { status = true });
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Lỗi");
+                return Json(new { status = false });
+            }
+        }
+        public async Task<JsonResult> MakeOrderPayPal(string cartUser, string addRess, int phone)
+        {
+            try
+            {
+                var jsoncart = new JavaScriptSerializer().Deserialize<List<OrderDetailRequest>>(cartUser).Select(x => new OrderDetailDto
+                {
+                    Discounnt = 0,
+                    IdOrder = x.IdOrder,
+                    IdProduct = x.Id,
+                    Price = x.Price,
+                    Quantity = x.Quantity
+                }).ToList();
+                var Order = new OrderDto()
+                {
+                    Payments = "Paid",
+                    Status = 1,
                     SumPrice = jsoncart.Sum(x => x.Quantity * x.Price),
                     Address = addRess,
                     DeliveryAt = DateTime.Now,
@@ -72,8 +106,8 @@ namespace RazorWeb.Controllers
             }).ToList();
             var Order = new OrderDto()
             {
-                Payments = "Affter receive product",
-                Status = false,
+                Payments = "Paid",
+                Status = 1,
                 SumPrice = jsoncart.Sum(x => x.Quantity * x.Price),
                 Address = addRess,
                 DeliveryAt = DateTime.Now,
@@ -166,7 +200,7 @@ namespace RazorWeb.Controllers
                         paypalRedirectUrl = lnk.Href;
                     }
                 }
-                await _orderService.MakeOrder(Order);
+                /*await _orderService.MakeOrder(Order);*/
                 return Json(new { link = paypalRedirectUrl, status = true });
             }
             catch (HttpException httpException)

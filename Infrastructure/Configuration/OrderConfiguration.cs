@@ -21,7 +21,7 @@ namespace Infrastructure.Configuration
 
             builder.Property(x => x.SumPrice).HasColumnType("decimal(8, 2)");
 
-            builder.Property(x => x.Phone).HasColumnType("tinyint");
+            builder.Property(x => x.Phone).HasColumnType("int");
 
         }
     }
