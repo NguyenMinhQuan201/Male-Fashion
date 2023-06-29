@@ -1,3 +1,7 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using AutoMapper;
+using Domain.Features;
 using Infrastructure.EF;
 using Infrastructure.Entities;
 using Library.Common;
@@ -7,8 +11,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Reflection;
 using System.Text;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -16,6 +20,46 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<MaleFashionDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("MaleFashionDb")));
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+var mapperConfig = new MapperConfiguration(config =>
+{
+    config.CreateMapByNamingConvention();
+});
+IMapper mapper = mapperConfig.CreateMapper();
+
+builder.Services.AddSingleton(mapper);
+/*builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory()).ConfigureContainer<ContainerBuilder>(opt =>
+{
+    var assembly = Assembly.GetExecutingAssembly();
+    opt.RegisterAssemblyTypes(assembly)
+       .AsImplementedInterfaces()
+       .AsSelf();
+    var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+    opt.RegisterAssemblyTypes(assemblies)
+        .Where(t => typeof(Profile).IsAssignableFrom(t) && !t.IsAbstract && t.IsPublic)
+        .As<Profile>();
+
+    opt.Register(c => new MapperConfiguration(cfg =>
+    {
+        foreach (var profile in c.Resolve<IEnumerable<Profile>>())
+        {
+            cfg.AddProfile(profile);
+        }
+        cfg.AllowNullDestinationValues = true;
+        cfg.IgnoreUnmapped();
+        AutoMapper.Internal.InternalApi.Internal(cfg).CreateMissingTypeMaps=true
+    })).AsSelf().SingleInstance();
+
+    opt.Register(c => c.Resolve<MapperConfiguration>()
+        .CreateMapper(c.Resolve))
+        .As<IMapper>()
+        .InstancePerLifetimeScope();
+
+    opt.RegisterAssemblyTypes(Assembly.Load("Library"))
+                      .Where(t => t.Name.EndsWith("Provider"))
+                      .AsImplementedInterfaces()
+                      .InstancePerLifetimeScope();
+}); ;*/
+
 builder.Services.AddIdentity<AppUser, AppRole>()
                 .AddEntityFrameworkStores<MaleFashionDbContext>()
                 .AddDefaultTokenProviders();

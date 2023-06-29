@@ -10,7 +10,7 @@ using Domain.Models.Dto.UserDto;
 
 namespace Infrastructure.Reponsitories.UserReponsitories
 {
-    public interface IRoleRepository : IRepositoryBase<AppUser>
+    public interface IUserOperationRepository : IRepositoryBase<UserOperation>
     {
         /*Tokens GenerateToken(string userName);
         Tokens GenerateRefreshToken(string userName);

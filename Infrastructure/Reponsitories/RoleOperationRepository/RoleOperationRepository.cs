@@ -1,7 +1,8 @@
-﻿using Domain.Models.Dto.UserDto;
-using Infrastructure.EF;
+﻿using Infrastructure.EF;
 using Infrastructure.Entities;
 using Infrastructure.Reponsitories.BaseReponsitory;
+using Infrastructure.Reponsitories.RoleOperationRepository;
+using Infrastructure.Reponsitories.UserReponsitories;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -10,26 +11,26 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Reponsitories.UserReponsitories
+namespace Infrastructure.Reponsitories.RoleOperationReponsitories
 {
-    public class UserReponsitories : RepositoryBase<AppUser>, IRoleRepository
+    public class RoleOperationReponsitories : RepositoryBase<RoleOperation>, IRoleOperationRepository
     {
         private readonly MaleFashionDbContext _dbcontext;
         private readonly SignInManager<AppUser> _signInManager;
-        private readonly UserManager<AppUser> _userManager;
-        public UserReponsitories(MaleFashionDbContext dbContext, SignInManager<AppUser> signInManager, UserManager<AppUser> userManager) : base(dbContext)
+        private readonly UserManager<AppUser> _OperationManager;
+        public RoleOperationReponsitories(MaleFashionDbContext dbContext, SignInManager<AppUser> signInManager, UserManager<AppUser> OperationManager) : base(dbContext)
         {
             _dbcontext = dbContext;
             _signInManager = signInManager; 
-            _userManager = userManager;
+            _OperationManager = OperationManager;
         }
 
-        /*public Tokens GenerateRefreshToken(string userName)
+        /*public Tokens GenerateRefreshToken(string OperationName)
         {
             throw new NotImplementedException();
         }
 
-        public Tokens GenerateToken(string userName)
+        public Tokens GenerateToken(string OperationName)
         {
             throw new NotImplementedException();
         }

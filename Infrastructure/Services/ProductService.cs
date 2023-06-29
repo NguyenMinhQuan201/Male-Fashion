@@ -18,11 +18,11 @@ namespace Domain.Features.Product
     {
         private readonly IProductRepository _productReponsitories;
         private readonly IProductDetailReponsitories _productDetailReponsitories;
-        private readonly ICategoryRepository _categoryReponsitories;
+        private readonly IModuleRepository _categoryReponsitories;
         private readonly IStorageService _storageService;
         private readonly IProductImageRepository _productImageRepository;
         private readonly IMapper _mapper;
-        public ProductService(IProductImageRepository productImageRepository,IMapper mapper, ICategoryRepository categoryReponsitories, IProductImageRepository productImageReponsitories, IProductRepository productReponsitories, IStorageService storageService, IProductDetailReponsitories productDetailReponsitories)
+        public ProductService(IProductImageRepository productImageRepository,IMapper mapper, IModuleRepository categoryReponsitories, IProductImageRepository productImageReponsitories, IProductRepository productReponsitories, IStorageService storageService, IProductDetailReponsitories productDetailReponsitories)
         {
             _productDetailReponsitories = productDetailReponsitories;
             _productReponsitories = productReponsitories;

@@ -12,9 +12,9 @@ namespace Library.Mapper
     public class ProductProfile : Profile
     {
         public ProductProfile()
-    {
-        CreateMap<GetProductDto, Product>();
-        CreateMap<Product, GetProductDto>();
+        {
+            CreateMap<GetProductDto, Product>();
+            CreateMap<Product, GetProductDto>();
+        }
     }
-}
 }

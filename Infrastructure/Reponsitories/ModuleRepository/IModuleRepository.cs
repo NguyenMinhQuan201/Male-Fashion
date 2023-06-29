@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Reponsitories.CategoryReponsitories
+namespace Infrastructure.Reponsitories.ModuleReponsitories
 {
-    public interface IModuleRepository : IRepositoryBase<Category>
+    public interface IModuleRepository : IRepositoryBase<Module>
     {
 
     }

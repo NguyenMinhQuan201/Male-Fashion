@@ -6,14 +6,13 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using Domain.Models.Dto.UserDto;
 
-namespace Infrastructure.Reponsitories.UserReponsitories
+namespace Infrastructure.Reponsitories.OperationReponsitories
 {
-    public interface IRoleRepository : IRepositoryBase<AppUser>
+    public interface IOperationRepository : IRepositoryBase<Operation>
     {
-        /*Tokens GenerateToken(string userName);
-        Tokens GenerateRefreshToken(string userName);
+        /*Tokens GenerateToken(string OperationName);
+        Tokens GenerateRefreshToken(string OperationName);
         ClaimsPrincipal GetPrincipalFromExpiredToken(string token);*/
     }
 }

@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Reponsitories.CategoryReponsitories
+namespace Infrastructure.Reponsitories.ModuleReponsitories
 {
-    public class ModuleRepository : RepositoryBase<Category>, IModuleRepository
+    public class ModuleRepository : RepositoryBase<Module>, IModuleRepository
     {
         public ModuleRepository(MaleFashionDbContext dbContext) : base(dbContext)
         {
