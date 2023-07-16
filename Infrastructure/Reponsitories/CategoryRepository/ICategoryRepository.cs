@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Reponsitories.CategoryReponsitories
 {
-    public interface IModuleRepository : IRepositoryBase<Category>
+    public interface ICategoryRepository : IRepositoryBase<Category>
     {
 
     }

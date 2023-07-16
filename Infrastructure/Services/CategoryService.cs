@@ -14,8 +14,8 @@ namespace Domain.Features.Category
 {
     public class CategoryService : ICategoryService
     {
-        private readonly IModuleRepository _categoryReponsitories;
-        public CategoryService(IModuleRepository categoryReponsitories)
+        private readonly ICategoryRepository _categoryReponsitories;
+        public CategoryService(ICategoryRepository categoryReponsitories)
         {
             _categoryReponsitories = categoryReponsitories;
         }

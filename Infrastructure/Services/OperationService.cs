@@ -61,12 +61,12 @@ namespace Infrastructure.Services
             {
                 pageIndex = pageIndex.Value;
             }
-            Expression<Func<Infrastructure.Entities.Operation, bool>> expression = x => x.IsShow == 1;
+            Expression<Func<Infrastructure.Entities.Operation, bool>> expression = x =>x.Code!=null;
             var totalRow = await _operationRepository.CountAsync(expression);
             var query = await _operationRepository.GetAll(pageSize, pageIndex, expression);
             if (!string.IsNullOrEmpty(search))
             {
-                Expression<Func<Infrastructure.Entities.Operation, bool>> expression2 = x => x.Name.Contains(search) && x.IsShow == 1;
+                Expression<Func<Infrastructure.Entities.Operation, bool>> expression2 = x => x.Name.Contains(search);
                 query = await _operationRepository.GetAll(pageSize, pageIndex, expression2);
                 totalRow = await _operationRepository.CountAsync(expression2);
             }
@@ -104,12 +104,12 @@ namespace Infrastructure.Services
             {
                 pageIndex = pageIndex.Value;
             }
-            Expression<Func<Infrastructure.Entities.Operation, bool>> expression = x => x.IsShow == 0;
+            Expression<Func<Infrastructure.Entities.Operation, bool>> expression = x => x.Code!=null;
             var totalRow = await _operationRepository.CountAsync(expression);
             var query = await _operationRepository.GetAll(pageSize, pageIndex, expression);
             if (!string.IsNullOrEmpty(search))
             {
-                Expression<Func<Infrastructure.Entities.Operation, bool>> expression2 = x => x.Name.Contains(search) && x.IsShow == 0;
+                Expression<Func<Infrastructure.Entities.Operation, bool>> expression2 = x => x.Name.Contains(search) && x.Code != null;
                 query = await _operationRepository.GetAll(pageSize, pageIndex, expression2);
                 totalRow = await _operationRepository.CountAsync(expression2);
             }

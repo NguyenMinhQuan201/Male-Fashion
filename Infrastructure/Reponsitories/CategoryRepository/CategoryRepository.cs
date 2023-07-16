@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Reponsitories.CategoryReponsitories
 {
-    public class ModuleRepository : RepositoryBase<Category>, IModuleRepository
+    public class CategoryRepository : RepositoryBase<Category>, ICategoryRepository
     {
-        public ModuleRepository(MaleFashionDbContext dbContext) : base(dbContext)
+        public CategoryRepository(MaleFashionDbContext dbContext) : base(dbContext)
         {
 
         }

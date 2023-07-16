@@ -96,5 +96,11 @@ namespace Infrastructure.Reponsitories.BaseReponsitory
             var query = _db.Set<T>().Where(expression).FirstOrDefault();
             return query;
         }
+
+        public async Task<IQueryable<T>> GetAllAsQueryable()
+        {
+            var query = _db.Set<T>().AsQueryable();
+            return query;
+        }
     }
 }

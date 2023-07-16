@@ -41,4 +41,9 @@ namespace Domain.Models.Dto.UserDto
         public string PassWord { get; set; }
         public IList<string>? Roles { get; set; }
     }
+    public class RoleDto
+    {
+        public string?Name { get; set; }
+        public string?Description { get; set; }
+    }
 }

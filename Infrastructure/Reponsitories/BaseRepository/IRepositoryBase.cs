@@ -11,6 +11,7 @@ namespace Infrastructure.Reponsitories.BaseReponsitory
     {
         Task<List<T>> GetAll(int? pageSize, int? pageIndex, Expression<Func<T, bool>> expression);
         Task<IEnumerable<T>> GetAll();
+        Task<IQueryable<T>> GetAllAsQueryable();
         Task<IEnumerable<T>> GetAll(int id);
         Task<List<T>> GetAll(int? pageSize, int? pageIndex);
         Task<int> CountAsync();

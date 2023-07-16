@@ -11,5 +11,9 @@ namespace Domain.Models.Dto.UserDto
 	{
 		public string? Access_Token { get; set; }
 		public string? Refresh_Token { get; set; }
+	}public class RoleAndOperation
+	{
+		public string? Code { get; set; }
+		public Guid RoleId { get; set; }
 	}
 }

@@ -18,9 +18,9 @@ namespace Api.Controllers
             _serviceRole = ServiceRole;
         }
         [HttpGet("getroles")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(int? pageSize, int? pageIndex, string? search)
         {
-            var roles = await _serviceRole.GetAllRole();
+            var roles = await _serviceRole.GetAllRole(pageSize, pageIndex, search);
             return Ok(roles);
         }
         [HttpPost("add-role")]
@@ -29,11 +29,23 @@ namespace Api.Controllers
             var result = await _serviceRole.Register(request);
             return Ok();
         }
-        [HttpDelete]
-        public async Task<IActionResult> Remove(RemoveRoleRequestDto request)
+        [HttpPut("edit-role")]
+        public async Task<IActionResult> EditRole(RoleRequestDto request)
         {
-            var result = await _serviceRole.Remove(request);
+            var result = await _serviceRole.Edit(request);
             return Ok();
+        }
+        [HttpDelete("delete-role")]
+        public async Task<IActionResult> Remove(string id)
+        {
+            var result = await _serviceRole.Remove(id);
+            return Ok();
+        }
+        [HttpGet("get-by-id")]
+        public async Task<IActionResult> GetById(string id)
+        {
+            var result = await _serviceRole.GetById(id);
+            return Ok(result);
         }
     }
 }

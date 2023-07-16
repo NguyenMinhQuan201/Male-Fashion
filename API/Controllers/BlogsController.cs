@@ -1,5 +1,6 @@
 ﻿using Domain.Features;
 using Domain.Models.Dto.Blog;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +10,10 @@ namespace API.Controllers
     [ApiController]
     public class BlogsController : ControllerBase
     {
+        private const string INDEX_CST = "Blog_Index";
+        private const string CREATE_CST = "Blog_Create";
+        private const string EDIT_CST = "Blog_Edit";
+        private const string DELETE_CST = "Blog_Delete";
         private readonly IBlogService _blogService;
         public BlogsController(IBlogService blogService)
         {
@@ -66,6 +71,7 @@ namespace API.Controllers
             }
             return BadRequest();
         }
+        [Authorize(Policy = "Blog_Index")]
         [HttpGet("get-by-name-blog")]
         public async Task<IActionResult> GetByname(int? pageSize, int? pageIndex, string? name)
         {

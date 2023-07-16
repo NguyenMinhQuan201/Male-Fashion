@@ -10,7 +10,7 @@ namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    /*[Authorize(Roles ="admin")]*/
+    
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -123,6 +123,7 @@ namespace Api.Controllers
             var products = await _userService.GetAll(pageSize,  pageIndex, name);
             return Ok(products);
         }
+        [Authorize(Policy = "admin")]
         [HttpGet("get-by-id")]
         public async Task<IActionResult> GetById(Guid Id)
         {

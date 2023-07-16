@@ -6,6 +6,9 @@ using Domain.Models.Dto.RoleDto;
 using Domain.Models.Dto.UserDto;
 using Infrastructure.EF;
 using Infrastructure.Entities;
+using Infrastructure.Reponsitories.ModuleReponsitories;
+using Infrastructure.Reponsitories.OperationReponsitories;
+using Infrastructure.Reponsitories.RoleOperationRepository;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -25,8 +28,21 @@ namespace Domain.IServices.User
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<AppRole> _roleManager;
         private readonly IConfiguration _configuration;
-        public UserService(IConfiguration configuration, MaleFashionDbContext dbcontext, SignInManager<AppUser> signInManager, UserManager<AppUser> userManage, RoleManager<AppRole> roleManager)
+        private readonly IRoleOperationRepository _roleOperationRepository;
+        private readonly IOperationRepository _operationRepository;
+        private readonly IModuleRepository _moduleRepository;
+        public UserService(IConfiguration configuration, 
+            MaleFashionDbContext dbcontext, 
+            SignInManager<AppUser> signInManager,
+            IOperationRepository operationRepository,
+            UserManager<AppUser> userManage,
+            IRoleOperationRepository roleOperationRepository,
+            IModuleRepository moduleRepository,
+            RoleManager<AppRole> roleManager)
         {
+            _operationRepository = operationRepository;
+            _moduleRepository= moduleRepository;
+            _roleOperationRepository= roleOperationRepository;
             _dbcontext = dbcontext;
             _userManager = userManage;
             _signInManager = signInManager;
@@ -238,14 +254,49 @@ namespace Domain.IServices.User
             {
                 return new ApiErrorResult<Tokens>("Đăng nhập không đúng");
             }
-            var roles = await _userManager.GetRolesAsync(user);
-            var claims = new[]
+            var Mod = await _moduleRepository.GetAllAsQueryable();
+            var RoleOpe = await _roleOperationRepository.GetAllAsQueryable();
+            var Ope = await _operationRepository.GetAllAsQueryable();
+            var rolesUser = await _userManager.GetRolesAsync(user);
+            var query = (from Moduletbl in Mod
+                         join Operationtbl in Ope on Moduletbl.Id equals Operationtbl.ModuleId
+                         join RoleOperationtbl in RoleOpe on Operationtbl.Id equals RoleOperationtbl.OperationId
+                         select new RoleAndOperation()
+                         {
+                             Code = Operationtbl.Code,
+                             RoleId = Guid.Parse(RoleOperationtbl.RoleId),
+                         }).ToList();
+            var roles = _roleManager.Roles.Where(x=> rolesUser.Contains(x.Name)).ToList();
+
+            var listOpe = new List<string>();
+            foreach(var item in roles)
             {
-                new Claim("email",user.Email),
-                new Claim("firstName",user.FirstName),
-                new Claim("role", string.Join(";",roles)),
+                foreach (var RoleAndOperation in query)
+                {
+                    if(RoleAndOperation.RoleId == item.Id)
+                    {
+                        listOpe.Add(RoleAndOperation.Code);
+                    }
+                }
+            }
+            listOpe = listOpe.Distinct().ToList();
+            
+            var claims= new List<Claim>();
+            /*{
+                new Claim("email", user.Email);
+                new Claim("firstName", user.FirstName);
+                new Claim(ClaimTypes.Role, string.Join(";", rolesUser));
+                //new Claim("policy", string.Join(";",listOpe)),
                 new Claim("userName", request.UserName)
-            };
+            };*/
+            claims.Add(new Claim("email", user.Email));
+            claims.Add(new Claim("firstName", user.FirstName));
+            claims.Add(new Claim(ClaimTypes.Role, string.Join(";", rolesUser)));
+            claims.Add(new Claim("userName", request.UserName));
+            foreach (var ope in listOpe)
+            {
+                claims.Add(new Claim(ope, ope));
+            }
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 

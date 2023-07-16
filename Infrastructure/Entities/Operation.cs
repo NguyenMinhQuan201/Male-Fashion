@@ -8,11 +8,11 @@ namespace Infrastructure.Entities
 {
     public class Operation : BaseEntity
     {
-        public long ModuleId { get; set; }
+        public int ModuleId { get; set; }
         public string Name { get; set; }
         public long Url { get; set; }
-        public long Code { get; set; }
-        public long IsShow { get; set; }
+        public string Code { get; set; }
+        public bool IsShow { get; set; }
         public long Icon { get; set; }
     }
 }

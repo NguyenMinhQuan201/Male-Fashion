@@ -27,39 +27,6 @@ var mapperConfig = new MapperConfiguration(config =>
 IMapper mapper = mapperConfig.CreateMapper();
 
 builder.Services.AddSingleton(mapper);
-/*builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory()).ConfigureContainer<ContainerBuilder>(opt =>
-{
-    var assembly = Assembly.GetExecutingAssembly();
-    opt.RegisterAssemblyTypes(assembly)
-       .AsImplementedInterfaces()
-       .AsSelf();
-    var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-    opt.RegisterAssemblyTypes(assemblies)
-        .Where(t => typeof(Profile).IsAssignableFrom(t) && !t.IsAbstract && t.IsPublic)
-        .As<Profile>();
-
-    opt.Register(c => new MapperConfiguration(cfg =>
-    {
-        foreach (var profile in c.Resolve<IEnumerable<Profile>>())
-        {
-            cfg.AddProfile(profile);
-        }
-        cfg.AllowNullDestinationValues = true;
-        cfg.IgnoreUnmapped();
-        AutoMapper.Internal.InternalApi.Internal(cfg).CreateMissingTypeMaps=true
-    })).AsSelf().SingleInstance();
-
-    opt.Register(c => c.Resolve<MapperConfiguration>()
-        .CreateMapper(c.Resolve))
-        .As<IMapper>()
-        .InstancePerLifetimeScope();
-
-    opt.RegisterAssemblyTypes(Assembly.Load("Library"))
-                      .Where(t => t.Name.EndsWith("Provider"))
-                      .AsImplementedInterfaces()
-                      .InstancePerLifetimeScope();
-}); ;*/
-
 builder.Services.AddIdentity<AppUser, AppRole>()
                 .AddEntityFrameworkStores<MaleFashionDbContext>()
                 .AddDefaultTokenProviders();
@@ -111,7 +78,38 @@ builder.Services.AddAuthentication(opt =>
         ValidateIssuerSigningKey = true
     };
 });
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorizeEx();
+/*builder.Services.AddAuthorization(options =>
+{
+    var assembly = Assembly.Load("API");
+    var controllerTypes = assembly.GetExportedTypes()
+        .Where(t => t.IsClass && !t.IsAbstract && !t.IsGenericType && t.Name.EndsWith("Controller"))
+        .ToList();
+    var constFields = new List<FieldInfo>();
+
+    foreach (var type in controllerTypes)
+    {
+        var controllerType = type;
+        var fields = controllerType.GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static)
+            .Where(f => f.IsLiteral && !f.IsInitOnly)
+            .ToList();
+        constFields.AddRange(fields);
+    }
+    foreach (var field in constFields)
+    {
+        var fieldValue = field.GetValue(null);
+        if (fieldValue != null)
+        {
+            if (!String.IsNullOrEmpty(fieldValue.ToString()))
+            {
+                options.AddPolicy(fieldValue.ToString(), policy =>
+                {
+                    policy.RequireClaim(fieldValue.ToString());
+                });
+            }
+        }
+    }
+});*/
 /*var logger = builder.Logging.Services.BuildServiceProvider().GetRequiredService<ILogger<Program>>();*/
 var serviceProvider = builder.Services.BuildServiceProvider();
 var logger = serviceProvider.GetService<ILogger<Program>>();

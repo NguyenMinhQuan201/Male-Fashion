@@ -3,6 +3,7 @@ using Infrastructure.Reponsitories.BlogRepository;
 using Infrastructure.Reponsitories.CategoryReponsitories;
 using Infrastructure.Reponsitories.ImportInvoiceDetailsReponsitories;
 using Infrastructure.Reponsitories.ImportInvoiceReponsitories;
+using Infrastructure.Reponsitories.ModuleReponsitories;
 using Infrastructure.Reponsitories.OperationReponsitories;
 using Infrastructure.Reponsitories.OrderDetailReponsitory;
 using Infrastructure.Reponsitories.OrderReponsitory;
@@ -25,6 +26,7 @@ namespace Library.Extensions.ExtensionServices
             services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddTransient<IOrderDetailRepository, OrderDetailRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IModuleRepository, ModuleRepository>();
             services.AddTransient<IProductDetailReponsitories, ProductDetailReponsitories>();
             services.AddTransient<IProductImageRepository, ProductImageReponsitories>();

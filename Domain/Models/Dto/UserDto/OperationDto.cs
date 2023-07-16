@@ -6,32 +6,32 @@ using System.Threading.Tasks;
 
 namespace Domain.Models.Dto.UserDto
 {
-    public class OperationDto
+    public class OperationDto: BaseDto
     {
-        public long Id {get;set;}
-        public long ModuleId { get; set; }
+        public int Id {get;set;}
+        public int ModuleId { get; set; }
         public string Name { get; set; }
         public long Url { get; set; }
-        public long Code { get; set; }
-        public long IsShow { get; set; }
+        public string Code { get; set; }
+        public bool IsShow { get; set; }
         public long Icon { get; set; }
     }
-    public class UserOperationDto
+    public class UserOperationDto : BaseDto
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public Guid UserId { get; set; }
-        public long OperationId { get; set; }
+        public int OperationId { get; set; }
         public bool IsAccess { get; set; }
     }
-    public class RoleOperationDto
+    public class RoleOperationDto: BaseDto
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public int RoleId { get; set; }
-        public long OperationId { get; set; }
+        public int OperationId { get; set; }
         public bool IsAccess { get; set; }
-    }public class ModuleDto
+    }public class ModuleDto : BaseDto
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string? Code { get; set; }
         public string? Name { get; set; }
         public int Order { get; set; }

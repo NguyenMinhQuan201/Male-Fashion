@@ -24,6 +24,7 @@ namespace Library.Extensions.ExtensionServices
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IStorageService, FileStorageService>();
             services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IModuleService, ModuleService>();
             services.AddTransient<IBlogService, BlogService>();
             services.AddTransient<IOperationService, OperationService>();
             /*services.AddTransient<IRoleOperationService, RoleOperationService>();
