@@ -1,0 +1,58 @@
+﻿@{
+	Layout = null;
+}
+@model Male_Fashion.Models.LoginModel;
+<head>
+	
+	<link rel="stylesheet" type="text/css" href="~/Content/css/Login.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<div class="container">
+	<div class="screen">
+		<div class="screen__content">
+			<form asp-action="Index" asp-controller="Authen" class="login">
+				<div id="myDiv" asp-validation-summary="All"></div>
+				<div class="login__field">
+					<i class="login__icon fas fa-user"></i>
+					<input asp-for="UserName" type="text" class="login__input" placeholder="User name / Email">
+				</div>
+				<div class="login__field">
+					<i class="login__icon fas fa-lock"></i>
+					<input asp-for="PassWord" type="password" class="login__input" placeholder="Password">
+				</div>
+				<button type="submit" class="button login__submit">
+					<span class="button__text">Log In Now</span>
+					<i class="button__icon fas fa-chevron-right"></i>
+				</button>
+				<button class="button login__submit" style="width: 40%;">
+					<span class="button__text">Register</span>
+				</button>
+			</form>
+			<div class="social-login">
+				<h3>log in via</h3>
+				<div class="social-icons">
+					<a href="#" class="social-login__icon fab fa-facebook"></a>
+					<a href="#" class="social-login__icon fab fa-google"></a>
+				</div>
+			</div>
+		</div>
+		<div class="screen__background">
+			<span class="screen__background__shape screen__background__shape4"></span>
+			<span class="screen__background__shape screen__background__shape3"></span>
+			<span class="screen__background__shape screen__background__shape2"></span>
+			<span class="screen__background__shape screen__background__shape1"></span>
+		</div>
+	</div>
+</div>
+<script>
+	// Lấy tham chiếu đến div
+	var divToHide = document.getElementById("myDiv");
+	// Thiết lập thời gian biến mất (ví dụ: 5 giây)
+	var timeToHide = 3000; // 5 giây
+	// Hàm để ẩn div sau thời gian xác định
+	function hideDiv() {
+		divToHide.style.display = "none";
+	}
+	// Thiết lập timeout để gọi hàm ẩn div sau thời gian đã thiết lập
+	setTimeout(hideDiv, timeToHide);
+</script>

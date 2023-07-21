@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Nancy.Json;
 namespace RazorWeb.Controllers
 {
-    public class CartsController : Controller
+    public class CartsController : BaseController
     {
         private readonly IProductService _productService;
         public CartsController(IProductService productService)

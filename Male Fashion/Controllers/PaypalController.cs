@@ -5,7 +5,7 @@ using PayPal.v1.Payments;
 
 namespace RazorWeb.Controllers
 {
-    public class PaypalController : Controller
+    public class PaypalController : BaseController
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IConfiguration _configuration;

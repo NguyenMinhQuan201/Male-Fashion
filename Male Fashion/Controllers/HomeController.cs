@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Male_Fashion.Services;
+using RazorWeb.Controllers;
 
 namespace Male_Fashion.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly IBlogService _blogService;
         private readonly IProductService  _productService;
