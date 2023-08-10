@@ -13,8 +13,8 @@ namespace Library.Mapper
     {
         public ProductProfile()
         {
-            CreateMap<GetProductDto, Product>();
-            CreateMap<Product, GetProductDto>();
+            //CreateMap<GetProductDto, Product>();
+            //CreateMap<Product, GetProductDto>();
         }
     }
 }
