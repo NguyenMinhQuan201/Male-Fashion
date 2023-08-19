@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="zxx">
 
 <head>
@@ -37,22 +38,22 @@
         <div class="offcanvas-menu-overlay"></div>
         <div class="offcanvas-menu-wrapper">
             <div class="offcanvas__option">
-                <div class="offcanvas__links">
-                    <a href="#">Sign in</a>
-                    <a href="#">FAQs</a>
+                @*<div class="offcanvas__links">
+                <a href="#">Sign in</a>
+                <a href="#">FAQs</a>
                 </div>
                 <div class="offcanvas__top__hover">
-                    <span>USD <i class="fa fa-arrow-down" aria-hidden="true"></i></span>
-                    <ul>
-                        <li>USD</li>
-                        <li>EUR</li>
-                        <li>USD</li>
-                    </ul>
-                </div>
+                <span>USD <i class="fa fa-arrow-down" aria-hidden="true"></i></span>
+                <ul>
+                <li>USD</li>
+                <li>EUR</li>
+                <li>USD</li>
+                </ul>
+                </div>*@
             </div>
             <div class="offcanvas__nav__option">
                 <a href="#" class="search-switch"><img src="~/Content/img/icon/search.png" alt=""></a>
-                <a href="#"><img src="~/Content/img/icon/heart.png" alt=""></a>
+                @*<a href="#"><i class="fa-solid fa-user"></i></a>*@
                 <a class="cart_icon" href="#"><img src="~/Content/img/icon/cart.png" alt=""> <span class="conut-number"></span></a>
                 <div class="price">$0.00</div>
             </div>
@@ -77,24 +78,24 @@
                                 <div class="header__top__links">
                                     @*@if (@User.Identity.Name == "")
                                     {
-                                    <a href="@Url.Action("Index", "Login")">Sign in</a>
+                                        <a href="@Url.Action("Index", "Authen")">Sign in</a>
                                     }
                                     else
                                     {
-                                    <a href="">Hello: @User.Identity.Name</a>
-                                    <span style=" margin-right: 28px">@Html.ActionLink("Đăng Xuất", "Logout", "Login")</span>
+                                        <a href="">Hello: @User.Identity.Name</a>
+                                        <span style=" margin-right: 28px">@Html.ActionLink("Đăng Xuất", "Logout", "Authen")</span>
                                     }*@
-                                    <a href="@Url.Action("Index", "Login")">Sign in</a>
-                                    <a href="#">FAQs</a>
+                                    <a href="@Url.Action("Index", "Authen")">Sign in</a>
+                                    @*<a href="#">FAQs</a>*@
                                 </div>
-                                <div class="header__top__hover">
-                                    <span>Usd <i class="fa fa-arrow-down"></i></span>
-                                    <ul>
-                                        <li>USD</li>
-                                        <li>EUR</li>
-                                        <li>USD</li>
-                                    </ul>
-                                </div>
+                                @*<div class="header__top__hover">
+                                <span>Usd <i class="fa fa-arrow-down"></i></span>
+                                <ul>
+                                <li>USD</li>
+                                <li>EUR</li>
+                                <li>USD</li>
+                                </ul>
+                                </div>*@
                             </div>
                         </div>
                     </div>
@@ -118,7 +119,7 @@
                                         <li><a href="@Url.Action("Index", "Carts")">Shopping Cart</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="@Url.Action("Index", "Contacts")">Contacts</a></li>
+                                <li><a href="#">Contacts</a></li>
                             </ul>
                         </nav>
                     </div>

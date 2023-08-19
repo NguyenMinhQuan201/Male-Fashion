@@ -2,10 +2,11 @@
 using Male_Fashion.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using RazorWeb.Controllers;
 
 namespace Male_Fashion.Controllers
 {
-    public class EventsController : Controller
+    public class EventsController : BaseController
     {
         private readonly IProductService _productService;
         public EventsController(IProductService productService)

@@ -19,13 +19,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<MaleFashionDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("MaleFashionDb")));
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 var mapperConfig = new MapperConfiguration(config =>
 {
     config.CreateMapByNamingConvention();
 });
 IMapper mapper = mapperConfig.CreateMapper();
-
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddSingleton(mapper);
 builder.Services.AddIdentity<AppUser, AppRole>()
                 .AddEntityFrameworkStores<MaleFashionDbContext>()
@@ -79,38 +79,6 @@ builder.Services.AddAuthentication(opt =>
     };
 });
 builder.Services.AddAuthorizeEx();
-/*builder.Services.AddAuthorization(options =>
-{
-    var assembly = Assembly.Load("API");
-    var controllerTypes = assembly.GetExportedTypes()
-        .Where(t => t.IsClass && !t.IsAbstract && !t.IsGenericType && t.Name.EndsWith("Controller"))
-        .ToList();
-    var constFields = new List<FieldInfo>();
-
-    foreach (var type in controllerTypes)
-    {
-        var controllerType = type;
-        var fields = controllerType.GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static)
-            .Where(f => f.IsLiteral && !f.IsInitOnly)
-            .ToList();
-        constFields.AddRange(fields);
-    }
-    foreach (var field in constFields)
-    {
-        var fieldValue = field.GetValue(null);
-        if (fieldValue != null)
-        {
-            if (!String.IsNullOrEmpty(fieldValue.ToString()))
-            {
-                options.AddPolicy(fieldValue.ToString(), policy =>
-                {
-                    policy.RequireClaim(fieldValue.ToString());
-                });
-            }
-        }
-    }
-});*/
-/*var logger = builder.Logging.Services.BuildServiceProvider().GetRequiredService<ILogger<Program>>();*/
 var serviceProvider = builder.Services.BuildServiceProvider();
 var logger = serviceProvider.GetService<ILogger<Program>>();
 builder.Services.AddSingleton(typeof(ILogger), logger);
@@ -150,4 +118,5 @@ app.UseEndpoints(endpoints =>
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
 });
+app.MapControllers();
 app.Run();

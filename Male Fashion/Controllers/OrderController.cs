@@ -9,7 +9,7 @@ using PayPal.v1.Payments;
 
 namespace RazorWeb.Controllers
 {
-    public class OrderController : Controller
+    public class OrderController : BaseController
     {
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly IConfiguration _configuration;

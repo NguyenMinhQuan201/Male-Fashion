@@ -8,8 +8,8 @@ namespace RazorWeb.Controllers
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             context.HttpContext.Request.Headers["REMOTE_ADDR"].ToString();
-
-
+            ViewBag.Token = context.HttpContext.Request.Headers["Token"].ToString()!=null ? context.HttpContext.Request.Headers["Token"].ToString() : "";
+            ViewBag.UserName = context.HttpContext.Request.Headers["UserName"].ToString() != null ? context.HttpContext.Request.Headers["UserName"].ToString() : "";
             base.OnActionExecuting(context);
         }
         public string ip()

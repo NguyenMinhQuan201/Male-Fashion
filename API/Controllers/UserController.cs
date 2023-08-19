@@ -123,7 +123,7 @@ namespace Api.Controllers
             var products = await _userService.GetAll(pageSize,  pageIndex, name);
             return Ok(products);
         }
-        [Authorize(Policy = "admin")]
+        //[Authorize(Policy = "admin")]
         [HttpGet("get-by-id")]
         public async Task<IActionResult> GetById(Guid Id)
         {

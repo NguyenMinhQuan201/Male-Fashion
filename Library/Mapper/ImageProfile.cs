@@ -13,8 +13,8 @@ namespace Infrastructure.Mapper
     {
         public ImageProfile()
         {
-            CreateMap<ImageDto, ProductImg>();
-            CreateMap<ProductImg, ImageDto>();
+            //CreateMap<ImageDto, ProductImg>();
+            //CreateMap<ProductImg, ImageDto>();
         }
     }
 }
