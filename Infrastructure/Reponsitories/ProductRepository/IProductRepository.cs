@@ -14,7 +14,7 @@ namespace Infrastructure.Reponsitories.ProductReponsitories
         Task<IEnumerable<Product>> GetAllProduct(int? pageSize, int? pageIndex);
         Task<IEnumerable<Product>> GetAllProduct(int? pageSize, int? pageIndex, Expression<Func<Product, bool>> expression);
         Task<IEnumerable<Product>> GetAllByCategoryId(int? pageSize, int? pageIndex,int? idCategory);
-        Task<IEnumerable<Product>> GetAllByCategoryId(int? pageSize, int? pageIndex,int ?id, string? search);
+        Task<IEnumerable<Product>> GetAllByCategoryId(int? pageSize, int? pageIndex, int? id, string? search, string? branding,long priceMin, long priceMax);
         Task<int> CountAsyncById(int? id);
         Task<Product> GetByProductID(int? id);
         Task<int> CountByCateIdAsync(int? idCategory);

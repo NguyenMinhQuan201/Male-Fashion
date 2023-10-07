@@ -13,7 +13,7 @@ namespace Male_Fashion.Controllers
         {
             _productService = productService;
         }
-        public async Task<ActionResult> Index(int? pageIndex, string? search,int ? idCate)
+        public async Task<ActionResult> Index(int? pageIndex, string? search,int ? idCate=0, string? branding="", long priceMin=0, long priceMax=0)
         {
             var list = await _productService.GetAllCate();
             ViewBag.data = new SelectList(list, "IdCategory", "Name");
@@ -25,19 +25,23 @@ namespace Male_Fashion.Controllers
                 idCate = 0;
                 TempData["idCate"] = 0;
             }
-            var val = TempData["idCate"] as string;
-            if (idCate > 0 || Convert.ToInt32(val)>0 )
-            {
-                if (Convert.ToInt32(val) > 0)
-                {
-                    idCate = Convert.ToInt32(val);
-                }
-                var data = await _productService.GetProductWithCatePagings(4, pageIndex,idCate, search);
-                TempData["idCate"] = idCate;
-                return View(data.ResultObj);
-            }
-            var result = await _productService.GetSanPhamPagings(4, pageIndex, search);
-            return View(result.ResultObj);
+            TempData["branding"] = branding;
+            TempData["priceMin"] = priceMin;
+            TempData["priceMax"] = priceMax;
+            var data = await _productService.GetProductWithCatePagings(4, pageIndex, idCate, search, branding, priceMin, priceMax);
+            return View(data.ResultObj);
+            //if (idCate > 0 || Convert.ToInt32(val)>0 )
+            //{
+            //    if (Convert.ToInt32(val) > 0)
+            //    {
+            //        idCate = Convert.ToInt32(val);
+            //    }
+            //    var data = await _productService.GetProductWithCatePagings(4, pageIndex,idCate, search,branding,priceMin,priceMax);
+            //    ViewBag["idCate"] = idCate;
+            //    return View(data.ResultObj);
+            //}
+            //var result = await _productService.GetSanPhamPagings(4, pageIndex, search);
+            //return View(result.ResultObj);
         }
         public async Task<ActionResult> Details(int? id)
         {

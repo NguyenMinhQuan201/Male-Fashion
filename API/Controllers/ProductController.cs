@@ -233,13 +233,13 @@ namespace API.Controllers
             return Ok(result);
         }
         [HttpGet("get-all-with-categoryId")]
-        public async Task<IActionResult> GetAllProductByCate(int? pageSize, int? pageIndex,int?id, string? search)
+        public async Task<IActionResult> GetAllProductByCate(int? pageSize, int? pageIndex,int?id, string? search,string ? branding, long priceMin, long priceMax)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var result = await _productService.GetAllbyCategoryId(pageSize, pageIndex, id, search);
+            var result = await _productService.GetAllbyCategoryId(pageSize, pageIndex, id, search,branding,priceMin,priceMax);
             if (result.IsSuccessed == false) return BadRequest();
             return Ok(result);
         }

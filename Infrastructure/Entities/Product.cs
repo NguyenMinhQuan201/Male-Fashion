@@ -24,7 +24,7 @@ namespace Infrastructure.Entities
         public ICollection<ProductDetail>? ProductDetails { get; set; }
         public ICollection<ImportInvoiceDetails>? ImportInvoiceDetails { get; set; }
         public ICollection<ProductImg>? ProductImgs { get; set; }
-
+        public string Branding { get; set; }
 
     }
 }

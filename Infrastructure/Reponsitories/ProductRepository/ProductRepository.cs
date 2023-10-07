@@ -13,10 +13,10 @@ namespace Infrastructure.Reponsitories.ProductReponsitories
 {
     public class ProductRepository : RepositoryBase<Product>, IProductRepository
     {
-        private readonly MaleFashionDbContext _db ;
+        private readonly MaleFashionDbContext _db;
         public ProductRepository(MaleFashionDbContext dbContext) : base(dbContext)
         {
-            _db= dbContext;
+            _db = dbContext;
         }
 
         public async Task<int> CountAsyncById(int? id)
@@ -43,19 +43,35 @@ namespace Infrastructure.Reponsitories.ProductReponsitories
         {
             var query = from p in _db.Products.Include(x => x.ProductImgs).AsQueryable()
                         join c in _db.Categories on p.IdCategory equals c.IdCategory
-                        where c.IdCategory == idCategory && p.Status==true
+                        where c.IdCategory == idCategory && p.Status == true
                         select p;
             var pageCount = query.Count();
             query = query.Skip((pageIndex.Value - 1) * pageSize.Value)
             .Take(pageSize.Value);
             return query.ToList();
         }
-        public async Task<IEnumerable<Product>> GetAllByCategoryId(int? pageSize, int? pageIndex,int? idCategory,string ? search)
+        public async Task<IEnumerable<Product>> GetAllByCategoryId(int? pageSize, int? pageIndex, int? id, string? search, string? branding, long priceMin, long priceMax)
         {
             var query = from p in _db.Products.Include(x => x.ProductImgs).AsQueryable()
                         join c in _db.Categories on p.IdCategory equals c.IdCategory
-                        where c.IdCategory == idCategory && c.Name.Contains(search) && p.Status == true
+                        where p.Status == true
                         select p;
+            if (!String.IsNullOrEmpty(branding))
+            {
+                query = query.Where(x => x.Branding == branding).AsQueryable();
+            }
+            if (!String.IsNullOrEmpty(search))
+            {
+                query = query.Where(x => x.Name.Contains(search)).AsQueryable();
+            }
+            if (priceMax != 0 && priceMin != 0)
+            {
+                query = query.Where(x => x.Price <= priceMax && x.Price > priceMin).AsQueryable();
+            }
+            if (id != 0)
+            {
+                query = query.Where(x => x.IdCategory == id).AsQueryable();
+            }
             var pageCount = query.Count();
             query = query.Skip((pageIndex.Value - 1) * pageSize.Value)
             .Take(pageSize.Value);
@@ -84,7 +100,7 @@ namespace Infrastructure.Reponsitories.ProductReponsitories
         {
             var query = _db.Products.Include(x => x.ProductImgs).Where(x => x.IdProduct == id).FirstOrDefault();
             return query;
-            
+
         }
     }
 }

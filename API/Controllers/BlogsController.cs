@@ -71,7 +71,7 @@ namespace API.Controllers
             }
             return BadRequest();
         }
-        [Authorize(Policy = "Blog_Index")]
+        //[Authorize(Policy = "Blog_Index")]
         [HttpGet("get-by-name-blog")]
         public async Task<IActionResult> GetByname(int? pageSize, int? pageIndex, string? name)
         {

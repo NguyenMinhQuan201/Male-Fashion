@@ -13,7 +13,7 @@ namespace Male_Fashion.Services
         Task<GetProductDto> GetByIdSanPham(int id);
         Task<ProductDetailDto> GetByIdProductDetail(int id);
         Task<ApiResult<List<ProductDetailDto>>> GetAllDetailByIdPoduct(int id);
-        Task<ApiResult<PagedResult<GetProductDto>>> GetProductWithCatePagings(int? pageSize, int? pageIndex,int?id, string? search);
+        Task<ApiResult<PagedResult<GetProductDto>>> GetProductWithCatePagings(int? pageSize, int? pageIndex, int? id, string? search, string? branding, long priceMin, long priceMax);
         Task<List<Color>> ListAllColor(List<ProductDetailDto> pro);
         Task<List<Size>> ListAllSize(List<ProductDetailDto> pro);
         Task<IEnumerable<CategoryRequestDto>> GetAllCate();
@@ -106,7 +106,7 @@ namespace Male_Fashion.Services
             throw new NotImplementedException();
         }
 
-        public async Task<ApiResult<PagedResult<GetProductDto>>> GetProductWithCatePagings(int? pageSize, int? pageIndex,int?id, string? search)
+        public async Task<ApiResult<PagedResult<GetProductDto>>> GetProductWithCatePagings(int? pageSize, int? pageIndex,int?id, string? search, string? branding, long priceMin, long priceMax)
         {
             var client = _httpClientFactory.CreateClient();
             try
@@ -118,7 +118,7 @@ namespace Male_Fashion.Services
                 Console.WriteLine(e.Message);
             }
             var response = await client.GetAsync
-                ($"/api/Product/get-all-with-categoryId?pageSize={pageSize}&pageIndex={pageIndex}&id={id}&search={search}");
+                ($"/api/Product/get-all-with-categoryId?pageSize={pageSize}&pageIndex={pageIndex}&id={id}&search={search}&branding={branding}&priceMin={priceMin}&priceMax={priceMax}");
             var body = await response.Content.ReadAsStringAsync();
             var sanpham = JsonConvert.DeserializeObject<ApiSuccessResult<PagedResult<GetProductDto>>>(body);
             return sanpham;

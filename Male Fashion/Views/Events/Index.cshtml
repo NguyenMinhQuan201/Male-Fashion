@@ -2,6 +2,11 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var cate = TempData["idCate"] == null ? 0 : TempData["idCate"];
+    var brandingSS = TempData["branding"] == null ? "":TempData["branding"];
+    var priceMinSS = TempData["priceMin"] == null ? 0:TempData["priceMin"];
+    var priceMaxSS = TempData["priceMax"] == null ? 0:TempData["priceMax"];
 }
 
 <head>
@@ -46,12 +51,12 @@
                                     <div class="card-body">
                                         <div class="shop__sidebar__categories">
                                             <ul class="nice-scroll">
-                                                <li><a href="@Url.Action("Index", "Events", new { idCate = 0 })">All</a></li>
-                                                @if (ViewBag.data!=null)
+                                                <li><a href="@Url.Action("Index", "Events", new { idCate = cate })">All</a></li>
+                                                @if (ViewBag.data != null)
                                                 {
                                                     foreach (var item in ViewBag.data)
                                                     {
-                                                        <li><a href="@Url.Action("Index", "Events", new { idCate = item.Value })">@item.Text</a></li>
+                                                        <li><a href="@Url.Action("Index", "Events", new { idCate = item.Value,branding=brandingSS,priceMin=priceMinSS,priceMax=priceMaxSS })">@item.Text</a></li>
                                                     }
                                                 }
                                             </ul>
@@ -67,10 +72,11 @@
                                     <div class="card-body">
                                         <div class="shop__sidebar__brand">
                                             <ul>
-                                                <li><a href="#">Louis Vuitton</a></li>
-                                                <li><a href="#">Chanel</a></li>
-                                                <li><a href="#">Hermes</a></li>
-                                                <li><a href="#">Gucci</a></li>
+                                                <li><a href="@Url.Action("Index", "Events", new { idCate = cate })">All</a></li>
+                                                <li><a href="@Url.Action("Index", "Events", new { idCate = cate,branding="Louis Vuitton",priceMin=priceMinSS,priceMax=priceMaxSS })">Louis Vuitton</a></li>
+                                                <li><a href="@Url.Action("Index", "Events", new { idCate = cate,branding="Chanel",priceMin=priceMinSS,priceMax=priceMaxSS })">Chanel</a></li>
+                                                <li><a href="@Url.Action("Index", "Events", new { idCate = cate,branding="Hermes",priceMin=priceMinSS,priceMax=priceMaxSS })">Hermes</a></li>
+                                                <li><a href="@Url.Action("Index", "Events", new { idCate = cate,branding="Gucci",priceMin=priceMinSS,priceMax=priceMaxSS })">Gucci</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -101,7 +107,7 @@
                 </div>
             </div>
             <div class="col-lg-9">
-                @if (Model!=null)
+                @if (Model != null)
                 {
                     <div class="row">
                         @foreach (var item in Model.Items)

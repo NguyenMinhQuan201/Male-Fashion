@@ -22,13 +22,13 @@ namespace Domain.Features.Product
         private readonly IStorageService _storageService;
         private readonly IProductImageRepository _productImageRepository;
         private readonly IMapper _mapper;
-        public ProductService(IProductImageRepository productImageRepository,IMapper mapper, ICategoryRepository categoryReponsitories, IProductImageRepository productImageReponsitories, IProductRepository productReponsitories, IStorageService storageService, IProductDetailReponsitories productDetailReponsitories)
+        public ProductService(IProductImageRepository productImageRepository, IMapper mapper, ICategoryRepository categoryReponsitories, IProductImageRepository productImageReponsitories, IProductRepository productReponsitories, IStorageService storageService, IProductDetailReponsitories productDetailReponsitories)
         {
             _productDetailReponsitories = productDetailReponsitories;
             _productReponsitories = productReponsitories;
             _storageService = storageService;
             _categoryReponsitories = categoryReponsitories;
-            _productImageRepository= productImageReponsitories;
+            _productImageRepository = productImageReponsitories;
             _mapper = mapper; ;
         }
         public async Task<ApiResult<bool>> AddImage(int productId, List<IFormFile> request)
@@ -72,7 +72,7 @@ namespace Domain.Features.Product
         {
             Expression<Func<Infrastructure.Entities.Product, bool>> expression = x => x.Name == request.Name;
             var check = await _productReponsitories.FindByName(expression);
-            if (check==null)
+            if (check == null)
             {
                 var product = new Infrastructure.Entities.Product()
                 {
@@ -122,7 +122,7 @@ namespace Domain.Features.Product
                 Quantity = request.Quantity,
                 Status = request.Status,
                 ProductId = request.ProductId,
-                Size=request.Size,
+                Size = request.Size,
                 Color = request.Color,
                 CreatedAt = DateTime.Now,
                 ProductName = request.ProductName,
@@ -179,7 +179,7 @@ namespace Domain.Features.Product
             }).ToList();
         }
 
-        public async Task<ApiResult<PagedResult<GetProductDto>>> GetAllbyCategoryId(int? pageSize, int? pageIndex, int? id,string?search)
+        public async Task<ApiResult<PagedResult<GetProductDto>>> GetAllbyCategoryId(int? pageSize, int? pageIndex, int? id, string? search, string? branding, long priceMin, long priceMax)
         {
             if (pageSize != null)
             {
@@ -190,12 +190,8 @@ namespace Domain.Features.Product
                 pageIndex = pageIndex.Value;
             }
             var totalRow = await _productReponsitories.CountByCateIdAsync(id);
-            var query = await _productReponsitories.GetAllByCategoryId(pageSize, pageIndex, id);
-            if (search != null)
-            {
-                query = await _productReponsitories.GetAllByCategoryId(pageSize, pageIndex, id,search);
-                totalRow = await _productReponsitories.CountAsyncById(id);
-            }
+            var query = await _productReponsitories.GetAllByCategoryId(pageSize, pageIndex, id, search, branding, priceMin,priceMax);
+            totalRow = await _productReponsitories.CountAsyncById(id);
             var data = _mapper.Map<List<GetProductDto>>(query.ToList());
             var pagedResult = new PagedResult<GetProductDto>()
             {
@@ -213,12 +209,12 @@ namespace Domain.Features.Product
 
         public async Task<ApiResult<List<ProductDetailDto>>> GetAllDetailByIdPoduct(int id)
         {
-            if(id != null)
+            if (id != null)
             {
                 var findobj = await _productReponsitories.GetById(id);
                 if (findobj == null)
                 {
-                    return new ApiErrorResult<List<ProductDetailDto>> ("Không tìm thấy đối tượng");
+                    return new ApiErrorResult<List<ProductDetailDto>>("Không tìm thấy đối tượng");
                 }
                 Expression<Func<Infrastructure.Entities.ProductDetail, bool>> expression = x => x.ProductId == id;
                 var totalRow = await _productDetailReponsitories.CountAsync(expression);
@@ -236,7 +232,7 @@ namespace Domain.Features.Product
                 }).ToList();
                 return new ApiSuccessResult<List<ProductDetailDto>>(data);
             }
-            return new ApiErrorResult<List<ProductDetailDto>> ("Lỗi tham số chuyền về null hoặc trống");
+            return new ApiErrorResult<List<ProductDetailDto>>("Lỗi tham số chuyền về null hoặc trống");
         }
 
         public async Task<ApiResult<PagedResult<GetProductDto>>> GetAllPaging(int? pageSize, int? pageIndex, string? search)
@@ -254,26 +250,12 @@ namespace Domain.Features.Product
             var query = await _productReponsitories.GetAllProduct(pageSize, pageIndex, expression1);
             if (!string.IsNullOrEmpty(search))
             {
-                Expression<Func<Infrastructure.Entities.Product, bool>> expression2 = x => x.Name.Contains(search)&&x.Status==true;
+                Expression<Func<Infrastructure.Entities.Product, bool>> expression2 = x => x.Name.Contains(search) && x.Status == true;
                 query = await _productReponsitories.GetAllProduct(pageSize, pageIndex, expression2);
                 totalRow = await _productReponsitories.CountAsync(expression2);
             }
-            
-            var data = /*query
-                .Select(x => new GetProductDto()
-                {
-                    IdProduct = x.IdProduct,
-                    Description=x.Description,
-                    Price = x.Price,
-                    Name = x.Name,
-                    Quantity = x.Quantity,
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
-                    Status = x.Status,
-                    IdCategory = x.IdCategory,
-                    ImageDtos = _mapper.Map<List<ImageDto>>(x.ProductImgs)
-                }).ToList();*/
-                _mapper.Map<List<GetProductDto>>(query.ToList());
+
+            var data = _mapper.Map<List<GetProductDto>>(query.ToList());
             var pagedResult = new PagedResult<GetProductDto>()
             {
                 TotalRecord = totalRow,
@@ -305,13 +287,13 @@ namespace Domain.Features.Product
             var data = query
                 .Select(x => new ProductDetailDto()
                 {
-                    Id=x.Id,
-                    Color=x.Color,
-                    Size=x.Size,
-                    Quantity=x.Quantity,
-                    Status=x.Status,
-                    ProductId=x.ProductId,
-                    ProductName=x.ProductName,
+                    Id = x.Id,
+                    Color = x.Color,
+                    Size = x.Size,
+                    Quantity = x.Quantity,
+                    Status = x.Status,
+                    ProductId = x.ProductId,
+                    ProductName = x.ProductName,
                 }).ToList();
             var pagedResult = new PagedResult<ProductDetailDto>()
             {
@@ -319,7 +301,7 @@ namespace Domain.Features.Product
                 PageSize = pageSize.Value,
                 PageIndex = pageIndex.Value,
                 Items = data,
-                Status=true
+                Status = true
             };
             if (pagedResult == null)
             {
@@ -434,7 +416,7 @@ namespace Domain.Features.Product
 
             var obj = new ProductDetailDto()
             {
-                Id=findobj.Id,
+                Id = findobj.Id,
                 Size = findobj.Size,
                 Color = findobj.Color,
                 Status = findobj.Status,
@@ -635,6 +617,6 @@ namespace Domain.Features.Product
             await _storageService.SaveFileAsync(file.OpenReadStream(), fileName);
             return fileName;
         }
-        
+
     }
 }
