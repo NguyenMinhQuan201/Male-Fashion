@@ -87,7 +87,7 @@ namespace RazorWeb.Controllers
                 }
             }
 
-            return View();
+            return RedirectToAction("CheckoutSuccess", "Paypal");
         }
     }
 }

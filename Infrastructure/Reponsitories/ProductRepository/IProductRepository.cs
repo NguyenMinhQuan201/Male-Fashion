@@ -17,6 +17,6 @@ namespace Infrastructure.Reponsitories.ProductReponsitories
         Task<IEnumerable<Product>> GetAllByCategoryId(int? pageSize, int? pageIndex, int? id, string? search, string? branding,long priceMin, long priceMax);
         Task<int> CountAsyncById(int? id);
         Task<Product> GetByProductID(int? id);
-        Task<int> CountByCateIdAsync(int? idCategory);
+        Task<int> CountByCateIdAsync(int? pageSize, int? pageIndex, int? id, string? search, string? branding, long priceMin, long priceMax);
     }
 }

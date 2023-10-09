@@ -189,9 +189,8 @@ namespace Domain.Features.Product
             {
                 pageIndex = pageIndex.Value;
             }
-            var totalRow = await _productReponsitories.CountByCateIdAsync(id);
+            var totalRow = await _productReponsitories.CountByCateIdAsync(pageSize, pageIndex, id, search, branding, priceMin, priceMax);
             var query = await _productReponsitories.GetAllByCategoryId(pageSize, pageIndex, id, search, branding, priceMin,priceMax);
-            totalRow = await _productReponsitories.CountAsyncById(id);
             var data = _mapper.Map<List<GetProductDto>>(query.ToList());
             var pagedResult = new PagedResult<GetProductDto>()
             {

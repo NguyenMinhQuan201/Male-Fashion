@@ -4,13 +4,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var cate = TempData["idCate"] == null ? 0 : TempData["idCate"];
-    var brandingSS = TempData["branding"] == null ? "":TempData["branding"];
-    var priceMinSS = TempData["priceMin"] == null ? 0:TempData["priceMin"];
-    var priceMaxSS = TempData["priceMax"] == null ? 0:TempData["priceMax"];
+    var brandingSS = TempData["branding"] == null ? "" : TempData["branding"];
+    var priceMinSS = TempData["priceMin"] == null ? 0 : TempData["priceMin"];
+    var priceMaxSS = TempData["priceMax"] == null ? 0 : TempData["priceMax"];
 }
 
 <head>
     <link rel="stylesheet" type="text/css" href="~/Content/css/Trang-chu.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" integrity="sha512-siarrzI1u3pCqFG2LEzi87McrBmq6Tp7juVsdmGY1Dr8Saw+ZBAzDzrGwX3vgxX1NkioYNCFOVC0GpDPss10zQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-option">
@@ -36,9 +37,13 @@
             <div class="col-lg-3">
                 <div class="shop__sidebar">
                     <div class="shop__sidebar__search">
-                        <form action="#">
-                            <input type="text" placeholder="Search...">
-                            <button type="submit"><span class="icon_search"></span></button>
+                        <form asp-action="Index" asp-controller="Events">
+                            <input type="text" name="search" placeholder="...">
+                            <input type="text" name="idCate" hidden placeholder="Search...">
+                            <input type="text" name="branding"hidden placeholder="Search...">
+                            <input type="text" name="priceMin"hidden placeholder="Search...">
+                            <input type="text" name="priceMax"hidden placeholder="Search...">
+                            <button style=" background:none!important; background-color:black!important" type="submit">SEARCH</button>
                         </form>
                     </div>
                     <div class="shop__sidebar__accordion">
@@ -90,12 +95,13 @@
                                     <div class="card-body">
                                         <div class="shop__sidebar__price">
                                             <ul>
-                                                <li><a href="#">$0.00 - $50.00</a></li>
-                                                <li><a href="#">$50.00 - $100.00</a></li>
-                                                <li><a href="#">$100.00 - $150.00</a></li>
-                                                <li><a href="#">$150.00 - $200.00</a></li>
-                                                <li><a href="#">$200.00 - $250.00</a></li>
-                                                <li><a href="#">250.00+</a></li>
+                                                <li><a href="@Url.Action("Index", "Events", new { idCate = cate })">All</a></li>
+                                                <li><a href="@Url.Action("Index", "Events", new { idCate = cate,branding=brandingSS,priceMin=0,priceMax=50 })">$0.00 - $50.00</a></li>
+                                                <li><a href="@Url.Action("Index", "Events", new { idCate = cate,branding=brandingSS,priceMin=50,priceMax=100 })">$50.00 - $100.00</a></li>
+                                                <li><a href="@Url.Action("Index", "Events", new { idCate = cate,branding=brandingSS,priceMin=100,priceMax=150 })">$100.00 - $150.00</a></li>
+                                                <li><a href="@Url.Action("Index", "Events", new { idCate = cate,branding=brandingSS,priceMin=150,priceMax=200 })">$150.00 - $200.00</a></li>
+                                                <li><a href="@Url.Action("Index", "Events", new { idCate = cate,branding=brandingSS,priceMin=200,priceMax=250 })">$200.00 - $250.00</a></li>
+                                                <li><a href="@Url.Action("Index", "Events", new { idCate = cate,branding=brandingSS,priceMin=250,priceMax=9999 })">250.00+</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -138,7 +144,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="product__pagination">
-                                @if ((Model.PageCount < Model.PageIndex ? 0 : Model.PageIndex) == 1)
+                                @if ((Model.PageCount < Model.PageIndex ? 0 : Model.PageIndex) == 1 || Model.PageCount == 0)
                                 {
                                 }
                                 else
@@ -146,9 +152,14 @@
                                     <a href="@Url.Action("Index",new { pageIndex = 1,serach="" })">F</a>
                                     <a href="@Url.Action("Index",new { pageIndex = (Model.PageCount < Model.PageIndex ? 0 : Model.PageIndex - 1),serach="" })"> @(Model.PageCount < Model.PageIndex ? 0 : Model.PageIndex - 1)</a>
                                 }
-                                <a class="active" href="#">@(Model.PageCount < Model.PageIndex ? 0 : Model.PageIndex)</a>
+                                @if (Model.PageCount != 1 && Model.PageCount != 0)
+                                {
+                                    <a class="active" href="#">@(Model.PageCount < Model.PageIndex ? 0 : Model.PageIndex)</a>
+
+                                }
                                 @if ((Model.PageCount < Model.PageIndex ? 0 : Model.PageIndex) == Model.PageCount)
                                 {
+
                                 }
                                 else
                                 {

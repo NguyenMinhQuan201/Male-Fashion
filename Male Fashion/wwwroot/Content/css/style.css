@@ -670,20 +670,27 @@ ol {
     height:90px;  
 
 }
-.cart-sub{
-    display:flex;
+.cart-sub {
+    display: flex;
+    padding-left: 6px!important;
 }
-.button-remove-cart-sub{
-    float:right;
-    border-radius:10%;
-    margin-bottom:40%;
+.button-remove-cart-sub {
+    margin-left: 141px;
+    /* float: right; */
+    width: 70px;
+    border-radius: 10%;
+    /* margin-bottom: 40%; */
+    height: 26px;
+    /* margin-bottom: 18px; */
+    margin-top: 10px;
 }
 .cart-sub > div >span{
-    margin:5px;
+    margin:16px;
 }
 .cart-sub > div > p {
-    margin: 5px;
-    color:antiquewhite;
+    margin-left: 15px;
+    margin-bottom: 0px!important;
+    color: antiquewhite;
 }
 .cart-sub > div {
     font-family: Serif;
@@ -789,7 +796,7 @@ ol {
 /*---------------------
   Banner
 -----------------------*/
-.blog {
+    .blog {
     padding-bottom: 55px;
 }
 

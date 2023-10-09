@@ -3,6 +3,11 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    .smt-have-done{
+        margin-left:50px;
+    }
+</style>
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-option">
     <div class="container">
@@ -62,13 +67,9 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="checkout__order">
                             <h4 class="order__title">Your order</h4>
-                            <div class="checkout__order__products"><h5 style="float:left;">Quantity</h5> <h5 style="margin-left: 18%; float: left">Product</h5><h5 style="margin-left: 24%; float: left">Total</h5> </div>
+                            <div class="checkout__order__products"> <span class="smt-have-done">Quanity</span> <span class="smt-have-done">Name</span> <span class="smt-have-done">Total</span> </div>
                             <ul class="checkout__total__products" id="vailon">
                                 <li>01. Vanilla salted caramel <span>$ 300.0</span></li>
-
-
-
-
                             </ul>
                             <ul class="checkout__total__all">
                                 <li>Subtotal  <span class="tongphu">$750.99</span><span>$</span></li>
@@ -76,6 +77,7 @@
                             </ul>
                             <button class="site-btn" id="make_order">PLACE ORDER</button>
                             <button class="site-btn" id="paypal" >PLACE ORDER WITH PAYPAL</button>
+                            <button class="site-btn" id="vnpay" >PLACE ORDER WITH VNPAY</button>
                         </div>
                     </div>
                 </div>

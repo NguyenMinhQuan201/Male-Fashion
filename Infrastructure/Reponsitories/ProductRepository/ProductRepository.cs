@@ -29,12 +29,28 @@ namespace Infrastructure.Reponsitories.ProductReponsitories
             return pageCount;
         }
 
-        public async Task<int> CountByCateIdAsync(int? idCategory)
+        public async Task<int> CountByCateIdAsync(int? pageSize, int? pageIndex, int? id, string? search, string? branding, long priceMin, long priceMax)
         {
-            var query = from p in _db.Products
+            var query = from p in _db.Products.Include(x => x.ProductImgs).AsQueryable()
                         join c in _db.Categories on p.IdCategory equals c.IdCategory
-                        where c.IdCategory == idCategory && p.Status == true
+                        where p.Status == true
                         select p;
+            if (!String.IsNullOrEmpty(branding))
+            {
+                query = query.Where(x => x.Branding == branding).AsQueryable();
+            }
+            if (!String.IsNullOrEmpty(search))
+            {
+                query = query.Where(x => x.Name.Contains(search)).AsQueryable();
+            }
+            if (priceMax != 0 && priceMin >= 0)
+            {
+                query = query.Where(x => x.Price <= priceMax && x.Price > priceMin).AsQueryable();
+            }
+            if (id != 0)
+            {
+                query = query.Where(x => x.IdCategory == id).AsQueryable();
+            }
             var pageCount = query.Count();
             return pageCount;
         }
@@ -64,7 +80,7 @@ namespace Infrastructure.Reponsitories.ProductReponsitories
             {
                 query = query.Where(x => x.Name.Contains(search)).AsQueryable();
             }
-            if (priceMax != 0 && priceMin != 0)
+            if (priceMax != 0 && priceMin >= 0)
             {
                 query = query.Where(x => x.Price <= priceMax && x.Price > priceMin).AsQueryable();
             }

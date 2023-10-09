@@ -77,7 +77,7 @@ class CartController {
             var size = $('.product__details__option__size label.active').data('id');
             var colour = $('.product__details__option__size2 label.active').data('id');
             if (size == null || colour == null) {
-                alert("Hình như bạn quên chọn size hoặc màu !");
+                alert("Looks like you forgot to choose size or color!");
             }
         });
         $('#icolour').on('change', function () {
@@ -205,7 +205,7 @@ class CartController {
             var size = $('.product__details__option__size label.active').data('id');
             var color = $('.product__details__option__size2 label.active').data('id');
             if (size == null || color == null) {
-                alert("Hình như bạn quên chọn size hoặc màu !");
+                alert("Looks like you forgot to choose size or color!");
             }
             else {
                 $.ajax({
@@ -282,9 +282,9 @@ class CartController {
                                                                     <img class="image-cart-sub" src="https://localhost:7179/user_content/${cart.imagePath}" />
                                                                         <div>
                                                                             <span>${cart.name}</span>
-                                                                            <p>Số lượng : ${cart.quantity}</p>
+                                                                            <p>Quanity : ${cart.quantity}</p>
                                                                             <button class="button-remove-cart-sub" data-id="${cart.id}">
-                                                                                Xóa
+                                                                                Remove
                                                                             </button>
                                                                         </div>
                                                                     </div>
@@ -348,6 +348,67 @@ class CartController {
                 localStorage.setItem('Order', JSON.stringify(Order));
                 $.ajax({
                     url: "/Order/PaymentWithPaypal",
+                    data: { cartUser: JSON.stringify(Carts), addRess: AddRess, phone: Phone },
+                    dataType: "json",
+                    type: "POST",
+                    success: function (response) {
+                        if (response.status == true) {
+                            var link = response.link;
+                            location.href = link
+                        }
+                        else {
+                            window.location.href = "/Carts";
+                        }
+                    }
+                })
+            }
+        });
+        $('#vnpay').off('click').on('click', function () {
+            var check = true;
+            var AddRess = $('#DC').val();
+            var Phone = $('#SDT').val();
+            var Email = $('#Gmail').val();
+            var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+            if (AddRess == "") {
+                $('#textAddress').html("Nhập địa chỉ");
+                check = false;
+            }
+            if (vnf_regex.test(Phone) == false) {
+                $('#textPhone').html('Số điện thoại của bạn không đúng định dạng!');
+                check = false;
+            }
+            if (Email == "") {
+                $('#textEmail').html("Hãy nhập mail");
+                check = false;
+            }
+            if (localStorage && check == true) {
+                var cartsDataAsJson = localStorage.getItem("Carts")
+                if (cartsDataAsJson) {
+                    /**
+                     * @type{ {
+                     *  Size: string;
+                     *  Colour: string;
+                     *  Img: string;
+                     *  
+                     * }[]}
+                    * */
+                    var Carts = [];
+                    var carts = JSON.parse(cartsDataAsJson);
+                    var rows = "";
+                    for (var i = 0; i < carts.length; i++) {
+                        var cart = carts[i];
+                        Carts.push(cart);
+                    }
+                }
+                let Order = [];
+                Order.push({
+                    address: AddRess,
+                    phone: Phone,
+                    email: Email,
+                });
+                localStorage.setItem('Order', JSON.stringify(Order));
+                $.ajax({
+                    url: "/Order/Payment",
                     data: { cartUser: JSON.stringify(Carts), addRess: AddRess, phone: Phone },
                     dataType: "json",
                     type: "POST",
@@ -500,7 +561,16 @@ class CartController {
                     var cart = carts[i];
                     if (cart.Status == true) {
                         rows += `
-                        <li>${cart.quantity} - ${cart.name} <span>$ ${cart.price}</span></li>
+                        <li> <div style="background: url(https://localhost:7179/user_content/${cart.imagePath}) no-repeat center center;
+    background-size: contain; display: inline-block;
+    height: 64px;
+    width: 64px; "> </div>
+<span style="float: revert;
+    height: 86px;
+    display: initial;
+    
+    position: absolute;
+    margin-left: 15px;"> ${cart.quantity}</span> ${cart.name} <span>$ ${cart.price}</span></li>
                     `
                     }
                 }
@@ -550,9 +620,9 @@ class CartController {
                                                                     <img class="image-cart-sub" src="https://localhost:7179/user_content/${cart.imagePath}" />
                                                                         <div>
                                                                             <span>${cart.name}</span>
-                                                                            <p>Số lượng : ${cart.quantity}</p>
+                                                                            <p>Quanity : ${cart.quantity}</p>
                                                                             <button class=" button-remove-cart-sub" data-id="${cart.id}">
-                                                                                Xóa
+                                                                                Remove
                                                                             </button>
                                                                         </div>
                                                                     </div>
@@ -593,7 +663,16 @@ class CartController {
                     var cart = carts[i];
                     if (cart.Status == true) {
                         rows += `
-                        <li>${cart.quantity}   <span>$ ${cart.price}</span> <span style="margin-right: 18%">${cart.name}</span></li>
+                        <li> <div style="background: url(https://localhost:7179/user_content/${cart.imagePath}) no-repeat center center;
+    background-size: contain; display: inline-block;
+    height: 64px;
+    width: 64px; ">
+</div>
+<span style="float: revert;
+    height: 86px;
+    display: initial;
+    position: absolute;
+    margin-left: 15px;"> ${cart.quantity}</span>   <span>$ ${cart.price}</span> <span style="margin-right: 18%">${cart.name}</span></li>
                     `
                     }
                 }
@@ -663,9 +742,9 @@ class CartController {
                                                                     <img class="image-cart-sub" src="https://localhost:7179/user_content/${cart.imagePath}" />
                                                                         <div>
                                                                             <span>${cart.name}</span>
-                                                                            <p>Số lượng : ${cart.quantity}</p>
+                                                                            <p>Quanity : ${cart.quantity}</p>
                                                                             <button class="button-remove-cart-sub" data-id="${cart.id}">
-                                                                                Xóa
+                                                                                Remove
                                                                             </button>
                                                                         </div>
                                                                     </div>
@@ -707,9 +786,9 @@ class CartController {
                                                                     <img class="image-cart-sub" src="https://localhost:7179/user_content/${cart.imagePath}" />
                                                                         <div>
                                                                             <span>${cart.name}</span>
-                                                                            <p>Số lượng : ${cart.quantity}</p>
+                                                                            <p>Quanity : ${cart.quantity}</p>
                                                                             <button class=" button-remove-cart-sub" data-id="${cart.id}">
-                                                                                Xóa
+                                                                                Remove
                                                                             </button>
                                                                         </div>
                                                                     </div>
@@ -855,9 +934,9 @@ class CartController {
                                                                     <img class="image-cart-sub" src="https://localhost:7179/user_content/${cart.imagePath}" />
                                                                         <div>
                                                                             <span>${cart.name}</span>
-                                                                            <p>Số lượng : ${cart.quantity}</p>
+                                                                            <p>Quanity : ${cart.quantity}</p>
                                                                             <button class=" button-remove-cart-sub" data-id="${cart.id}">
-                                                                                Xóa
+                                                                                Remove
                                                                             </button>
                                                                         </div>
                                                                     </div>
