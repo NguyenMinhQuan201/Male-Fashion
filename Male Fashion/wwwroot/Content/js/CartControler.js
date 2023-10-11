@@ -1,11 +1,69 @@
 ﻿
 class CartController {
-
     constructor() {
         this.renderCartsContent();
         this.allPrice();
         this.renderOrderDetailContent();
+        $('.button-remove-cart-sub').on('click', function () {
+            console.log("YOLO")
+            var tongtienremove = 0;
+            var rows = "";
+            var click = $(this);
+            var Id = click.data('id');
+            let Carts = localStorage.getItem('Carts') ? JSON.parse(localStorage.getItem('Carts')) : [];
+            if (Carts.length > 0) {
+                for (var i = 0; i < Carts.length; i++) {
+                    if (Id == Carts[i].id) {
+                        var tmp = Carts[i]
+                        Carts[i] = Carts[0]
+                        Carts[0] = tmp
+                        Carts.splice(0, 1);
+                        localStorage.setItem('Carts', JSON.stringify(Carts));
+                        if (localStorage) {
+                            var cartsDataAsJson = localStorage.getItem("Carts")
+                            if (cartsDataAsJson) {
+                                /**
+                                 * @type{ {
+                                 *  Size: string;
+                                 *  Colour: string;
+                                 *  Img: string;
+                                 *  
+                                 * }[]}
+                                 * */
+                                var carts = JSON.parse(cartsDataAsJson);
 
+                                for (var i = 0; i < carts.length; i++) {
+
+                                    var cart = carts[i];
+                                    tongtien = tongtien + cart.tong;
+                                    rows += `
+                                    <div class="cart-sub">
+                                                                    <img class="image-cart-sub" src="https://localhost:7179/user_content/${cart.imagePath}" />
+                                                                        <div>
+                                                                            <span>${cart.name}</span>
+                                                                            <p>Số lượng :${cart.quantity}</p>
+                                                                            <button class="button-remove-cart-sub" data-id="${cart.id}">
+                                                                                Xóa
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                        `
+                                }
+                                $('.cart-sub-render').html(rows);
+                                localStorage.setItem('TT', tongtien);
+                                $('.total-checkout').html(tongtien);
+                            }
+                        }
+                    }
+                }
+            }
+            if (Carts.length == 0) {
+                $('.total-checkout').html("0");
+            }
+            if (Carts.length > 0) {
+                new CartController()
+            }
+        });
         $(".product__color__select label, .shop__sidebar__size label").on('click', function () {
             $(".product__color__select label, .shop__sidebar__size label ").removeClass('active');
             $(this).addClass('active');
@@ -33,7 +91,7 @@ class CartController {
                 type: "POST",
                 success: function (response) {
                     if (response.status == true) {
-                        var rows = "<span>Color:</span>";
+                        var rows = "<span>Màu :</span>";
                         for (var i = 0; i < response.arr.length; i++) {
                             rows += `
                                                 <label for="${response.arr[i]}" class="colour" data-id="${response.arr[i]}"">
@@ -62,7 +120,7 @@ class CartController {
                                     }
                                     else {
                                         $('.button_add_to_cart_new').attr("disabled", false);
-                                        $('.primary-btn').html("ADD TO CART")
+                                        $('.primary-btn').html("THÊM VÀO GIỎ")
                                     }
                                 }
                             })
@@ -77,7 +135,7 @@ class CartController {
             var size = $('.product__details__option__size label.active').data('id');
             var colour = $('.product__details__option__size2 label.active').data('id');
             if (size == null || colour == null) {
-                alert("Looks like you forgot to choose size or color!");
+                alert("Hình như bạn quên chọn size hoặc Màu !");
             }
         });
         $('#icolour').on('change', function () {
@@ -100,7 +158,7 @@ class CartController {
                     }
                     else {
                         $('.button_add_to_cart_new').attr("disabled", false);
-                        $('.primary-btn').html("ADD TO CART")
+                        $('.primary-btn').html("THÊM VÀO GIỎ")
 
                     }
                 }
@@ -122,7 +180,7 @@ class CartController {
                     }
                     else {
                         $('.button_add_to_cart_new').attr("disabled", false);
-                        $('.primary-btn').html("ADD TO CART")
+                        $('.primary-btn').html("THÊM VÀO GIỎ")
                     }
                 }
             })
@@ -199,13 +257,14 @@ class CartController {
             })
         });
         $('.button_add_to_cart_new').on('click', function () {
+            console.log("Thêm ọk")
             let Carts = localStorage.getItem('Carts') ? JSON.parse(localStorage.getItem('Carts')) : [];
             var click = $(this);
             var Id = click.data('id');
             var size = $('.product__details__option__size label.active').data('id');
             var color = $('.product__details__option__size2 label.active').data('id');
             if (size == null || color == null) {
-                alert("Looks like you forgot to choose size or color!");
+                alert("Hình như bạn quên chọn size và Màu !");
             }
             else {
                 $.ajax({
@@ -282,9 +341,9 @@ class CartController {
                                                                     <img class="image-cart-sub" src="https://localhost:7179/user_content/${cart.imagePath}" />
                                                                         <div>
                                                                             <span>${cart.name}</span>
-                                                                            <p>Quanity : ${cart.quantity}</p>
+                                                                            <p>Số lượng :${cart.quantity}</p>
                                                                             <button class="button-remove-cart-sub" data-id="${cart.id}">
-                                                                                Remove
+                                                                                Xóa
                                                                             </button>
                                                                         </div>
                                                                     </div>
@@ -520,7 +579,7 @@ class CartController {
                                         <h5>€${cart.gia}</h5>
                                         Size: ${cart.kich}
                                          <br>
-                                        Color: ${cart.mau}
+                                        Màu : ${cart.mau}
                                         <br>
                                     </div>
                                 </td>
@@ -570,7 +629,7 @@ class CartController {
     display: initial;
     
     position: absolute;
-    margin-left: 15px;"> ${cart.quantity}</span> ${cart.name} <span>$ ${cart.price}</span></li>
+    margin-left: 40px;"> ${cart.quantity}</span> ${cart.name} <span> ${cart.price}</span></li>
                     `
                     }
                 }
@@ -584,65 +643,7 @@ class CartController {
                 }
             }
         });
-        $('.button-remove-cart-sub').off('click').on('click', function () {
-            var tongtien = 0;
-            var rows = "";
-            var click = $(this);
-            var Id = click.data('id');
-            let Carts = localStorage.getItem('Carts') ? JSON.parse(localStorage.getItem('Carts')) : [];
-            if (Carts.length > 0) {
-                for (var i = 0; i < Carts.length; i++) {
-                    if (Id == Carts[i].id) {
-                        var tmp = Carts[i]
-                        Carts[i] = Carts[0]
-                        Carts[0] = tmp
-                        Carts.splice(0, 1);
-                        localStorage.setItem('Carts', JSON.stringify(Carts));
-                        if (localStorage) {
-                            var cartsDataAsJson = localStorage.getItem("Carts")
-                            if (cartsDataAsJson) {
-                                /**
-                                 * @type{ {
-                                 *  Size: string;
-                                 *  Colour: string;
-                                 *  Img: string;
-                                 *  
-                                 * }[]}
-                                 * */
-                                var carts = JSON.parse(cartsDataAsJson);
-
-                                for (var i = 0; i < carts.length; i++) {
-
-                                    var cart = carts[i];
-                                    tongtien = tongtien + cart.tong;
-                                    rows += `
-                                    <div class="cart-sub">
-                                                                    <img class="image-cart-sub" src="https://localhost:7179/user_content/${cart.imagePath}" />
-                                                                        <div>
-                                                                            <span>${cart.name}</span>
-                                                                            <p>Quanity : ${cart.quantity}</p>
-                                                                            <button class=" button-remove-cart-sub" data-id="${cart.id}">
-                                                                                Remove
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                        `
-                                }
-                                $('.cart-sub-render').html(rows);
-                                localStorage.setItem('TT', tongtien);
-                                $('.total-checkout').html(tongtien);
-                            }
-                        }
-                    }
-                }
-            }
-            if (Carts.length == 0) {
-                $('.total-checkout').html("0");
-            }
-            if (Carts.length > 0) {
-                new CartController()
-            }
-        });
+        
 
     }
     allPrice() {
@@ -672,7 +673,7 @@ class CartController {
     height: 86px;
     display: initial;
     position: absolute;
-    margin-left: 15px;"> ${cart.quantity}</span>   <span>$ ${cart.price}</span> <span style="margin-right: 18%">${cart.name}</span></li>
+    margin-left: 40px;"> ${cart.quantity}</span>   <span> ${cart.price}</span> <span style="margin-right: 2%">${cart.name}</span></li>
                     `
                     }
                 }
@@ -720,7 +721,7 @@ class CartController {
                                         <h5>€${cart.price}</h5>
                                         Size: ${cart.size}
                                          -
-                                        Color: ${cart.color}
+                                        Màu: ${cart.color}
                                         <br>
                                          <h5 class="mess_${cart.id}" style="color:red">da het hang</h5>
                                     </div>
@@ -742,9 +743,9 @@ class CartController {
                                                                     <img class="image-cart-sub" src="https://localhost:7179/user_content/${cart.imagePath}" />
                                                                         <div>
                                                                             <span>${cart.name}</span>
-                                                                            <p>Quanity : ${cart.quantity}</p>
+                                                                            <p>Số lượng :${cart.quantity}</p>
                                                                             <button class="button-remove-cart-sub" data-id="${cart.id}">
-                                                                                Remove
+                                                                                Xóa
                                                                             </button>
                                                                         </div>
                                                                     </div>
@@ -764,7 +765,7 @@ class CartController {
                                         <h5>€${cart.price}</h5>
                                         Size: ${cart.size}
                                          -
-                                        Color: ${cart.color}
+                                        Màu: ${cart.color}
                                         <br>
                                          <h5 class="mess_${cart.id}" style="color:red"></h5>
                                     </div>
@@ -786,9 +787,9 @@ class CartController {
                                                                     <img class="image-cart-sub" src="https://localhost:7179/user_content/${cart.imagePath}" />
                                                                         <div>
                                                                             <span>${cart.name}</span>
-                                                                            <p>Quanity : ${cart.quantity}</p>
-                                                                            <button class=" button-remove-cart-sub" data-id="${cart.id}">
-                                                                                Remove
+                                                                            <p>Số lượng :${cart.quantity}</p>
+                                                                            <button class="button-remove-cart-sub" data-id="${cart.id}">
+                                                                                Xóa
                                                                             </button>
                                                                         </div>
                                                                     </div>
@@ -934,9 +935,9 @@ class CartController {
                                                                     <img class="image-cart-sub" src="https://localhost:7179/user_content/${cart.imagePath}" />
                                                                         <div>
                                                                             <span>${cart.name}</span>
-                                                                            <p>Quanity : ${cart.quantity}</p>
-                                                                            <button class=" button-remove-cart-sub" data-id="${cart.id}">
-                                                                                Remove
+                                                                            <p>Số lượng :${cart.quantity}</p>
+                                                                            <button class="button-remove-cart-sub" data-id="${cart.id}">
+                                                                                Xóa
                                                                             </button>
                                                                         </div>
                                                                     </div>

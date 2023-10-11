@@ -7,8 +7,6 @@
     <script>
         $('#MoreToYou').load("/Events/MoreToYou")
     </script>
-    <script src="~/Content/js/CartControler.js"></script>
-
 }
     <link rel="stylesheet" type="text/css" href="~/Content/css/Chi-tiet-hang1.css">
     <section class="shop-details">
@@ -17,9 +15,9 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="product__details__breadcrumb">
-                            <a href="@Url.Action("Index", "Home")">Home</a>
-                            <a href="@Url.Action("Index", "Events")">Shop</a>
-                            <span>Product Details</span>
+                            <a href="@Url.Action("Index", "Home")">Trang chủ</a>
+                            <a href="@Url.Action("Index", "Events")">Mua sắm</a>
+                            <span>Chi tiết sản phẩm</span>
                         </div>
                     </div>
                 </div>
@@ -31,21 +29,21 @@
                             if (i == 0)
                             {
                                 <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#tabs-@i" role="tab">
+                                    <a class="nav-link active" data-toggle="tab" href="#tabs-@i" role="tab">
 
-                                    <div class="product__thumb__pic set-bg" data-setbg="https://localhost:7179/user_content/@Model.ProductImgs[i].ImagePath">
-                                    </div>
-                                </a>
+                                        <div class="product__thumb__pic set-bg" data-setbg="https://localhost:7179/user_content/@Model.ProductImgs[i].ImagePath">
+                                        </div>
+                                    </a>
                                 </li>
                             }
                             else
                             {
                                 <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#tabs-@i" role="tab">
+                                    <a class="nav-link" data-toggle="tab" href="#tabs-@i" role="tab">
 
-                                    <div class="product__thumb__pic set-bg" data-setbg="https://localhost:7179/user_content/@Model.ProductImgs[i].ImagePath">
-                                    </div>
-                                </a>
+                                        <div class="product__thumb__pic set-bg" data-setbg="https://localhost:7179/user_content/@Model.ProductImgs[i].ImagePath">
+                                        </div>
+                                    </a>
                                 </li>
                             }
                         }
@@ -83,11 +81,9 @@
                 <div class="col-lg-8">
                     <div class="product__details__text">
 
-                        <h3>@Model.Price $</h3>
+                        <h3>@Model.Price đ</h3>
                         <p>
-                            Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable
-                            cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening
-                            with placket.
+                            Áo khoác có lớp lót bông và mũ trùm đầu có thể điều chỉnh. Nổi bật với tay áo dài với các tab vòng bít có thể điều chỉnh, viền bất đối xứng có thể điều chỉnh với các tab bên co giãn và khóa kéo phía trước có túi.
                         </p>
                         <div class="product__details__option">
                             <div class="product__details__option__size">
@@ -103,28 +99,28 @@
                             </div>
                             <br />
                             <div class="product__details__option__size2" id="ngu">
-                                <span>Color:</span>
-                                <span>Please pick you size </span>
+                                <span>Màu:</span>
+                                <span>Chọn kích cỡ </span>
                             </div>
                         </div>
                         <div class="product__details__cart__option">
                             <button type="button" class="button_add_to_cart_new" data-id="@Model.IdProduct">
-                                <span class="primary-btn">add to cart</span>
+                                <span class="primary-btn">THÊM VÀO GIỎ</span>
                             </button>
                         </div>
-                        <div class="product__details__btns__option">
-                            <a href="#"><i class="fa fa-heart"></i> add to wishlist</a>
-                            <a href="#"><i class="fa fa-exchange"></i> Add To Compare</a>
+                        @*<div class="product__details__btns__option">
+                        <a href="#"><i class="fa fa-heart"></i> add to wishlist</a>
+                        <a href="#"><i class="fa fa-exchange"></i> Add To Compare</a>
                         </div>
                         <div class="product__details__last__option">
-                            <h5><span>Guaranteed Safe Checkout</span></h5>
-                            <img src="img/shop-details/details-payment.png" alt="">
-                            <ul>
-                                <li><span>SKU:</span> 3812912</li>
-                                <li><span>Categories:</span> Clothes</li>
-                                <li><span>Tag:</span> Clothes, Skin, Body</li>
-                            </ul>
-                        </div>
+                        <h5><span>Guaranteed Safe Checkout</span></h5>
+                        <img src="img/shop-details/details-payment.png" alt="">
+                        <ul>
+                        <li><span>SKU:</span> 3812912</li>
+                        <li><span>Categories:</span> Clothes</li>
+                        <li><span>Tag:</span> Clothes, Skin, Body</li>
+                        </ul>
+                        </div>*@
                     </div>
                 </div>
             </div>

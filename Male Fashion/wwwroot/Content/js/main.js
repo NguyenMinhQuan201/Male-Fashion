@@ -55,9 +55,8 @@
                                                             `
             }
             $('.cart-sub-render').html(rows);
-            console.log(tongSoLuong)
             $('.conut-number').html(tongSoLuong);
-            $('.price').html(tongGia + "$");
+            $('.price').html(tongGia + "đ");
             new CartController();
         }
     });
@@ -258,14 +257,11 @@
     var status = false;
     $('.cart_icon').off('click').on('click', function () {
         if (status == false) {
-            /*document.getElementById("mini_cart_id").style.display = "block";*/
             status = true;
             $("#mini_cart_id").slideDown();
             document.getElementById("get_blur").style.display = "block";
-            console.log("okok")
         }
         else {
-            /*document.getElementById("mini_cart_id").style.display = "none";*/
             $("#mini_cart_id").slideUp();
             status = false;
         }

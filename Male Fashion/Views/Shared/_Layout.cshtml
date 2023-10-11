@@ -59,7 +59,7 @@
             </div>
             <div id="mobile-menu-wrap"></div>
             <div class="offcanvas__text">
-                <p>Free shipping, 30-day return or refund guarantee.</p>
+                <p>Miễn phí vận chuyển, đảm bảo hoàn trả hoặc hoàn tiền trong 30 ngày.</p>
             </div>
         </div>
         <!-- Offcanvas Menu End -->
@@ -70,7 +70,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-7">
                             <div class="header__top__left">
-                                <p>Free shipping, 30-day return or refund guarantee.</p>
+                                <p>Miễn phí vận chuyển, đảm bảo hoàn trả hoặc hoàn tiền trong 30 ngày.</p>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-5">
@@ -85,7 +85,7 @@
                                         <a href="">Hello: @User.Identity.Name</a>
                                         <span style=" margin-right: 28px">@Html.ActionLink("Đăng Xuất", "Logout", "Authen")</span>
                                     }*@
-                                    <a href="@Url.Action("Index", "Authen")">Sign in</a>
+                                    @*<a href="@Url.Action("Index", "Authen")">Sign in</a>*@
                                     @*<a href="#">FAQs</a>*@
                                 </div>
                                 @*<div class="header__top__hover">
@@ -111,15 +111,15 @@
                     <div class="col-lg-6 col-md-6">
                         <nav class="header__menu mobile-menu">
                             <ul>
-                                <li><a href="/Home">Home</a></li>
-                                <li><a href="/Events">Shop</a></li>
+                                <li><a href="/Home">Trang chủ</a></li>
+                                <li><a href="/Events">Mua sắm</a></li>
                                 <li>
-                                    <a href="#">Pages</a>
+                                    <a href="#">Trang</a>
                                     <ul class="dropdown">
-                                        <li><a href="@Url.Action("Index", "Carts")">Shopping Cart</a></li>
+                                        <li><a href="@Url.Action("Index", "Carts")">Giỏ hàng</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="#">Contacts</a></li>
+                                <li><a href="#">Liên lạc</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -128,7 +128,7 @@
                             <a href="#" class="search-switch"><img src="~/Content/img/icon/search.png" alt=""></a>
                             <a href="#"><img src="~/Content/img/icon/heart.png" alt=""></a>
                             <a class="cart_icon" href="#"><img src="~/Content/img/icon/cart.png" alt=""> <span class="conut-number"></span></a>
-                            <div class="price">$0.00</div>
+                            <div class="price">đ0.00</div>
                         </div>
                     </div>
                 </div>
@@ -142,7 +142,7 @@
             <div class="mini_cart" id="mini_cart_id">
                 <span class="triangle-up"></span>
                 <h5 class="cart-sub-title" style="margin-top:12px">
-                    Recently added products
+                    Thêm gần đây
                     <span id="cart_icon_close" style="margin-right:6px">
                         <button style="border:none;background-color: wheat">X</button>
                     </span>
@@ -161,7 +161,7 @@
                 </div>
                 <div class="cart-sub-total">
                     @*<button class="cart-sub-button"> Checkout </button>*@
-                    <a class="cart-sub-button" href="@Url.Action("Index", "Carts")">Your Cart </a>
+                    <a class="cart-sub-button" href="@Url.Action("Index", "Carts")">Giỏ hàng </a>
                 </div>
             </div>
             @RenderBody()
@@ -177,7 +177,7 @@
                             <div class="footer__logo">
                                 <a href="#"><img src="#" alt=""></a>
                             </div>
-                            <p>The customer is at the heart of our unique business model, which includes design.</p>
+                            <p>Khách hàng là trung tâm của mô hình kinh doanh độc đáo của chúng tôi, bao gồm cả thiết kế.</p>
                             <a href="#"><img src="#" alt=""></a>
                         </div>
                     </div>
@@ -185,21 +185,21 @@
                         <div class="footer__widget">
                             <h6>Shopping</h6>
                             <ul>
-                                <li><a href="#">Clothing Store</a></li>
-                                <li><a href="#">Trending Shoes</a></li>
-                                <li><a href="#">Accessories</a></li>
-                                <li><a href="#">Sale</a></li>
+                                <li><a href="#">Cửa hàng quần áo</a></li>
+                                <li><a href="#">Quần áo hiện đại</a></li>
+                                <li><a href="#">Phụ kiện</a></li>
+                                <li><a href="#">Giảm giá</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-2 col-md-3 col-sm-6">
                         <div class="footer__widget">
-                            <h6>Shopping</h6>
+                            <h6>Mua sắm</h6>
                             <ul>
-                                <li><a href="#">Contact Us</a></li>
-                                <li><a href="#">Payment Methods</a></li>
-                                <li><a href="#">Delivary</a></li>
-                                <li><a href="#">Return & Exchanges</a></li>
+                                <li><a href="#">Liên hệ</a></li>
+                                <li><a href="#">Phương thức thanh toán</a></li>
+                                <li><a href="#">Giao hàng</a></li>
+                                <li><a href="#">Hoàn trả</a></li>
                             </ul>
                         </div>
                     </div>
@@ -207,7 +207,7 @@
                         <div class="footer__widget">
                             <h6>NewLetter</h6>
                             <div class="footer__newslatter">
-                                <p>Be the first to know about new arrivals, look books, sales & promos!</p>
+                                <p>BHãy là người đầu tiên biết về hàng mới, sách tra cứu, khuyến mại và khuyến mãi!</p>
                                 <form action="#">
                                     <input type="text" placeholder="Your email">
                                     @*<button type="submit"><span class="icon_mail_alt"></span></button>*@
