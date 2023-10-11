@@ -35,7 +35,7 @@
             var carts = JSON.parse(cartsDataAsJson);
             var tongSoLuong = 0;
             var tongGia = 0;
-            var rows=""
+            var rows = ""
             for (var i = 0; i < carts.length; i++) {
                 var cart = carts[i];
                 tongSoLuong = tongSoLuong + Number(cart.quantity);
@@ -57,7 +57,126 @@
             $('.cart-sub-render').html(rows);
             $('.conut-number').html(tongSoLuong);
             $('.price').html(tongGia + "đ");
-            new CartController();
+            $(".button-remove-cart-sub").off('click').on('click', function () {
+                console.log("YOLO")
+                var tongtien = 0;
+                var rows = "";
+                var click = $(this);
+                var Id = click.data('id');
+                let Carts = localStorage.getItem('Carts') ? JSON.parse(localStorage.getItem('Carts')) : [];
+                if (Carts.length > 0) {
+                    for (var i = 0; i < Carts.length; i++) {
+                        if (Id == Carts[i].id) {
+                            var tmp = Carts[i]
+                            Carts[i] = Carts[0]
+                            Carts[0] = tmp
+                            Carts.splice(0, 1);
+                            localStorage.setItem('Carts', JSON.stringify(Carts));
+                            if (localStorage) {
+                                var cartsDataAsJson = localStorage.getItem("Carts")
+                                if (cartsDataAsJson) {
+                                    /**
+                                     * @type{ {
+                                     *  Size: string;
+                                     *  Colour: string;
+                                     *  Img: string;
+                                     *  
+                                     * }[]}
+                                     * */
+                                    var carts = JSON.parse(cartsDataAsJson);
+
+                                    for (var i = 0; i < carts.length; i++) {
+
+                                        var cart = carts[i];
+                                        tongtien = tongtien + cart.tong;
+                                        rows += `
+                                    <div class="cart-sub">
+                                                                    <img class="image-cart-sub" src="https://localhost:7179/user_content/${cart.imagePath}" />
+                                                                        <div>
+                                                                            <span>${cart.name}</span>
+                                                                            <p>Số lượng :${cart.quantity}</p>
+                                                                            <button class="button-remove-cart-sub" data-id="${cart.id}">
+                                                                                Xóa
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                        `
+                                    }
+                                    $('.cart-sub-render').html(rows);
+                                    localStorage.setItem('TT', tongtien);
+                                    $('.total-checkout').html(tongtien);
+                                }
+                            }
+                        }
+                    }
+                }
+                if (Carts.length == 0) {
+                    $('.total-checkout').html("0");
+                }
+                if (Carts.length > 0) {
+                    SetRemove();
+                }
+            });
+            function SetRemove() {
+                $(".button-remove-cart-sub").off('click').on('click', function () {
+                    console.log("YOLO")
+                    var tongtien = 0;
+                    var rows = "";
+                    var click = $(this);
+                    var Id = click.data('id');
+                    let Carts = localStorage.getItem('Carts') ? JSON.parse(localStorage.getItem('Carts')) : [];
+                    if (Carts.length > 0) {
+                        for (var i = 0; i < Carts.length; i++) {
+                            if (Id == Carts[i].id) {
+                                var tmp = Carts[i]
+                                Carts[i] = Carts[0]
+                                Carts[0] = tmp
+                                Carts.splice(0, 1);
+                                localStorage.setItem('Carts', JSON.stringify(Carts));
+                                if (localStorage) {
+                                    var cartsDataAsJson = localStorage.getItem("Carts")
+                                    if (cartsDataAsJson) {
+                                        /**
+                                         * @type{ {
+                                         *  Size: string;
+                                         *  Colour: string;
+                                         *  Img: string;
+                                         *  
+                                         * }[]}
+                                         * */
+                                        var carts = JSON.parse(cartsDataAsJson);
+
+                                        for (var i = 0; i < carts.length; i++) {
+
+                                            var cart = carts[i];
+                                            tongtien = tongtien + cart.tong;
+                                            rows += `
+                                    <div class="cart-sub">
+                                                                    <img class="image-cart-sub" src="https://localhost:7179/user_content/${cart.imagePath}" />
+                                                                        <div>
+                                                                            <span>${cart.name}</span>
+                                                                            <p>Số lượng :${cart.quantity}</p>
+                                                                            <button class="button-remove-cart-sub" data-id="${cart.id}">
+                                                                                Xóa
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                        `
+                                        }
+                                        $('.cart-sub-render').html(rows);
+                                        localStorage.setItem('TT', tongtien);
+                                        $('.total-checkout').html(tongtien);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (Carts.length == 0) {
+                        $('.total-checkout').html("0");
+                    }
+                });
+            }
+            //new CartController();
         }
     });
 

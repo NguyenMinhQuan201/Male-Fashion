@@ -4,7 +4,7 @@ class CartController {
         this.renderCartsContent();
         this.allPrice();
         this.renderOrderDetailContent();
-        $('.button-remove-cart-sub').on('click', function () {
+        $(".button-remove-cart-sub").on('click', function () {
             console.log("YOLO")
             var tongtienremove = 0;
             var rows = "";
