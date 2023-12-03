@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using BraintreeHttp;
 using Domain.Models.Dto.Order;
+using Male_Fashion.Others;
 using Male_Fashion.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Nancy.Json;
 using Newtonsoft.Json;
 using PayPal.Core;
@@ -17,6 +19,7 @@ namespace RazorWeb.Controllers
         private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
         private readonly IOrderService _orderService;
+
         public OrderController(IConfiguration configuration, IMapper mapper, IOrderService orderService)
         {
             _mapper = mapper;
@@ -314,5 +317,6 @@ namespace RazorWeb.Controllers
 
             return RedirectToAction("CheckoutSuccess", "Paypal");
         }
+        
     }
 }

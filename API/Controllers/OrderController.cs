@@ -1,7 +1,9 @@
-﻿using Domain.Features;
+﻿using API.Models;
+using Domain.Features;
 using Domain.Models.Dto.Order;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace API.Controllers
 {
@@ -9,6 +11,7 @@ namespace API.Controllers
     [ApiController]
     public class OrderController : ControllerBase
     {
+        
         private readonly IOrderService _orderService;
         public OrderController(IOrderService orderService)
         {
@@ -119,5 +122,10 @@ namespace API.Controllers
         {
             return Ok(await _orderService.GetAllByYear());
         }
+        //public void SendNotification()
+        //{
+        //    _hubContext.Clients.All.SendAsync("ReceiveNotification", "Hello from ASP.NET Core!");
+        //}
     }
 }
+ 

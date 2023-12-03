@@ -27,6 +27,7 @@ namespace Infrastructure.EF
             modelBuilder.ApplyConfiguration(new ImportInvoiceDetailsConfiguration());
             modelBuilder.ApplyConfiguration(new IntroductionConfiguration());
             modelBuilder.ApplyConfiguration(new OrderConfiguration());
+            modelBuilder.ApplyConfiguration(new NotifiConfiguration());
             modelBuilder.ApplyConfiguration(new OrderDetailsConfiguration());
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new ProductDetailsConfiguration());
@@ -60,6 +61,7 @@ namespace Infrastructure.EF
         public DbSet<RoleOperation> RoleOperations { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<Module> Modules { get; set; }
+        public DbSet<Notifi> Notifis { get; set; }
         public virtual DbSet<UserRefreshTokens> UserRefreshToken { get; set; }
 
         /*public override async Task<int> SaveChangesAsync()

@@ -1,3 +1,4 @@
+using Male_Fashion.Others;
 using Male_Fashion.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +24,7 @@ builder.Services.AddTransient<IProductService, ProductService>();
 builder.Services.AddTransient<IBlogService, BlogService>();
 builder.Services.AddTransient<IOrderService, OrderService>();
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddSignalR();
 
 
 var app = builder.Build();
@@ -51,5 +53,4 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
 app.Run();

@@ -11,7 +11,7 @@ namespace Domain.Features
 {
     public interface IOrderService
     {
-        public Task<ApiResult<bool>> Create(OrderDto request);
+        public Task<ApiResult<OrderDto>> Create(OrderDto request);
         public Task<ApiResult<bool>> Update(int id, OrderDto request);
         public Task<ApiResult<bool>> Delete(int id);
         public Task<GetOrderDto> GetById(int id);

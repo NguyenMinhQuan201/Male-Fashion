@@ -1,6 +1,8 @@
+using API.Models;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
+using DataDemo.Common;
 using Domain.Features;
 using Infrastructure.EF;
 using Infrastructure.Entities;
@@ -30,16 +32,14 @@ builder.Services.AddSingleton(mapper);
 builder.Services.AddIdentity<AppUser, AppRole>()
                 .AddEntityFrameworkStores<MaleFashionDbContext>()
                 .AddDefaultTokenProviders();
+builder.Services.AddSignalR();
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(
-        builder =>
-        {
-            builder.WithOrigins("http://localhost:4200")
-                                .AllowAnyHeader()
-                                .AllowAnyOrigin()
-                                .AllowAnyMethod();
-        });
+    options.AddPolicy("CorsPolicy", builder => builder
+        .WithOrigins("http://localhost:4200")
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials());
 });
 builder.Services.AddControllersWithViews()
     .AddNewtonsoftJson(options =>
@@ -101,13 +101,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSwagger();
-app.UseCors(builder =>
-{
-    builder
-    .AllowAnyOrigin()
-    .AllowAnyMethod()
-    .AllowAnyHeader();
-});
+app.UseCors("CorsPolicy"); 
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger eShopSolution V1");
@@ -117,6 +111,7 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
+    endpoints.MapHub<NotiHub>("/NotiHub");
 });
 app.MapControllers();
 app.Run();

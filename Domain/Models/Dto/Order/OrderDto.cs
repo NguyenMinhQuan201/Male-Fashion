@@ -8,6 +8,7 @@ namespace Domain.Models.Dto.Order
 {
     public class OrderDto
     {
+        public long? Id { get; set; }
         public decimal SumPrice { get; set; }
         public string? NameCustomer { get; set; }
         public string? Address { get; set; }
