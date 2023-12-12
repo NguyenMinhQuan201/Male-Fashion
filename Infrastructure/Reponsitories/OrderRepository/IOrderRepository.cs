@@ -11,5 +11,6 @@ namespace Infrastructure.Reponsitories.OrderReponsitory
     public interface IOrderRepository : IRepositoryBase<Order>
     {
         Task<Order> CreateAsyncFLByOrder(Order entity);
+        Task<List<Notifi>> GetAllNoti();
     }
 }

@@ -1,5 +1,4 @@
-﻿using Infrastructure.Reponsitories.BaseReponsitory;
-using Infrastructure.Reponsitories.BlogRepository;
+﻿using Infrastructure.Reponsitories.BlogRepository;
 using Infrastructure.Reponsitories.CategoryReponsitories;
 using Infrastructure.Reponsitories.ImportInvoiceDetailsReponsitories;
 using Infrastructure.Reponsitories.ImportInvoiceReponsitories;

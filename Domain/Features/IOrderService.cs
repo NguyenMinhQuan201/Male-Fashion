@@ -1,5 +1,6 @@
 ﻿using DataDemo.Common;
 using Domain.Common;
+using Domain.Models.Dto.Notifi;
 using Domain.Models.Dto.Order;
 using System;
 using System.Collections.Generic;
@@ -21,5 +22,6 @@ namespace Domain.Features
         public Task<ApiResult<PagedResult<GetOrderDto>>> GetAllPagingRemoved(int? pageSize, int? pageIndex, string? search);
         public Task<IEnumerable<ChartRadius>> GetAllByYear();
         public Task<IEnumerable<ChartCol>> GetAllByMonth();
+        public Task<List<NotifiDto>> GetAllNotifiDto();
     }
 }

@@ -1,5 +1,7 @@
-﻿using DataDemo.Common;
+﻿using AutoMapper;
+using DataDemo.Common;
 using Domain.Common;
+using Domain.Models.Dto.Notifi;
 using Domain.Models.Dto.Order;
 using Infrastructure.Entities;
 using Infrastructure.Reponsitories.OrderDetailReponsitory;
@@ -16,8 +18,10 @@ namespace Domain.Features.Order
         private readonly IOrderDetailRepository _orderDetailReponsitory;
         private readonly IOrderRepository _orderReponsitory;
         private readonly IProductRepository _productReponsitory;
-        public OrderService(IHubContext<NotiHub> hubContext, IOrderRepository orderReponsitory, IOrderDetailRepository orderDetailReponsitory, IProductRepository productRepository)
+        private readonly IMapper _mapper;
+        public OrderService(IHubContext<NotiHub> hubContext, IOrderRepository orderReponsitory, IOrderDetailRepository orderDetailReponsitory, IProductRepository productRepository, IMapper mapper)
         {
+            _mapper = mapper;
             _orderDetailReponsitory = orderDetailReponsitory;
             _orderReponsitory = orderReponsitory;
             _productReponsitory = productRepository;
@@ -334,6 +338,11 @@ namespace Domain.Features.Order
                 lst.Add(obj);
             }
             return lst;
+        }
+
+        public async Task<List<NotifiDto>> GetAllNotifiDto()
+        {
+            return _mapper.Map<List<NotifiDto>>(await _orderReponsitory.GetAllNoti());
         }
     }
 }

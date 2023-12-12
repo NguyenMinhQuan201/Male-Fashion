@@ -126,6 +126,11 @@ namespace API.Controllers
         //{
         //    _hubContext.Clients.All.SendAsync("ReceiveNotification", "Hello from ASP.NET Core!");
         //}
+        [HttpGet("all-noti")]
+        public async Task<IActionResult> GetAllNoti()
+        {
+            return Ok(await _orderService.GetAllNotifiDto());
+        }
     }
 }
  

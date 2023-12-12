@@ -24,12 +24,19 @@ namespace Infrastructure.Reponsitories.OrderReponsitory
             var noti = new Notifi
             {
                 IsRead = false,
-                Link = "order-list/edit/"+entity.IdOrder,
-                Name = "Đơn hàng"
+                Link = "order-list/edit/" + entity.IdOrder,
+                Name = "Đơn hàng",
+                Price = entity.SumPrice,
+                Time = DateTime.Now,
             };
             _db.Notifis.Add(noti);
             await _db.SaveChangesAsync();
             return entity;
+        }
+
+        public async Task<List<Notifi>> GetAllNoti()
+        {
+            return _db.Notifis.ToList();
         }
     }
 }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Entities
+namespace Domain.Models.Dto.Notifi
 {
-    public class Notifi
+    public class NotifiDto
     {
         public long Id { get; set; }
         public string? Name { get; set; }
