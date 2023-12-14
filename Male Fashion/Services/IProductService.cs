@@ -29,10 +29,17 @@ namespace Male_Fashion.Services
             _configuration = configuration;
             _httpContextAccessor = httpContextAccessor;
         }
-
+        private HttpClient ClientC()
+        {
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+            HttpClient client = new HttpClient(clientHandler);
+            return client;
+        }
         public async Task<IEnumerable<CategoryRequestDto>> GetAllCate()
         {
-            var client = _httpClientFactory.CreateClient();
+            
+            var client = ClientC();
             try
             {
                 client.BaseAddress = new Uri(_configuration["BaseAddress"]);
@@ -51,7 +58,7 @@ namespace Male_Fashion.Services
 
         public async Task<ApiResult<List<ProductDetailDto>>> GetAllDetailByIdPoduct(int id)
         {
-            var client = _httpClientFactory.CreateClient();
+            var client = ClientC();
             try
             {
                 client.BaseAddress = new Uri(_configuration["BaseAddress"]);
@@ -70,7 +77,7 @@ namespace Male_Fashion.Services
 
         public async Task<ProductDetailDto> GetByIdProductDetail(int id)
         {
-            var client = _httpClientFactory.CreateClient();
+            var client = ClientC();
             try
             {
                 client.BaseAddress = new Uri(_configuration["BaseAddress"]);
@@ -89,7 +96,7 @@ namespace Male_Fashion.Services
 
         public async Task<GetProductDto> GetByIdSanPham(int id)
         {
-            var client = _httpClientFactory.CreateClient();
+            var client = ClientC();
             try
             {
                 client.BaseAddress = new Uri(_configuration["BaseAddress"]);
@@ -108,7 +115,7 @@ namespace Male_Fashion.Services
 
         public async Task<ApiResult<PagedResult<GetProductDto>>> GetProductWithCatePagings(int? pageSize, int? pageIndex,int?id, string? search, string? branding, long priceMin, long priceMax)
         {
-            var client = _httpClientFactory.CreateClient();
+            var client = ClientC();
             try
             {
                 client.BaseAddress = new Uri(_configuration["BaseAddress"]);
@@ -126,7 +133,7 @@ namespace Male_Fashion.Services
 
         public async Task<ApiResult<PagedResult<GetProductDto>>> GetSanPhamPagings(int? pageSize, int? pageIndex, string? search)
         {
-            var client = _httpClientFactory.CreateClient();
+            var client = ClientC();
             try
             {
                 client.BaseAddress = new Uri(_configuration["BaseAddress"]);

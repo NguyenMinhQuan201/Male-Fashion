@@ -22,7 +22,10 @@ namespace Male_Fashion.Services
         }
         public async Task<ApiResult<bool>> MakeOrder(OrderDto request)
         {
-            var client = _httpClientFactory.CreateClient();
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+            HttpClient client = new HttpClient(clientHandler);
+            //var client = _httpClientFactory.CreateClient();
             client.BaseAddress = new Uri(_configuration["BaseAddress"]);
 
             var json = JsonConvert.SerializeObject(request);

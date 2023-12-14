@@ -22,7 +22,10 @@ namespace Male_Fashion.Services
         }
         public async Task<ApiResult<PagedResult<BlogVm>>> GetPagings(int? pageSize, int? pageIndex, string? search)
         {
-            var client = _httpClientFactory.CreateClient();
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+            HttpClient client = new HttpClient(clientHandler);
+            //var client = _httpClientFactory.CreateClient();
             client.BaseAddress = new Uri(_configuration["BaseAddress"]);
             var response = await client.GetAsync
                 ($"/api/Blogs/get-by-name-blog?pageSize={pageSize}&pageIndex={pageIndex}&name={search}");

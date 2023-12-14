@@ -20,10 +20,17 @@ namespace Male_Fashion.Services
             _configuration = configuration;
             _httpContextAccessor = httpContextAccessor;
         }
+        private HttpClient ClientC()
+        {
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+            HttpClient client = new HttpClient(clientHandler);
+            return client;
+        }
         public async Task<LoginResponDto> GetToken(LoginModel rs)
         {
             /*var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");*/
-            var client = _httpClientFactory.CreateClient();
+            var client = ClientC();
             client.BaseAddress = new Uri(_configuration["BaseAddress"]);
             var json = JsonConvert.SerializeObject(rs);
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");

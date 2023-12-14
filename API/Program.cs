@@ -20,8 +20,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddDbContext<MaleFashionDbContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("MaleFashionDb")));
-
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MaleFashionDb"), builder =>
+    {
+        builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
+    });
+});
 var mapperConfig = new MapperConfiguration(config =>
 {
     config.CreateMapByNamingConvention();
@@ -36,7 +40,7 @@ builder.Services.AddSignalR();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy", builder => builder
-        .WithOrigins("http://localhost:4200")
+        .WithOrigins("http://localhost:4200", "http://localhost:8282")
         .AllowAnyMethod()
         .AllowAnyHeader()
         .AllowCredentials());
@@ -101,7 +105,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSwagger();
-app.UseCors("CorsPolicy"); 
+app.UseCors("CorsPolicy");
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger eShopSolution V1");
