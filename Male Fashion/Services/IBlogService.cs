@@ -26,6 +26,14 @@ namespace Male_Fashion.Services
             clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
             HttpClient client = new HttpClient(clientHandler);
             //var client = _httpClientFactory.CreateClient();
+            try
+            {
+                var temp = _configuration["BaseAddress"];
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
             client.BaseAddress = new Uri(_configuration["BaseAddress"]);
             var response = await client.GetAsync
                 ($"/api/Blogs/get-by-name-blog?pageSize={pageSize}&pageIndex={pageIndex}&name={search}");

@@ -2,36 +2,47 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    bool isLocalhost = Context.Request.Host.Host.Equals("localhost", StringComparison.OrdinalIgnoreCase)
+                      || Context.Request.Host.Host.Equals("127.0.0.1", StringComparison.OrdinalIgnoreCase);
+    var url = "";
+    if (isLocalhost)
+    {
+        url = "https://localhost:7179";
+    }
+    else
+    {
+        url = "http://192.168.1.16:9898";
+    }
 }
-@section jsFooter{
+@section jsFooter {
     <script>
         $('#MoreToYou').load("/Events/MoreToYou")
     </script>
 }
-    <link rel="stylesheet" type="text/css" href="~/Content/css/Chi-tiet-hang1.css">
-    <section class="shop-details">
-        <div class="product__details__pic">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="product__details__breadcrumb">
-                            <a href="@Url.Action("Index", "Home")">Trang chủ</a>
-                            <a href="@Url.Action("Index", "Events")">Mua sắm</a>
-                            <span>Chi tiết sản phẩm</span>
-                        </div>
+<link rel="stylesheet" type="text/css" href="~/Content/css/Chi-tiet-hang1.css">
+<section class="shop-details">
+    <div class="product__details__pic">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="product__details__breadcrumb">
+                        <a href="@Url.Action("Index", "Home")">Trang chủ</a>
+                        <a href="@Url.Action("Index", "Events")">Mua sắm</a>
+                        <span>Chi tiết sản phẩm</span>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-3 col-md-3">
-                        <ul class="nav nav-tabs" role="tablist">
-                            @for (int i = 0; i < @Model.ProductImgs.Count(); i++)
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-3">
+                    <ul class="nav nav-tabs" role="tablist">
+                        @for (int i = 0; i < @Model.ProductImgs.Count(); i++)
                         {
                             if (i == 0)
                             {
                                 <li class="nav-item">
                                     <a class="nav-link active" data-toggle="tab" href="#tabs-@i" role="tab">
 
-                                        <div class="product__thumb__pic set-bg" data-setbg="https://localhost:7179/user_content/@Model.ProductImgs[i].ImagePath">
+                                        <div class="product__thumb__pic set-bg" data-setbg="@url/user_content/@Model.ProductImgs[i].ImagePath">
                                         </div>
                                     </a>
                                 </li>
@@ -41,7 +52,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#tabs-@i" role="tab">
 
-                                        <div class="product__thumb__pic set-bg" data-setbg="https://localhost:7179/user_content/@Model.ProductImgs[i].ImagePath">
+                                        <div class="product__thumb__pic set-bg" data-setbg="@url/user_content/@Model.ProductImgs[i].ImagePath">
                                         </div>
                                     </a>
                                 </li>
@@ -57,7 +68,7 @@
                             {
                                 <div class="tab-pane active" id="tabs-@i" role="tabpanel">
                                     <div class="product__details__pic__item">
-                                        <img style="height:500px" src="https://localhost:7179/user_content/@Model.ProductImgs[i].ImagePath" alt="">
+                                        <img style="height:500px" src="@url/user_content/@Model.ProductImgs[i].ImagePath" alt="">
                                     </div>
                                 </div>
                             }
@@ -65,7 +76,7 @@
                             {
                                 <div class="tab-pane" id="tabs-@i" role="tabpanel">
                                     <div class="product__details__pic__item">
-                                        <img style="height:500px" src="https://localhost:7179/user_content/@Model.ProductImgs[i].ImagePath" alt="">
+                                        <img style="height:500px" src="@url/user_content/@Model.ProductImgs[i].ImagePath" alt="">
                                     </div>
                                 </div>
                             }

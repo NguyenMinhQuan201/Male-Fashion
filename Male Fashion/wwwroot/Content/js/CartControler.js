@@ -4,6 +4,15 @@ class CartController {
         this.renderCartsContent();
         this.allPrice();
         this.renderOrderDetailContent();
+        const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
+        var url = "";
+        if (isLocalhost) {
+            url = "https://localhost:7179/"
+        }
+        else {
+            url = "http://192.168.1.16:9898/"
+        }
         $(".button-remove-cart-sub").on('click', function () {
             console.log("YOLO")
             var tongtienremove = 0;
@@ -38,7 +47,7 @@ class CartController {
                                     tongtien = tongtien + cart.tong;
                                     rows += `
                                     <div class="cart-sub">
-                                                                    <img class="image-cart-sub" src="https://localhost:7179/user_content/${cart.imagePath}" />
+                                                                    <img class="image-cart-sub" src="${url}user_content/${cart.imagePath}" />
                                                                         <div>
                                                                             <span>${cart.name}</span>
                                                                             <p>Số lượng :${cart.quantity}</p>
@@ -338,7 +347,7 @@ class CartController {
                             rows2 +=
                                 `
                                                                 <div class="cart-sub">
-                                                                    <img class="image-cart-sub" src="https://localhost:7179/user_content/${cart.imagePath}" />
+                                                                    <img class="image-cart-sub" src="${url}user_content/${cart.imagePath}" />
                                                                         <div>
                                                                             <span>${cart.name}</span>
                                                                             <p>Số lượng :${cart.quantity}</p>
@@ -620,7 +629,7 @@ class CartController {
                     var cart = carts[i];
                     if (cart.Status == true) {
                         rows += `
-                        <li> <div style="background: url(https://localhost:7179/user_content/${cart.imagePath}) no-repeat center center;
+                        <li> <div style="background: url(${url}user_content/${cart.imagePath}) no-repeat center center;
     background-size: contain; display: inline-block;
     height: 64px;
     width: 64px; "> </div>
@@ -664,7 +673,7 @@ class CartController {
                     var cart = carts[i];
                     if (cart.Status == true) {
                         rows += `
-                        <li> <div style="background: url(https://localhost:7179/user_content/${cart.imagePath}) no-repeat center center;
+                        <li> <div style="background: url(${url}user_content/${cart.imagePath}) no-repeat center center;
     background-size: contain; display: inline-block;
     height: 64px;
     width: 64px; ">
@@ -714,7 +723,7 @@ class CartController {
                         <tr>
                                 <td class="product__cart__item">
                                     <div class="product__cart__item__pic">
-                                        <img style="height: 110px;width: 90px; " src="https://localhost:7179/user_content/${cart.imagePath}" alt="">
+                                        <img style="height: 110px;width: 90px; " src="${url}user_content/${cart.imagePath}" alt="">
                                     </div>
                                     <div class="product__cart__item__text">
                                         <h6>${cart.name}</h6>
@@ -740,7 +749,7 @@ class CartController {
                                     rows2 +=
                                         `
                                                                 <div class="cart-sub">
-                                                                    <img class="image-cart-sub" src="https://localhost:7179/user_content/${cart.imagePath}" />
+                                                                    <img class="image-cart-sub" src="${url}user_content/${cart.imagePath}" />
                                                                         <div>
                                                                             <span>${cart.name}</span>
                                                                             <p>Số lượng :${cart.quantity}</p>
@@ -758,7 +767,7 @@ class CartController {
                         <tr>
                                 <td class="product__cart__item">
                                     <div class="product__cart__item__pic">
-                                        <img style="height: 110px;width: 90px; " src="https://localhost:7179/user_content/${cart.imagePath}" alt="">
+                                        <img style="height: 110px;width: 90px; " src="${url}user_content/${cart.imagePath}" alt="">
                                     </div>
                                     <div class="product__cart__item__text">
                                         <h6>${cart.name}</h6>
@@ -784,7 +793,7 @@ class CartController {
                                     rows2 +=
                                         `
                                                                 <div class="cart-sub">
-                                                                    <img class="image-cart-sub" src="https://localhost:7179/user_content/${cart.imagePath}" />
+                                                                    <img class="image-cart-sub" src="${url}user_content/${cart.imagePath}" />
                                                                         <div>
                                                                             <span>${cart.name}</span>
                                                                             <p>Số lượng :${cart.quantity}</p>
@@ -907,7 +916,7 @@ class CartController {
                                                         rows += `<tr>
                                 <td class="product__cart__item">
                                     <div class="product__cart__item__pic">
-                                        <img src="https://localhost:7179/user_content/${cart.imagePath}" alt="">
+                                        <img src="${url}user_content/${cart.imagePath}" alt="">
                                     </div>
                                     <div class="product__cart__item__text">
                                         <h6>${cart.name}</h6>
@@ -932,7 +941,7 @@ class CartController {
                                                         rows2 +=
                                                             `
                                                                 <div class="cart-sub">
-                                                                    <img class="image-cart-sub" src="https://localhost:7179/user_content/${cart.imagePath}" />
+                                                                    <img class="image-cart-sub" src="${url}user_content/${cart.imagePath}" />
                                                                         <div>
                                                                             <span>${cart.name}</span>
                                                                             <p>Số lượng :${cart.quantity}</p>

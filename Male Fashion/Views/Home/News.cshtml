@@ -1,6 +1,17 @@
 ﻿@model List<Domain.Models.Dto.Blog.BlogVm>
-<p>@ViewBag.NameBase</p>
-<p>@ViewBag.Err</p>
+@{
+    bool isLocalhost = Context.Request.Host.Host.Equals("localhost", StringComparison.OrdinalIgnoreCase)
+                      || Context.Request.Host.Host.Equals("127.0.0.1", StringComparison.OrdinalIgnoreCase);
+    var url = "";
+    if (isLocalhost)
+    {
+        url = "https://localhost:7179";
+    }
+    else
+    {
+        url = "http://192.168.1.16:9898";
+    }
+}
 <section class="latest spad">
     <div class="container">
         <div class="row">
@@ -16,7 +27,7 @@
             {
                 <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="blog__item">
-                        <div class="blog__item__pic set-bg" style="background-image: url(https://localhost:7179/user_content/@Html.DisplayFor(moldelItem => item.Image))"></div>
+                        <div class="blog__item__pic set-bg" style="background-image: url(@url/user_content/@Html.DisplayFor(moldelItem => item.Image))"></div>
                         <div class="blog__item__text">
                             <span><img src="img/icon/calendar.png" alt="">@Html.DisplayFor(moldelItem => item.CreatedAt)</span>
                             <h5>@Html.DisplayFor(moldelItem => item.Title)</h5>
@@ -29,26 +40,26 @@
     </div>
 </section>
 <script>
-  // Xác định URL của API
-  var url = "https://localhost:7179/api/Blogs/get-by-id?id=1";
+    // Xác định URL của API
+    var url = "https://localhost:7179/api/Blogs/get-by-id?id=1";
 
-  // Sử dụng Fetch API để gọi API
-  fetch(url)
-    .then(response => {
-      // Kiểm tra nếu trạng thái của response là OK (status 200-299)
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      // Chuyển đổi response sang định dạng JSON
-      return response.json();
-    })
-    .then(data => {
-      // Xử lý dữ liệu nhận được từ API ở đây
-      console.log(data);
-    })
-    .catch(error => {
-      // Xử lý lỗi nếu có
-      console.error('There was a problem with the fetch operation:', error);
-    });
+    // Sử dụng Fetch API để gọi API
+    fetch(url)
+        .then(response => {
+            // Kiểm tra nếu trạng thái của response là OK (status 200-299)
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            // Chuyển đổi response sang định dạng JSON
+            return response.json();
+        })
+        .then(data => {
+            // Xử lý dữ liệu nhận được từ API ở đây
+            console.log(data);
+        })
+        .catch(error => {
+            // Xử lý lỗi nếu có
+            console.error('There was a problem with the fetch operation:', error);
+        });
 </script>
 

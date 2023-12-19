@@ -1,5 +1,17 @@
 ﻿@model List<Domain.Models.Dto.Product.GetProductDto>
-
+@{
+    bool isLocalhost = Context.Request.Host.Host.Equals("localhost", StringComparison.OrdinalIgnoreCase)
+                      || Context.Request.Host.Host.Equals("127.0.0.1", StringComparison.OrdinalIgnoreCase);
+    var url = "";
+    if (isLocalhost)
+    {
+        url = "https://localhost:7179";
+    }
+    else
+    {
+        url = "http://192.168.1.16:9898";
+    }
+}
 <section class="product spad">
     <div class="container">
         <div class="row">
@@ -19,7 +31,7 @@
                     i++;
                     <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
                         <div class="product__item sale">
-                            <div class="product__item__pic set-bg" style="background-image: url(https://localhost:7179/user_content/@Html.DisplayFor(moldelItem => item.ProductImgs[0].ImagePath))">
+                            <div class="product__item__pic set-bg" style="background-image: url(@url/user_content/@Html.DisplayFor(moldelItem => item.ProductImgs[0].ImagePath))">
                                 <span class="label">ĐANG GIẢM</span>
                             </div>
                             <div class="product__item__text">

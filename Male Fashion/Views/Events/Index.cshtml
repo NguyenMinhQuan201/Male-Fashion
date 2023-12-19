@@ -7,6 +7,17 @@
     var brandingSS = TempData["branding"] == null ? "" : TempData["branding"];
     var priceMinSS = TempData["priceMin"] == null ? 0 : TempData["priceMin"];
     var priceMaxSS = TempData["priceMax"] == null ? 0 : TempData["priceMax"];
+    bool isLocalhost = Context.Request.Host.Host.Equals("localhost", StringComparison.OrdinalIgnoreCase)
+                      || Context.Request.Host.Host.Equals("127.0.0.1", StringComparison.OrdinalIgnoreCase);
+    var url = "";
+    if (isLocalhost)
+    {
+        url = "https://localhost:7179";
+    }
+    else
+    {
+        url = "http://192.168.1.16:9898";
+    }
 }
 
 <head>
@@ -120,7 +131,7 @@
                         {
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="https://localhost:7179/user_content/@item.ProductImgs[0].ImagePath">
+                                    <div class="product__item__pic set-bg" data-setbg="@url/user_content/@item.ProductImgs[0].ImagePath">
                                         <ul class="product__hover">
                                             <li><a href="#"><img src="~/Content/img/icon/heart.png" alt=""></a></li>
                                             <li>

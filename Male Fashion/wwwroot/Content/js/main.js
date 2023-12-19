@@ -15,7 +15,14 @@
         Preloader
     --------------------*/
     $(window).on('load', function () {
-
+        const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        var url = "";
+        if (isLocalhost) {
+            url = "https://localhost:7179/"
+        }
+        else {
+            url = "http://192.168.1.16:9898/"
+        }
         $(".loader").fadeOut();
         $("#preloder").delay(200).fadeOut("slow");
 
@@ -42,7 +49,7 @@
                 tongGia = tongGia + cart.price * cart.quantity;
                 rows += `
                                                                 <div class="cart-sub">
-                                                                    <img class="image-cart-sub" src="https://localhost:7179/user_content/${cart.imagePath}" />
+                                                                    <img class="image-cart-sub" src="${url}user_content/${cart.imagePath}" />
                                                                         <div>
                                                                             <span>${cart.name}</span>
                                                                             <p>Số lượng : ${cart.quantity}</p>
@@ -91,7 +98,7 @@
                                         tongtien = tongtien + cart.tong;
                                         rows += `
                                     <div class="cart-sub">
-                                                                    <img class="image-cart-sub" src="https://localhost:7179/user_content/${cart.imagePath}" />
+                                                                    <img class="image-cart-sub" src="${url}user_content/${cart.imagePath}" />
                                                                         <div>
                                                                             <span>${cart.name}</span>
                                                                             <p>Số lượng :${cart.quantity}</p>
@@ -152,7 +159,7 @@
                                             tongtien = tongtien + cart.tong;
                                             rows += `
                                     <div class="cart-sub">
-                                                                    <img class="image-cart-sub" src="https://localhost:7179/user_content/${cart.imagePath}" />
+                                                                    <img class="image-cart-sub" src="${url}user_content/${cart.imagePath}" />
                                                                         <div>
                                                                             <span>${cart.name}</span>
                                                                             <p>Số lượng :${cart.quantity}</p>
@@ -202,10 +209,10 @@
     /*------------------
         Navigation
     --------------------*/
-    $(".mobile-menu").slicknav({
-        prependTo: '#mobile-menu-wrap',
-        allowParentLinks: true
-    });
+    //$(".mobile-menu").slicknav({
+    //    prependTo: '#mobile-menu-wrap',
+    //    allowParentLinks: true
+    //});
     /*------------------
         Accordin Active
     --------------------*/
