@@ -1,18 +1,17 @@
-﻿
+﻿const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+var url = "";
+if (isLocalhost) {
+    url = "https://localhost:7179/"
+}
+else {
+    url = "http://192.168.1.16:9898/"
+}
 class CartController {
     constructor() {
+        
         this.renderCartsContent();
         this.allPrice();
         this.renderOrderDetailContent();
-        const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-
-        var url = "";
-        if (isLocalhost) {
-            url = "https://localhost:7179/"
-        }
-        else {
-            url = "http://192.168.1.16:9898/"
-        }
         $(".button-remove-cart-sub").on('click', function () {
             console.log("YOLO")
             var tongtienremove = 0;

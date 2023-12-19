@@ -209,10 +209,10 @@
     /*------------------
         Navigation
     --------------------*/
-    //$(".mobile-menu").slicknav({
-    //    prependTo: '#mobile-menu-wrap',
-    //    allowParentLinks: true
-    //});
+    $(".mobile-menu").slicknav({
+        prependTo: '#mobile-menu-wrap',
+        allowParentLinks: true
+    });
     /*------------------
         Accordin Active
     --------------------*/

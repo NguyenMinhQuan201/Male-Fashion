@@ -1,10 +1,18 @@
-﻿
-@{
+﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <head>
     <link rel="stylesheet" type="text/css" href="~/Content/css/Your-cart.css">
 </head>
+<style>
+    .continue__btn {
+    }
+    @@media only screen and (min-width: 400px) {
+        .continue__btn {
+            margin-bottom: 16px;
+        }
+    }
+</style>
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-option">
     <div class="container">
@@ -39,7 +47,6 @@
                             </tr>
                         </thead>
                         <tbody class="js__cart-content">
-                           
                         </tbody>
                     </table>
                 </div>
@@ -51,18 +58,18 @@
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         @*<div class="continue__btn update__btn">
-                            <a href="#"><i class="fa fa-spinner"></i> Update cart</a>
+                        <a href="#"><i class="fa fa-spinner"></i> Update cart</a>
                         </div>*@
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
                 @*<div class="cart__discount">
-                    <h6>Discount codes</h6>
-                    <form action="#">
-                        <input type="text" placeholder="Coupon code">
-                        <button type="submit">Apply</button>
-                    </form>
+                <h6>Discount codes</h6>
+                <form action="#">
+                <input type="text" placeholder="Coupon code">
+                <button type="submit">Apply</button>
+                </form>
                 </div>*@
                 <div class="cart__total">
                     <h6>Tổng đơn hàng</h6>
@@ -71,7 +78,7 @@
                         <li>Tổng  <span class="total-checkout"></span> <span>$</span></li>
                     </ul>
                     <button id="checkout" class="primary-btn">THANH TOÁN</button>
-                </div>               
+                </div>
             </div>
         </div>
     </div>
