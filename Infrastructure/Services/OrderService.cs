@@ -95,7 +95,6 @@ namespace Domain.Features.Order
 
         public async Task<ApiResult<PagedResult<GetOrderDto>>> GetAll(int? pageSize, int? pageIndex, string search)
         {
-            SendNotification();
             if (pageSize != null)
             {
                 pageSize = pageSize.Value;
@@ -343,6 +342,21 @@ namespace Domain.Features.Order
         public async Task<List<NotifiDto>> GetAllNotifiDto()
         {
             return _mapper.Map<List<NotifiDto>>(await _orderReponsitory.GetAllNoti());
+        }
+        public async Task<bool> Readed(long id)
+        {
+            var getNos = await _orderReponsitory.GetAllNoti();
+            var find = getNos.Where(x => x.Id == id).FirstOrDefault();
+            if (find != null)
+            {
+                find.IsRead = true;
+                await _orderReponsitory.UpdateNoti(find);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

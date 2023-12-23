@@ -12,5 +12,6 @@ namespace Infrastructure.Reponsitories.OrderReponsitory
     {
         Task<Order> CreateAsyncFLByOrder(Order entity);
         Task<List<Notifi>> GetAllNoti();
+        Task<bool> UpdateNoti(Notifi obj);
     }
 }

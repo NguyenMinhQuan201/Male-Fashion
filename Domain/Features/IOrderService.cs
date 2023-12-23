@@ -23,5 +23,6 @@ namespace Domain.Features
         public Task<IEnumerable<ChartRadius>> GetAllByYear();
         public Task<IEnumerable<ChartCol>> GetAllByMonth();
         public Task<List<NotifiDto>> GetAllNotifiDto();
+        public Task<bool> Readed(long id);
     }
 }

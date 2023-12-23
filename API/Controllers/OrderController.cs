@@ -131,6 +131,11 @@ namespace API.Controllers
         {
             return Ok(await _orderService.GetAllNotifiDto());
         }
+        [HttpGet("update-noti")]
+        public async Task<IActionResult> GetAllNoti(long id)
+        {
+            return Ok(await _orderService.Readed(id));
+        }
     }
 }
  

@@ -38,5 +38,12 @@ namespace Infrastructure.Reponsitories.OrderReponsitory
         {
             return _db.Notifis.ToList();
         }
+
+        public async Task<bool> UpdateNoti(Notifi obj)
+        {
+            _db.Notifis.Update(obj);
+            await _db.SaveChangesAsync();
+            return true;
+        }
     }
 }
