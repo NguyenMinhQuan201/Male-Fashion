@@ -21,7 +21,17 @@
             url = "https://localhost:7179/"
         }
         else {
-            url = "http://192.168.1.16:9898/"
+            $.ajax({
+                url: "/Home/GetString",
+                type: "GET",
+                success: function (result) {
+                    console.log("result", result);
+                    url = result + "/"
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
         }
         $(".loader").fadeOut();
         $("#preloder").delay(200).fadeOut("slow");

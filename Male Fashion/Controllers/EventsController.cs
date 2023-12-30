@@ -9,12 +9,16 @@ namespace Male_Fashion.Controllers
     public class EventsController : BaseController
     {
         private readonly IProductService _productService;
-        public EventsController(IProductService productService)
+        private readonly IConfiguration _configuration;
+
+        public EventsController(IProductService productService, IConfiguration configuration)
         {
             _productService = productService;
+            _configuration = configuration;
         }
         public async Task<ActionResult> Index(int? pageIndex, string? search,int ? idCate=0, string? branding="", long priceMin=0, long priceMax=0)
         {
+            ViewBag.url = _configuration["BaseAddress"];
             var list = await _productService.GetAllCate();
             ViewBag.data = new SelectList(list, "IdCategory", "Name");
             ViewBag.data2 = new SelectList(list.ToList());
@@ -45,7 +49,7 @@ namespace Male_Fashion.Controllers
         }
         public async Task<ActionResult> Details(int? id)
         {
-
+            ViewBag.url = _configuration["BaseAddress"];
             if (id == null)
             {
                 return Redirect("Index");
@@ -91,6 +95,7 @@ namespace Male_Fashion.Controllers
         }
         public async Task<IActionResult> MoreToYou(int? page)
         {
+            ViewBag.url = _configuration["BaseAddress"];
             if (page == null) page = 1;
             int pageSize = 4;
             int pageNumber = (page ?? 1);

@@ -5,13 +5,14 @@
     bool isLocalhost = Context.Request.Host.Host.Equals("localhost", StringComparison.OrdinalIgnoreCase)
                       || Context.Request.Host.Host.Equals("127.0.0.1", StringComparison.OrdinalIgnoreCase);
     var url = "";
+    string str = ViewBag.url;
     if (isLocalhost)
     {
         url = "https://localhost:7179";
     }
     else
     {
-        url = "http://192.168.1.16:9898";
+        url = str;
     }
 }
 @section jsFooter {

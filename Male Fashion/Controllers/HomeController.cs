@@ -23,12 +23,13 @@ namespace Male_Fashion.Controllers
         }
         public async Task<ActionResult> ProductsHot()
         {
+            ViewBag.url = _configuration["BaseAddress"];
             var lst = await _productService.GetSanPhamPagings(8,1,"");
             return PartialView("ProductsHot", lst.ResultObj.Items);
         }
         public async Task<ActionResult> News()
         {
-            ViewBag.NameBase = _configuration["BaseAddress"];
+            ViewBag.url = _configuration["BaseAddress"];
             try
             {
                 var lst = await _blogService.GetPagings(3, 1, "");
@@ -52,6 +53,11 @@ namespace Male_Fashion.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+        public IActionResult GetString()
+        {
+            string str = _configuration["BaseAddress"];
+            return Content(str);
         }
     }
 }

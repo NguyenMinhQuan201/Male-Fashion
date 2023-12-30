@@ -4,7 +4,18 @@ if (isLocalhost) {
     url = "https://localhost:7179/"
 }
 else {
-    url = "http://192.168.1.16:9898/"
+    $.ajax({
+        url: "/Home/GetString", 
+        type: "GET",
+        success: function (result) {
+            console.log("result", result);
+            url = result+"/"
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+    
 }
 class CartController {
     constructor() {
@@ -632,12 +643,7 @@ class CartController {
     background-size: contain; display: inline-block;
     height: 64px;
     width: 64px; "> </div>
-<span style="float: revert;
-    height: 86px;
-    display: initial;
-    
-    position: absolute;
-    margin-left: 40px;"> ${cart.quantity}</span> ${cart.name} <span> ${cart.price}</span></li>
+<span class="span-for-total"> ${cart.quantity}</span> ${cart.name} <span> ${cart.price}</span></li>
                     `
                     }
                 }
@@ -677,11 +683,7 @@ class CartController {
     height: 64px;
     width: 64px; ">
 </div>
-<span style="float: revert;
-    height: 86px;
-    display: initial;
-    position: absolute;
-    margin-left: 40px;"> ${cart.quantity}</span>   <span> ${cart.price}</span> <span style="margin-right: 2%">${cart.name}</span></li>
+<span class="span-for-total"> ${cart.quantity}</span>   <span> ${cart.price}</span> <span style="margin-right: 2%">${cart.name}</span></li>
                     `
                     }
                 }
