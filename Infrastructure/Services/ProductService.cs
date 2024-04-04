@@ -83,6 +83,7 @@ namespace Domain.Features.Product
                     Status = request.Status,
                     IdCategory = request.IdCategory,
                     Description = request.Description,
+                    Branding=""
                 };
                 var temp = new List<ProductImg>();
 

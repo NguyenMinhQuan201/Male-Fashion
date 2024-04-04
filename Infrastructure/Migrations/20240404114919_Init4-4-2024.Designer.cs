@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(MaleFashionDbContext))]
-    [Migration("20230313070113_InitialCreatenew")]
-    partial class InitialCreatenew
+    [Migration("20240404114919_Init4-4-2024")]
+    partial class Init442024
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -135,8 +135,14 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
 
                     b.Property<string>("SubTitle")
                         .HasColumnType("nvarchar(max)");
@@ -144,7 +150,7 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("IdBlog");
@@ -200,6 +206,9 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -387,6 +396,128 @@ namespace Infrastructure.Migrations
                     b.ToTable("Introductions", (string)null);
                 });
 
+            modelBuilder.Entity("Infrastructure.Entities.Module", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DeleteAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsShow")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("UserCreateId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UserDeleteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UserUpdateId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Modules");
+                });
+
+            modelBuilder.Entity("Infrastructure.Entities.Notifi", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Link")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Notifis", (string)null);
+                });
+
+            modelBuilder.Entity("Infrastructure.Entities.Operation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DeleteAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("Icon")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsShow")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ModuleId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("Url")
+                        .HasColumnType("bigint");
+
+                    b.Property<Guid?>("UserCreateId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UserDeleteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UserUpdateId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Operations");
+                });
+
             modelBuilder.Entity("Infrastructure.Entities.Order", b =>
                 {
                     b.Property<int>("IdOrder")
@@ -419,11 +550,11 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Payments")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte>("Phone")
-                        .HasColumnType("tinyint");
+                    b.Property<int>("Phone")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Status")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("SumPrice")
                         .HasColumnType("decimal(8,2)");
@@ -474,6 +605,10 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdProduct"), 1L, 1);
+
+                    b.Property<string>("Branding")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -529,20 +664,11 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(8,2)");
-
-                    b.Property<DateTime>("HSD")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("NSX")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(8,2)");
-
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ProductName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -554,7 +680,7 @@ namespace Infrastructure.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -659,6 +785,47 @@ namespace Infrastructure.Migrations
                     b.HasKey("IdQA");
 
                     b.ToTable("QA", (string)null);
+                });
+
+            modelBuilder.Entity("Infrastructure.Entities.RoleOperation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DeleteAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsAccess")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("OperationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("UserCreateId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UserDeleteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UserUpdateId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RoleOperations");
                 });
 
             modelBuilder.Entity("Infrastructure.Entities.Supplier", b =>
