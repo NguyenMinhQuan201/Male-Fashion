@@ -29,6 +29,8 @@ namespace Library.Extensions.ExtensionServices
             services.AddTransient<IOperationService, OperationService>();
             /*services.AddTransient<IRoleOperationService, RoleOperationService>();
             services.AddTransient<IUserOperationService, UserOperationService>();*/
+            services.AddTransient<IImportInvoiceDetailsService, ImportInvoiceDetailsService>();
+            services.AddTransient<IImportInvoiceService, ImportInvoiceService>();
             return services;
         }
     }

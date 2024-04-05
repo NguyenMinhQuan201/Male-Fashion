@@ -1,4 +1,5 @@
-﻿using Infrastructure.Reponsitories.BlogRepository;
+﻿using Domain.Features;
+using Infrastructure.Reponsitories.BlogRepository;
 using Infrastructure.Reponsitories.CategoryReponsitories;
 using Infrastructure.Reponsitories.ImportInvoiceDetailsReponsitories;
 using Infrastructure.Reponsitories.ImportInvoiceReponsitories;
@@ -13,6 +14,7 @@ using Infrastructure.Reponsitories.RoleOperationReponsitories;
 using Infrastructure.Reponsitories.RoleOperationRepository;
 using Infrastructure.Reponsitories.SupplierReponsitories;
 using Infrastructure.Reponsitories.UserReponsitories;
+using Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Library.Extensions.ExtensionServices
@@ -35,7 +37,11 @@ namespace Library.Extensions.ExtensionServices
             services.AddTransient<IRoleOperationRepository, RoleOperationReponsitories>();
             services.AddTransient<IUserOperationRepository, UserOperationReponsitories>();
             services.AddTransient<IBlogRepository, BlogRepository>();
+            services.AddTransient<IImportInvoiceDetailsRepository, ImportInvoiceDetailsReponsitories>();
+            services.AddTransient<IImportInvoiceRepository, ImportInvoiceRepository>();
+
             return services;
+            
         }
     }
 }
