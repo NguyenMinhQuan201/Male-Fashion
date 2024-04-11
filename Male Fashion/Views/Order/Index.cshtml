@@ -1,25 +1,26 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
-    .smt-have-done{
-        margin-left:58px;
+    .smt-have-done {
+        margin-left: 58px;
     }
-    .span-for-total{
+
+    .span-for-total {
         float: revert;
         height: 86px;
         display: initial;
         position: absolute;
         margin-left: 25px;
     }
+
     @@media only screen and (min-width: 400px) {
         .smt-have-done {
             margin-left: 70px;
         }
     }
-}
+
 </style>
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-option">
@@ -43,58 +44,62 @@
 <section class="checkout spad">
     <div class="container">
         <div class="checkout__form">
-            
-                <div class="row">
-                    <div class="col-lg-8 col-md-6">
-                        @*<h6 class="coupon__code">
-                            <span class="icon_tag_alt"></span> Have a coupon? <a href="#">
-                                Click
-                                here
-                            </a> to enter your code
-                        </h6>*@
-                        <h6 class="checkout__title">THÔNG TIN NGƯỜI DÙNG</h6>
-                        <div class="row">
-                        </div>
-                        <div class="checkout__input">
-                        </div>
-                        <div class="checkout__input">
-                            <p>Địa chỉ<span>*</span><span id="textAddress"></span></p>
-                            <input id="DC"type="text" placeholder="Địa chỉ nhà" class="checkout__input__add">
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="checkout__input">
-                                    <p>Điện thoại<span id="hong">*</span><span id="textPhone"></span></p>
-                                    <input id="SDT"type="text">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="checkout__input">
-                                    <p>Email<span>*</span><span id="textEmail"></span></p>
-                                    <input id="Gmail" type="text">
-                                </div>
-                            </div>
-                        </div>
-                       
+
+            <div class="row">
+                <div class="col-lg-8 col-md-6">
+                    @*<h6 class="coupon__code">
+                    <span class="icon_tag_alt"></span> Have a coupon? <a href="#">
+                    Click
+                    here
+                    </a> to enter your code
+                    </h6>*@
+                    <h6 class="checkout__title">THÔNG TIN NGƯỜI DÙNG</h6>
+                    <div class="row">
                     </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="checkout__order">
-                            <h4 class="order__title">ĐƠN HÀNG</h4>
-                            <div class="checkout__order__products"> <span class="smt-have-done">Giá</span> <span class="smt-have-done">Tên</span> <span class="smt-have-done">Tổng</span> </div>
-                            <ul class="checkout__total__products" id="vailon">
-                                <li>01. Vanilla salted caramel <span>$ 300.0</span></li>
-                            </ul>
-                            <ul class="checkout__total__all">
-                                <li>Đơn giá  <span class="tongphu">$750.99</span><span></span></li>
-                                <li>Tổng <span class="tongchinh">$750.99</span><span></span></li>
-                            </ul>
-                            <button class="site-btn" id="make_order">NHẬN HÀNG TRƯỚC</button>
-                            <button class="site-btn" id="paypal" >THANG TOÁN VỚI PAYPAL</button>
-                            <button class="site-btn" id="vnpay" >THANG TOÁN VỚI VNPAY</button>
+                    <div class="checkout__input">
+                    </div>
+                    <div class="checkout__input">
+                        <p>Địa chỉ<span>*</span><span id="textAddress"></span></p>
+                        <input id="DC" type="text" placeholder="Địa chỉ nhà" class="checkout__input__add">
+                    </div>
+                    <div class="checkout__input">
+                        <p>Họ tên<span>*</span><span></span></p>
+                        <input id="Name" type="text" placeholder="Họ tên" class="checkout__input__add">
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="checkout__input">
+                                <p>Điện thoại<span id="hong">*</span><span id="textPhone"></span></p>
+                                <input id="SDT" type="text">
+                            </div>
                         </div>
+                        <div class="col-lg-6">
+                            <div class="checkout__input">
+                                <p>Email<span>*</span><span id="textEmail"></span></p>
+                                <input id="Gmail" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="checkout__order">
+                        <h4 class="order__title">ĐƠN HÀNG</h4>
+                        <div class="checkout__order__products"> <span class="smt-have-done">Giá</span> <span class="smt-have-done">Tên</span> <span class="smt-have-done">Tổng</span> </div>
+                        <ul class="checkout__total__products" id="vailon">
+                            <li>01. Vanilla salted caramel <span>$ 300.0</span></li>
+                        </ul>
+                        <ul class="checkout__total__all">
+                            <li>Đơn giá  <span class="tongphu">$750.99</span><span></span></li>
+                            <li>Tổng <span class="tongchinh">$750.99</span><span></span></li>
+                        </ul>
+                        <button class="site-btn" id="make_order">NHẬN HÀNG TRƯỚC</button>
+                        <button class="site-btn" id="paypal">THANG TOÁN VỚI PAYPAL</button>
+                        <button class="site-btn" id="vnpay">THANG TOÁN VỚI VNPAY</button>
                     </div>
                 </div>
-            
+            </div>
+
         </div>
     </div>
 </section>

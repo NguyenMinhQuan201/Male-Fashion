@@ -1,0 +1,245 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .modal-content {
+        position: absolute;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        width: 150%;
+        pointer-events: auto;
+        left: -133px;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid rgba(0, 0, 0, .2);
+        border-radius: .3rem;
+        outline: 0;
+    }
+    /*body {
+                                    display: flex;
+                                    flex-direction: column;
+                                    align-items: center;
+                                    font-family: 'Roboto', sans-serif;
+                                }*/
+    .contain-5 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .history-page {
+        background-color: lightgoldenrodyellow;
+        width: 100%;
+        height: 100%;
+        padding: 64px;
+        border-radius: 8px;
+        margin-bottom: 85px;
+    }
+
+    .history-page__title {
+        font-size: large;
+    }
+
+    hr {
+        color: #b4b3b3;
+    }
+
+    .search {
+        margin: auto;
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        width: 75%;
+        border: 1px solid #000;
+        border-radius: 20px;
+        padding: 1px;
+        margin-bottom: 10px;
+    }
+
+    .search__icon-background {
+        display: flex;
+        justify-content: center;
+        border: none;
+        margin: 0 5px;
+        cursor: pointer;
+    }
+
+    .search__icon {
+        color: #000;
+        font-size: 25px;
+    }
+
+    .search__input-box {
+        font-size: 100%;
+        border: none;
+        width: 90%;
+        background: border-box;
+    }
+
+    input[type='search']::-webkit-search-decoration,
+    input[type='search']::-webkit-search-cancel-button,
+    input[type='search']::-webkit-search-results-button,
+    input[type='search']::-webkit-search-results-decoration {
+        -webkit-appearance: none;
+    }
+
+    .search__input-box:focus {
+        outline: none;
+    }
+
+    .purchase {
+        display: flex;
+    }
+
+    .purchase__icon-background {
+        align-self: center;
+        margin: 10px;
+        border-radius: 35px;
+        display: flex;
+        background-color: #c0df85;
+    }
+
+    .purchase__icon {
+        padding: 10px;
+        font-size: 50px;
+        color: #fff;
+    }
+
+    .purchase__info {
+        margin: auto 0;
+    }
+
+    .purchase__title,
+    .purchase__date {
+        margin: 0;
+    }
+
+    .purchase__date {
+        padding: 3px 0 10px 0;
+        font-size: small;
+        color: #808080;
+    }
+
+    .purchase__price {
+        align-self: center;
+        margin-left: auto;
+    }
+
+    .purchase__details-btn {
+        padding: 3px 10px;
+        transition: ease-in-out 0.2s;
+        background-color: #c0df85;
+        color: #fff;
+        cursor: pointer;
+        border: solid 1px #c0df85;
+        border-radius: 10px;
+    }
+
+        .purchase__details-btn:hover {
+            background-color: #c0df85;
+            color: #fff;
+            cursor: pointer;
+            border: solid 1px #c0df85;
+            border-radius: 10px;
+        }
+
+    @@media (min-width: 750px) {
+        .history-page {
+            width: 750px;
+        }
+    }
+
+</style>
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Understood</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="contain-5">
+    <div class="history-page">
+        <h1 class="history-page__title">Xem lịch sử mua hàng</h1>
+        <hr />
+        <div class="search">
+            <div class="search__icon-background" onclick="GetOrders()">
+                <span class="iconify search__icon"
+                      data-inline="false"
+                      data-icon="ant-design:search-outlined"></span>
+            </div>
+            <input class="search__input-box" id="id-search" type="search" placeholder="Nhập mã đơn" />
+        </div>
+        <div class="history-page__purchases">
+            <div id="change-by-phone" class="purchase">
+                <div class="purchase__icon-background">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" class="iconify purchase__icon purchase__icon--coffee" data-inline="false" data-icon="bx:bx-coffee"><path fill="currentColor" d="M5 2h2v3H5zm4 0h2v3H9zm4 0h2v3h-2zm6 7h-2V7H3v11c0 1.654 1.346 3 3 3h8c1.654 0 3-1.346 3-3h2c1.103 0 2-.897 2-2v-5c0-1.103-.897-2-2-2m-4 9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V9h10zm2-2v-5h2l.002 5z"></path></svg>
+                </div>
+                <div class="purchase__info">
+                    <p class="purchase__title">Grande Starbucks Coffee</p>
+                    <p class="purchase__date">Tuesday, January 21</p>
+                    <button class="purchase__details-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Chi tiết</button>
+                </div><p class="purchase__price">$2.54</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.iconify.design/1/1.0.3/iconify.min.js"></script>
+<script>
+    function GetOrders() {
+        var inputElement = document.getElementById("id-search");
+        var id = inputElement.value;
+        $.ajax({
+            url: "@ViewBag.MyUrl" + `/api/Order/get-by-phone?idOrder=${id}&phone=0`,
+            dataType: "json",
+            type: "GET",
+            success: function (response) {
+                console.log("response", response)
+                var obj = response.resultObj.orderDetailDto
+                structuredClone =
+                `<div class="purchase">
+                    <div class="purchase__icon-background">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" class="iconify purchase__icon purchase__icon--coffee" data-inline="false" data-icon="bx:bx-coffee"><path fill="currentColor" d="M5 2h2v3H5zm4 0h2v3H9zm4 0h2v3h-2zm6 7h-2V7H3v11c0 1.654 1.346 3 3 3h8c1.654 0 3-1.346 3-3h2c1.103 0 2-.897 2-2v-5c0-1.103-.897-2-2-2m-4 9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V9h10zm2-2v-5h2l.002 5z"></path></svg>
+                    </div>
+                    <div class="purchase__info">
+                        <p class="purchase__title">${obj.nameCustomer}</p>
+                            <p class="purchase__date">${chuyenDoiNgayThang(obj.email)}</p>
+                            <p class="purchase__date">${chuyenDoiNgayThang(obj.address)}</p>
+                            <p class="purchase__date">0${chuyenDoiNgayThang(obj.phone)}</p>
+
+                        <p class="purchase__date">${chuyenDoiNgayThang(obj.createdAt)}</p>
+                        <button class="purchase__details-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Chi tiết</button>
+                        </div><p class="purchase__price">${obj.sumPrice}</p>
+                </div>`
+            }
+        })
+    }
+    function chuyenDoiNgayThang(dateTimeString) {
+        // Tạo một đối tượng Date từ chuỗi đầu vào
+        var dateTime = new Date(dateTimeString);
+
+        // Lấy ngày, tháng và năm từ đối tượng Date
+        var ngay = dateTime.getDate();
+        var thang = dateTime.getMonth() + 1; // Lưu ý: Tháng bắt đầu từ 0
+        var nam = dateTime.getFullYear();
+
+        // Định dạng lại chuỗi ngày tháng
+        var ngayThangNam = ngay + '/' + thang + '/' + nam;
+
+        // Trả về chuỗi ngày tháng đã định dạng
+        return ngayThangNam;
+    }
+</script>

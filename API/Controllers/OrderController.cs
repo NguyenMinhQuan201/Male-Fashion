@@ -11,7 +11,7 @@ namespace API.Controllers
     [ApiController]
     public class OrderController : ControllerBase
     {
-        
+
         private readonly IOrderService _orderService;
         public OrderController(IOrderService orderService)
         {
@@ -25,7 +25,7 @@ namespace API.Controllers
                 return BadRequest(ModelState);
             }
             var result = await _orderService.Create(request);
-            if (result.IsSuccessed==true) return BadRequest();
+            if (result.IsSuccessed == true) return BadRequest();
             return Ok(result);
         }
         [HttpPut("put")]
@@ -136,6 +136,10 @@ namespace API.Controllers
         {
             return Ok(await _orderService.Readed(id));
         }
+        [HttpGet("get-by-phone")]
+        public async Task<IActionResult> GetOrderByPhone(int idOrder, int phone)
+        {
+            return Ok(await _orderService.GetAllByPhone(idOrder, phone));
+        }
     }
 }
- 

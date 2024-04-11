@@ -5,21 +5,21 @@ if (isLocalhost) {
 }
 else {
     $.ajax({
-        url: "/Home/GetString", 
+        url: "/Home/GetString",
         type: "GET",
         success: function (result) {
             console.log("result", result);
-            url = result+"/"
+            url = result + "/"
         },
         error: function (error) {
             console.log(error);
         }
     });
-    
+
 }
 class CartController {
     constructor() {
-        
+
         this.renderCartsContent();
         this.allPrice();
         this.renderOrderDetailContent();
@@ -385,6 +385,7 @@ class CartController {
             var AddRess = $('#DC').val();
             var Phone = $('#SDT').val();
             var Email = $('#Gmail').val();
+            var Name = $('#Name').val();
             var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
             if (AddRess == "") {
                 $('#textAddress').html("Nhập địa chỉ");
@@ -422,11 +423,12 @@ class CartController {
                     address: AddRess,
                     phone: Phone,
                     email: Email,
+                    name: Name
                 });
                 localStorage.setItem('Order', JSON.stringify(Order));
                 $.ajax({
                     url: "/Order/PaymentWithPaypal",
-                    data: { cartUser: JSON.stringify(Carts), addRess: AddRess, phone: Phone },
+                    data: { cartUser: JSON.stringify(Carts), addRess: AddRess, phone: Phone, name: Name },
                     dataType: "json",
                     type: "POST",
                     success: function (response) {
@@ -446,6 +448,7 @@ class CartController {
             var AddRess = $('#DC').val();
             var Phone = $('#SDT').val();
             var Email = $('#Gmail').val();
+            var Name = $('#Name').val();
             var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
             if (AddRess == "") {
                 $('#textAddress').html("Nhập địa chỉ");
@@ -483,11 +486,12 @@ class CartController {
                     address: AddRess,
                     phone: Phone,
                     email: Email,
+                    name: Name
                 });
                 localStorage.setItem('Order', JSON.stringify(Order));
                 $.ajax({
                     url: "/Order/Payment",
-                    data: { cartUser: JSON.stringify(Carts), addRess: AddRess, phone: Phone },
+                    data: { cartUser: JSON.stringify(Carts), addRess: AddRess, phone: Phone, name: Name },
                     dataType: "json",
                     type: "POST",
                     success: function (response) {
@@ -507,6 +511,7 @@ class CartController {
             var AddRess = $('#DC').val();
             var Phone = $('#SDT').val();
             var Email = $('#Gmail').val();
+            var Name = $('#Name').val();
             var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
             if (AddRess == "") {
                 $('#textAddress').html("Nhập địa chỉ");
@@ -539,9 +544,17 @@ class CartController {
                         Carts.push(cart);
                     }
                 }
+                let Order = [];
+                Order.push({
+                    address: AddRess,
+                    phone: Phone,
+                    email: Email,
+                    name: Name
+                });
+                localStorage.setItem('Order', JSON.stringify(Order));
                 $.ajax({
                     url: "/Order/MakeOrder",
-                    data: { cartUser: JSON.stringify(Carts), addRess: AddRess, phone: Phone },
+                    data: { cartUser: JSON.stringify(Carts), addRess: AddRess, phone: Phone, name: Name, email: Email },
                     dataType: "json",
                     type: "POST",
                     success: function (response) {
@@ -657,7 +670,7 @@ class CartController {
                 }
             }
         });
-        
+
 
     }
     allPrice() {

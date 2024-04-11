@@ -27,20 +27,20 @@
                     Orders.push(order);
                 }
             }
+            console.log("Orders", Orders);
             $.ajax({
                 url: "/Order/MakeOrderPayPal",
-                data: { cartUser: JSON.stringify(Carts), addRess: Orders[0].address, phone: Orders[0].phone },
+                data: { cartUser: JSON.stringify(Carts), addRess: Orders[0].address, phone: Orders[0].phone, name: Orders[0].name, email: Orders[0].email },
                 dataType: "json",
                 type: "POST",
                 success: function (response) {
                     if (response.status == true) {
-                        console.log("FUCK")
                         Carts = [];
                         Orders = [];
                         localStorage.setItem('Carts', JSON.stringify(Carts));
                         localStorage.setItem('Order', JSON.stringify(Orders));
                         localStorage.setItem('TT', 0);
-                        
+
                     }
                 }
             })

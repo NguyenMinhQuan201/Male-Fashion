@@ -30,7 +30,7 @@ namespace RazorWeb.Controllers
         {
             return View();
         }
-        public async Task<JsonResult> MakeOrder(string cartUser, string addRess, int phone)
+        public async Task<JsonResult> MakeOrder(string cartUser, string addRess, int phone, string name, string email)
         {
             try
             {
@@ -49,8 +49,8 @@ namespace RazorWeb.Controllers
                     SumPrice = jsoncart.Sum(x => x.Quantity * x.Price),
                     Address = addRess,
                     DeliveryAt = DateTime.Now,
-                    NameCustomer = null,
-                    Email = null,
+                    NameCustomer = name,
+                    Email = email,
                     Note = "",
                     Phone = phone,
                     OrderDetails = jsoncart
@@ -64,7 +64,7 @@ namespace RazorWeb.Controllers
                 return Json(new { status = false });
             }
         }
-        public async Task<JsonResult> MakeOrderPayPal(string cartUser, string addRess, int phone)
+        public async Task<JsonResult> MakeOrderPayPal(string cartUser, string addRess, int phone, string name,string email)
         {
             try
             {
@@ -83,8 +83,8 @@ namespace RazorWeb.Controllers
                     SumPrice = jsoncart.Sum(x => x.Quantity * x.Price),
                     Address = addRess,
                     DeliveryAt = DateTime.Now,
-                    NameCustomer = null,
-                    Email = null,
+                    NameCustomer = name,
+                    Email = email,
                     Note = "",
                     Phone = phone,
                     OrderDetails = jsoncart
@@ -100,7 +100,7 @@ namespace RazorWeb.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> PaymentWithPaypal(string cartUser, string addRess, int phone)
+        public async Task<IActionResult> PaymentWithPaypal(string cartUser, string addRess, int phone,string name)
         {
             var jsoncart = new JavaScriptSerializer().Deserialize<List<OrderDetailRequest>>(cartUser).Select(x => new OrderDetailDto
             {
@@ -117,7 +117,7 @@ namespace RazorWeb.Controllers
                 SumPrice = jsoncart.Sum(x => x.Quantity * x.Price),
                 Address = addRess,
                 DeliveryAt = DateTime.Now,
-                NameCustomer = null,
+                NameCustomer = name,
                 Email = null,
                 Note = "",
                 Phone = phone,
@@ -218,7 +218,7 @@ namespace RazorWeb.Controllers
                 return Redirect("/Paypal/CheckoutFail");
             }
         }
-        public ActionResult Payment(string cartUser, string addRess, int phone)
+        public ActionResult Payment(string cartUser, string addRess, int phone, string name)
         {
             try
             {
@@ -237,7 +237,7 @@ namespace RazorWeb.Controllers
                     SumPrice = jsoncart.Sum(x => x.Quantity * x.Price),
                     Address = addRess,
                     DeliveryAt = DateTime.Now,
-                    NameCustomer = null,
+                    NameCustomer = name,
                     Email = null,
                     Note = "",
                     Phone = phone,
@@ -317,6 +317,10 @@ namespace RazorWeb.Controllers
 
             return RedirectToAction("CheckoutSuccess", "Paypal");
         }
-        
+        public ActionResult Infor()
+        {
+            ViewBag.MyUrl = _configuration["BaseAddress"];
+            return View();
+        }
     }
 }

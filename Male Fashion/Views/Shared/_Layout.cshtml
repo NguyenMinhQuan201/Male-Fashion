@@ -55,7 +55,6 @@
                 <div class="price">$0.00</div>
             </div>
             <div id="mobile-menu-wrap">
-
             </div>
             <div class="offcanvas__text">
                 <p>Miễn phí vận chuyển, đảm bảo hoàn trả hoặc hoàn tiền trong 30 ngày.</p>
@@ -77,12 +76,12 @@
                                 <div class="header__top__links">
                                     @*@if (@User.Identity.Name == "")
                                     {
-                                        <a href="@Url.Action("Index", "Authen")">Sign in</a>
+                                    <a href="@Url.Action("Index", "Authen")">Sign in</a>
                                     }
                                     else
                                     {
-                                        <a href="">Hello: @User.Identity.Name</a>
-                                        <span style=" margin-right: 28px">@Html.ActionLink("Đăng Xuất", "Logout", "Authen")</span>
+                                    <a href="">Hello: @User.Identity.Name</a>
+                                    <span style=" margin-right: 28px">@Html.ActionLink("Đăng Xuất", "Logout", "Authen")</span>
                                     }*@
                                     @*<a href="@Url.Action("Index", "Authen")">Sign in</a>*@
                                     @*<a href="#">FAQs</a>*@
@@ -116,6 +115,7 @@
                                     <a href="#">Trang</a>
                                     <ul class="dropdown">
                                         <li><a href="@Url.Action("Index", "Carts")">Giỏ hàng</a></li>
+                                        <li><a href="@Url.Action("Infor", "Order")">Tra cứu đơn</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="#">Liên lạc</a></li>
@@ -148,19 +148,20 @@
                 </h5>
                 <div class="cart-sub-render">
                     @*<div class="cart-sub">
-                        <img class="image-cart-sub" src="~/Content/img/hang1.jpg" />
-                        <div>
-                            <span>Áo hồng - 3</span>
-                            <p>Số lượng : 1</p>
-                            <button class="cart__close button-remove-cart-sub">
-                                Remove
-                            </button>
-                        </div>
+                    <img class="image-cart-sub" src="~/Content/img/hang1.jpg" />
+                    <div>
+                    <span>Áo hồng - 3</span>
+                    <p>Số lượng : 1</p>
+                    <button class="cart__close button-remove-cart-sub">
+                    Remove
+                    </button>
+                    </div>
                     </div>*@
                 </div>
                 <div class="cart-sub-total">
                     @*<button class="cart-sub-button"> Checkout </button>*@
                     <a class="cart-sub-button" href="@Url.Action("Index", "Carts")">Giỏ hàng </a>
+                    <a class="cart-sub-button" href="@Url.Action("Infor", "Order")">Tra cứu đơn </a>
                 </div>
             </div>
             @RenderBody()

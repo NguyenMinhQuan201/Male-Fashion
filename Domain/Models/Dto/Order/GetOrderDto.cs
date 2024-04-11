@@ -21,5 +21,10 @@ namespace Domain.Models.Dto.Order
         public DateTime DeliveryAt { get; set; } // ngay giao hang
         public DateTime FinishAt { get; set; }// ngay hoan thanh don hang
     }
+    public class OrderRequestByPhoneModel
+    {
+        public OrderDetailDto? OrderDetailDto { get; set; }
+        public GetOrderDto? GetOrderDto { get; set; }
+    } 
 
 }

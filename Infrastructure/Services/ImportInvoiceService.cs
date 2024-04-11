@@ -44,6 +44,8 @@ namespace Infrastructure.Services
                 Note = request.Note,
                 Status = request.Status,
                 CreatAtBy = "",
+                IdSupplier = request.IdSupplier,
+                IdImportInvoice = request.IdImportInvoice,
             };
             await _importInvoiceRepository.CreateAsync(obj);
             return new ApiSuccessResult<bool>(true);
@@ -106,8 +108,8 @@ namespace Infrastructure.Services
             {
                 pageIndex = pageIndex.Value;
             }
-            var totalRow = 0;
-            var query = new List<Entities.ImportInvoice>();
+            var totalRow = await _importInvoiceRepository.CountAsync();
+            var query = await _importInvoiceRepository.GetAll(pageSize, pageIndex);
             if (!string.IsNullOrEmpty(name))
             {
                 Expression<Func<Infrastructure.Entities.ImportInvoice, bool>> expression2 = x => x.Name.Contains(name);

@@ -20,7 +20,7 @@ namespace RazorWeb.Controllers
             new
             {
                 status = true,
-                Id = result.Id,
+                Id = id,
                 ImagePath = product.ProductImgs[0].ImagePath,
                 Price = product.Price,
                 Name = product.Name,

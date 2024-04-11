@@ -3,12 +3,14 @@ using DataDemo.Common;
 using Domain.Common;
 using Domain.Models.Dto.Notifi;
 using Domain.Models.Dto.Order;
+using Domain.Models.Dto.Product;
 using Infrastructure.Entities;
 using Infrastructure.Reponsitories.OrderDetailReponsitory;
 using Infrastructure.Reponsitories.OrderReponsitory;
 using Infrastructure.Reponsitories.ProductReponsitories;
 using Microsoft.AspNetCore.SignalR;
 using System.Linq.Expressions;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Domain.Features.Order
 {
@@ -357,6 +359,19 @@ namespace Domain.Features.Order
             {
                 return false;
             }
+        }
+
+        public async Task<ApiResult<dynamic>> GetAllByPhone(int idOrder, int phone)
+        {
+            Expression<Func<Infrastructure.Entities.OrderDetails, bool>> expression = x => x.IdOrder == idOrder;
+            var order = await _orderReponsitory.GetById(idOrder);
+            var orderDetail = await _orderDetailReponsitory.GetByCondition(expression);
+            dynamic obj = new
+            {
+                OrderDetailDto = order,
+                GetOrderDto = orderDetail
+            };
+            return new ApiSuccessResult<dynamic>(obj);
         }
     }
 }

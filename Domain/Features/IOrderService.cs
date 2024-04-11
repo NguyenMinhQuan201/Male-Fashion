@@ -24,5 +24,7 @@ namespace Domain.Features
         public Task<IEnumerable<ChartCol>> GetAllByMonth();
         public Task<List<NotifiDto>> GetAllNotifiDto();
         public Task<bool> Readed(long id);
+        public Task<ApiResult<dynamic>> GetAllByPhone(int idOrder, int phone);
+
     }
 }
