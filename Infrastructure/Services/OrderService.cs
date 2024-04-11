@@ -366,10 +366,17 @@ namespace Domain.Features.Order
             Expression<Func<Infrastructure.Entities.OrderDetails, bool>> expression = x => x.IdOrder == idOrder;
             var order = await _orderReponsitory.GetById(idOrder);
             var orderDetail = await _orderDetailReponsitory.GetByCondition(expression);
+            var lst = orderDetail.Select(x => new OrderDetailDto()
+            {
+                Price = x.Price,
+                NameProduct= _productReponsitory.GetByProductID(x.IdProduct).Result.Name,
+                Quantity = x.Quantity,
+                Img = _productReponsitory.GetByProductID(x.IdProduct).Result.ProductImgs.FirstOrDefault().ImagePath,
+            });
             dynamic obj = new
             {
                 OrderDetailDto = order,
-                GetOrderDto = orderDetail
+                GetOrderDto = lst
             };
             return new ApiSuccessResult<dynamic>(obj);
         }

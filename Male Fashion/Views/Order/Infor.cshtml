@@ -89,9 +89,13 @@
     .search__input-box:focus {
         outline: none;
     }
-
+    .ml-left{
+        margin-left:24px;
+    }
     .purchase {
+        width:100%;
         display: flex;
+        margin-top:24px;
     }
 
     .purchase__icon-background {
@@ -112,6 +116,10 @@
         margin: auto 0;
     }
 
+    .purchase__title{
+        font-size: 16px;
+        font-weight: 600;
+    }
     .purchase__title,
     .purchase__date {
         margin: 0;
@@ -119,7 +127,7 @@
 
     .purchase__date {
         padding: 3px 0 10px 0;
-        font-size: small;
+        font-size: 14px;
         color: #808080;
     }
 
@@ -146,6 +154,9 @@
             border-radius: 10px;
         }
 
+    #change-by-phone-detail{
+        flex-direction: column;
+    }
     @@media (min-width: 750px) {
         .history-page {
             width: 750px;
@@ -185,21 +196,21 @@
         </div>
         <div class="history-page__purchases">
             <div id="change-by-phone" class="purchase">
-                <div class="purchase__icon-background">
-                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" class="iconify purchase__icon purchase__icon--coffee" data-inline="false" data-icon="bx:bx-coffee"><path fill="currentColor" d="M5 2h2v3H5zm4 0h2v3H9zm4 0h2v3h-2zm6 7h-2V7H3v11c0 1.654 1.346 3 3 3h8c1.654 0 3-1.346 3-3h2c1.103 0 2-.897 2-2v-5c0-1.103-.897-2-2-2m-4 9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V9h10zm2-2v-5h2l.002 5z"></path></svg>
-                </div>
-                <div class="purchase__info">
-                    <p class="purchase__title">Grande Starbucks Coffee</p>
-                    <p class="purchase__date">Tuesday, January 21</p>
-                    <button class="purchase__details-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Chi tiết</button>
-                </div><p class="purchase__price">$2.54</p>
+                
+            </div>
+            <div id="change-by-phone-detail" class="purchase">
             </div>
         </div>
     </div>
 </div>
 <script src="https://code.iconify.design/1/1.0.3/iconify.min.js"></script>
 <script>
+    function addCommas(number) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
     function GetOrders() {
+        var str="";
+        var str2 = "";
         var inputElement = document.getElementById("id-search");
         var id = inputElement.value;
         $.ajax({
@@ -207,25 +218,32 @@
             dataType: "json",
             type: "GET",
             success: function (response) {
-                console.log("response", response)
                 var obj = response.resultObj.orderDetailDto
-                structuredClone =
+                str +=
                 `<div class="purchase">
-                    <div class="purchase__icon-background">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" class="iconify purchase__icon purchase__icon--coffee" data-inline="false" data-icon="bx:bx-coffee"><path fill="currentColor" d="M5 2h2v3H5zm4 0h2v3H9zm4 0h2v3h-2zm6 7h-2V7H3v11c0 1.654 1.346 3 3 3h8c1.654 0 3-1.346 3-3h2c1.103 0 2-.897 2-2v-5c0-1.103-.897-2-2-2m-4 9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V9h10zm2-2v-5h2l.002 5z"></path></svg>
-                    </div>
                     <div class="purchase__info">
-                        <p class="purchase__title">${obj.nameCustomer}</p>
-                            <p class="purchase__date">${chuyenDoiNgayThang(obj.email)}</p>
-                            <p class="purchase__date">${chuyenDoiNgayThang(obj.address)}</p>
-                            <p class="purchase__date">0${chuyenDoiNgayThang(obj.phone)}</p>
-
-                        <p class="purchase__date">${chuyenDoiNgayThang(obj.createdAt)}</p>
-                        <button class="purchase__details-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Chi tiết</button>
-                        </div><p class="purchase__price">${obj.sumPrice}</p>
+                            <p class="purchase__title">Tên khách: ${obj.nameCustomer}</p>
+                            <p class="purchase__date">Email: ${obj.email}</p>
+                            <p class="purchase__date">Địa chỉ: ${obj.address}</p>
+                            <p class="purchase__date">SĐT: 0${obj.phone}</p>
+                            <p class="purchase__date">Tạo ngày ${chuyenDoiNgayThang(obj.createdAt)}</p>
+                            <p class="purchase__date">Trạng thái: Đang giao</p>
+                            <p class="purchase__date">Tổng: ${addCommas(obj.sumPrice)}đ</p>
                 </div>`
+                $("#change-by-phone").html(str);
+                response.resultObj.getOrderDto.forEach(function (item) {
+                    str2 += `<div class="purchase">
+                                    <img style="width: 60px;" src="https://localhost:7179/user_content/${item.img}"/>
+                                        <div class="purchase__info" style="margin-left: 32px;">
+                                    <p class="purchase__title">${item.nameProduct}</p>
+                                    <p class="purchase__date">Số lượng${item.quantity}</p>
+                                                </div><p class="purchase__price">Giá ${addCommas(item.price)}đ</p>
+                    </div>`
+                });
+                $("#change-by-phone-detail").html(str2);
             }
         })
+        
     }
     function chuyenDoiNgayThang(dateTimeString) {
         // Tạo một đối tượng Date từ chuỗi đầu vào
