@@ -112,10 +112,16 @@ namespace API.Controllers
             }
             return BadRequest();
         }
-        [HttpGet("chart-col")]
-        public async Task<IActionResult> GetCol()
+        [HttpGet("chart-col-by-month")]
+        public async Task<IActionResult> GetColByMonth(int month)
         {
-            return Ok(await _orderService.GetAllByMonth());
+            return Ok(await _orderService.GetAllByMonth(month));
+        }
+
+        [HttpGet("chart-col")]
+        public async Task<IActionResult> GetCol(int year)
+        {
+            return Ok(await _orderService.GetAllByMonth(year));
         }
         [HttpGet("chart-rad")]
         public async Task<IActionResult> GetRad()

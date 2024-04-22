@@ -301,14 +301,14 @@ namespace Domain.Features.Order
             }
             return new ApiErrorResult<bool>("Lỗi tham số chuyền về null hoặc trống");
         }
-        public async Task<IEnumerable<ChartCol>> GetAllByMonth()
+        public async Task<IEnumerable<ChartCol>> GetAllByMonth(int year)
         {
             DateTime now = DateTime.Now;
             // Lấy năm từ ngày giờ hiện tại
             int currentYear = now.Year;
             var lst = new List<ChartCol>();
 
-            var getAll = _orderReponsitory.GetAll().Result.Where(x => x.CreatedAt.Year == currentYear).ToList();
+            var getAll = _orderReponsitory.GetAll().Result.Where(x => x.CreatedAt.Year == year).ToList();
             for (int i = 0; i < 12; i++)
             {
                 var obj = new ChartCol()
@@ -372,6 +372,11 @@ namespace Domain.Features.Order
                 GetOrderDto = orderDetail
             };
             return new ApiSuccessResult<dynamic>(obj);
+        }
+
+        public Task<IEnumerable<ChartCol>> GetAllByDay(int month)
+        {
+            throw new NotImplementedException();
         }
     }
 }
