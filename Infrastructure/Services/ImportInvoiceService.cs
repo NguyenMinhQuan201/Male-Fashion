@@ -44,7 +44,7 @@ namespace Infrastructure.Services
                 Note = request.Note,
                 Status = request.Status,
                 CreatAtBy = "",
-                IdSupplier = request.IdSupplier,
+                IdSupplier = 3,
                 IdImportInvoice = request.IdImportInvoice,
             };
             await _importInvoiceRepository.CreateAsync(obj);
@@ -119,6 +119,7 @@ namespace Infrastructure.Services
             var data = query
                 .Select(x => new ImportInvoiceDto()
                 {
+                    IdImportInvoice = x.IdImportInvoice,
                     Name = x.Name,
                     SumPrice = x.SumPrice,
                     Address = x.Address,

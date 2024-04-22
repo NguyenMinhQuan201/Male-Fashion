@@ -14,6 +14,7 @@ namespace Domain.Models.Dto.Order
         public decimal Discounnt { get; set; }
         public int Quantity { get; set; }
         public string?NameProduct { get; set; }
+        public string? Img { get; set; }
     }
     public class OrderDetailRequest
     {
