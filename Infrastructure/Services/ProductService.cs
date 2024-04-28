@@ -8,6 +8,7 @@ using Infrastructure.Reponsitories.CategoryReponsitories;
 using Infrastructure.Reponsitories.ProductDetailReponsitories;
 using Infrastructure.Reponsitories.ProductImageReponsitories;
 using Infrastructure.Reponsitories.ProductReponsitories;
+using Infrastructure.Reponsitories.RatingReponsitories;
 using Microsoft.AspNetCore.Http;
 using System.Linq.Expressions;
 using System.Net.Http.Headers;
@@ -16,19 +17,21 @@ namespace Domain.Features.Product
 {
     public class ProductService : IProductService
     {
+        private readonly IRatingRepository _ratingRepository;
         private readonly IProductRepository _productReponsitories;
         private readonly IProductDetailReponsitories _productDetailReponsitories;
         private readonly ICategoryRepository _categoryReponsitories;
         private readonly IStorageService _storageService;
         private readonly IProductImageRepository _productImageRepository;
         private readonly IMapper _mapper;
-        public ProductService(IProductImageRepository productImageRepository, IMapper mapper, ICategoryRepository categoryReponsitories, IProductImageRepository productImageReponsitories, IProductRepository productReponsitories, IStorageService storageService, IProductDetailReponsitories productDetailReponsitories)
+        public ProductService(IRatingRepository ratingRepository,IProductImageRepository productImageRepository, IMapper mapper, ICategoryRepository categoryReponsitories, IProductImageRepository productImageReponsitories, IProductRepository productReponsitories, IStorageService storageService, IProductDetailReponsitories productDetailReponsitories)
         {
             _productDetailReponsitories = productDetailReponsitories;
             _productReponsitories = productReponsitories;
             _storageService = storageService;
             _categoryReponsitories = categoryReponsitories;
             _productImageRepository = productImageReponsitories;
+            _ratingRepository = ratingRepository;
             _mapper = mapper; ;
         }
         public async Task<ApiResult<bool>> AddImage(int productId, List<IFormFile> request)
@@ -402,6 +405,16 @@ namespace Domain.Features.Product
                 IdCategory = findobj.IdCategory,
                 Description = findobj.Description,
                 ProductImgs = _mapper.Map<List<ImageDto>>(findobj.ProductImgs),
+                Rating = _ratingRepository.GetByCondition(x=>x.Id==findobj.IdProduct).Result.ToList().Select(y=>new Models.Dto.Product.Rating()
+                {
+                    DateCreate = y.DateCreate,
+                    Des=y.Des,
+                    Id=y.Id,
+                    SDT=y.SDT,
+                    Stars=y.Stars,
+                    IdOrder=y.IdOrder,
+                    Name=y.Name,
+                }).ToList(),
             };
             return obj;
         }

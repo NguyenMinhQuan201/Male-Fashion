@@ -1,6 +1,7 @@
 ﻿using API.Models;
 using Domain.Features;
 using Domain.Models.Dto.Order;
+using Domain.Models.Dto.Rating;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -13,8 +14,10 @@ namespace API.Controllers
     {
 
         private readonly IOrderService _orderService;
-        public OrderController(IOrderService orderService)
+        private readonly IRatingService _ratinggService;
+        public OrderController(IOrderService orderService, IRatingService ratinggService)
         {
+            _ratinggService = ratinggService;
             _orderService = orderService;
         }
         [HttpPost("post")]
@@ -123,6 +126,11 @@ namespace API.Controllers
         {
             return Ok(await _orderService.GetAllByMonth(year));
         }
+        [HttpGet("chart-col-month")]
+        public async Task<IActionResult> GetColMonth(int year,int month)
+        {
+            return Ok(await _orderService.GetAllByDay(year, month));
+        }
         [HttpGet("chart-rad")]
         public async Task<IActionResult> GetRad()
         {
@@ -146,6 +154,16 @@ namespace API.Controllers
         public async Task<IActionResult> GetOrderByPhone(int idOrder, int phone)
         {
             return Ok(await _orderService.GetAllByPhone(idOrder, phone));
+        }
+        [HttpGet("get-by-rating-pro")]
+        public async Task<IActionResult> GetDes(int idpro)
+        {
+            return Ok(await _ratinggService.GetById(idpro));
+        }
+        [HttpPost("create-rating-pro")]
+        public async Task<IActionResult> CreateRating([FromBody] RatingDto rate)
+        {
+            return Ok(await _ratinggService.Create(rate));
         }
     }
 }

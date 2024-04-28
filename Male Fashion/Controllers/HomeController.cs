@@ -21,6 +21,10 @@ namespace Male_Fashion.Controllers
         {
             return View();
         }
+        public async Task<ActionResult> IndexRemake()
+        {
+            return View();
+        }
         public async Task<ActionResult> ProductsHot()
         {
             ViewBag.url = _configuration["BaseAddress"];

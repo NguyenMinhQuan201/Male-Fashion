@@ -22,7 +22,7 @@ namespace Domain.Features
         public Task<ApiResult<PagedResult<GetOrderDto>>> GetAllPagingRemoved(int? pageSize, int? pageIndex, string? search);
         public Task<IEnumerable<ChartRadius>> GetAllByYear();
         public Task<IEnumerable<ChartCol>> GetAllByMonth(int year);
-        public Task<IEnumerable<ChartCol>> GetAllByDay(int month);
+        public Task<IEnumerable<ChartColDay>> GetAllByDay(int year, int month);
         public Task<List<NotifiDto>> GetAllNotifiDto();
         public Task<bool> Readed(long id);
         public Task<ApiResult<dynamic>> GetAllByPhone(int idOrder, int phone);

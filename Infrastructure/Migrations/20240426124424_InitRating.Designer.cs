@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(MaleFashionDbContext))]
-    [Migration("20240408044230_Init8-4-ver2")]
-    partial class Init84ver2
+    [Migration("20240426124424_InitRating")]
+    partial class InitRating
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -785,6 +785,37 @@ namespace Infrastructure.Migrations
                     b.HasKey("IdQA");
 
                     b.ToTable("QA", (string)null);
+                });
+
+            modelBuilder.Entity("Infrastructure.Entities.Rating", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("DateCreate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Des")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IdOrder")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SDT")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Stars")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Rating", (string)null);
                 });
 
             modelBuilder.Entity("Infrastructure.Entities.RoleOperation", b =>

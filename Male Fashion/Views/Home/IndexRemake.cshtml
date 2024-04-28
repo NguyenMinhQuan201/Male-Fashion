@@ -1,0 +1,793 @@
+﻿@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Home Page";
+}
+@section jsFooter {
+    <script>
+        $('#partialNews').load("/Home/News")
+        $('#partialProductsHot').load("/Home/ProductsHot")
+    </script>
+}
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Male_Fashion Template">
+    <meta name="keywords" content="Male_Fashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i"
+          rel="stylesheet" />
+
+    <!-- title of site -->
+    <title>Nhựa Việt</title>
+
+    <!-- For favicon png -->
+    <link rel="shortcut icon"
+          type="image/icon"
+          href="~/Contnet2/assets/logo/favicon.png" />
+
+    <!--font-awesome.min.css-->
+    <link rel="stylesheet" href="~/Contnet2/assets/css/font-awesome.min.css" />
+
+    <!--linear icon css-->
+    <link rel="stylesheet" href="~/Contnet2/assets/css/linearicons.css" />
+
+    <!--animate.css-->
+    <link rel="stylesheet" href="~/Contnet2/assets/css/animate.css" />
+
+    <!--owl.carousel.css-->
+    <link rel="stylesheet" href="~/Contnet2/assets/css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="~/Contnet2/assets/css/owl.theme.default.min.css" />
+
+    <!--bootstrap.min.css-->
+    <link rel="stylesheet" href="~/Contnet2/assets/css/bootstrap.min.css" />
+
+    <!-- bootsnav -->
+    <link rel="stylesheet" href="~/Contnet2/assets/css/bootsnav.css" />
+
+    <!--style.css-->
+    <link rel="stylesheet" href="~/Contnet2/assets/css/style.css" />
+
+    <!--responsive.css-->
+    <link rel="stylesheet" href="~/Contnet2/assets/css/responsive.css" />
+
+
+</head>
+@*<div style="background-image:url('~/Content/img/hero/hero-1.jpg');"></div>*@
+<body>
+    <section id="populer-products" class="populer-products">
+        <div class="container">
+            <div class="populer-products-content">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="single-populer-products">
+                            <div class="single-populer-product-img mt40">
+                                <img style="height: 115px"
+                                     src="https://dekkopipe.com/upload/products/thumb_630x0/dsc00005-2-1690875013.jpg"
+                                     alt="populer-products images" />
+                            </div>
+                            <h2><a href="#">PPR</a></h2>
+                            <div class="single-populer-products-para">
+                                <p>
+                                    Ống PPR là sản phẩm ống nhựa nổi bật với ưu điểm vượt trội
+                                    là có thể chịu được nhiệt độ cao, chịu được áp lực cao và độ
+                                    bền theo thời gian.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="single-populer-products">
+                            <div class="single-inner-populer-products">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-12">
+                                        <div class="single-inner-populer-product-img">
+                                            <img src="https://dekkopipe.com/upload/products/thumb_630x0/ng-hdpe-12-1690532993.jpg"
+                                                 alt="populer-products images" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 col-sm-12">
+                                        <div class="single-inner-populer-product-txt">
+                                            <h2>
+                                                <a href="#"> ỐNG NHỰA CHỐNG TIA UV </a>
+                                            </h2>
+                                            <p>
+                                                Ống PPR chống tia cực tím được làm từ vật liệu sạch
+                                                Nhựa Polypropylen ngẫu nhiên (PP-R).
+                                            </p>
+                                            <div class="populer-products-price">
+                                                <h4>Bắt đầu từ <span>$99.00</span></h4>
+                                            </div>
+                                            <button class="btn-cart welcome-add-cart populer-products-btn"
+                                                    onclick="window.location.href='#'">
+                                                Khám phá thêm
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="single-populer-products">
+                            <div class="single-populer-products">
+                                <div class="single-populer-product-img">
+                                    <img style="height: 115px"
+                                         src="https://dekkopipe.com/upload/products/thumb_630x0/van-1-chieu-dong-la-lat-dekko-1-1689914029.jpg"
+                                         alt="populer-products images" />
+                                </div>
+                                <h2><a href="#">Van</a></h2>
+                                <div class="single-populer-products-para">
+                                    <p>Đồng đặc lâu rỉ</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/.container-->
+    </section>
+    <!--/.populer-products-->
+    <!--populer-products end-->
+    <!--new-arrivals start -->
+    <section id="new-arrivals" class="new-arrivals">
+        <div class="container">
+            <div class="section-header">
+                <h2>Hàng mới về</h2>
+            </div>
+            <!--/.section-header-->
+            <div class="new-arrivals-content">
+                <div class="row">
+                    <div class="col-md-3 col-sm-4">
+                        <div class="single-new-arrival">
+                            <div class="single-new-arrival-bg">
+                                <img src="Contnet2/assets/images/change/images.jfif"
+                                     alt="new-arrivals images" />
+                                <div class="single-new-arrival-bg-overlay"></div>
+                                <div class="sale bg-1">
+                                    <p>sale</p>
+                                </div>
+                                <div class="new-arrival-cart">
+                                    <p>
+                                        <span class="lnr lnr-cart"></span>
+                                        <a href="#">thêm <span>vào </span> giỏ</a>
+                                    </p>
+                                    <p class="arrival-review pull-right">
+                                        <span class="lnr lnr-heart"></span>
+                                        <span class="lnr lnr-frame-expand"></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <h4><a href="#">PB Pipe</a></h4>
+                            <p class="arrival-product-price">$65.00</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4">
+                        <div class="single-new-arrival">
+                            <div class="single-new-arrival-bg">
+                                <img src="Contnet2/assets/images/change/images (8).jfif"
+                                     alt="new-arrivals images" />
+                                <div class="single-new-arrival-bg-overlay"></div>
+                                <div class="sale bg-2">
+                                    <p>sale</p>
+                                </div>
+                                <div class="new-arrival-cart">
+                                    <p>
+                                        <span class="lnr lnr-cart"></span>
+                                        <a href="#">thêm <span>vào </span> giỏ</a>
+                                    </p>
+                                    <p class="arrival-review pull-right">
+                                        <span class="lnr lnr-heart"></span>
+                                        <span class="lnr lnr-frame-expand"></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <h4><a href="#">PERT Pipe</a></h4>
+                            <p class="arrival-product-price">$80.00</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4">
+                        <div class="single-new-arrival">
+                            <div class="single-new-arrival-bg">
+                                <img src="Contnet2/assets/images/change/images (6).jfif"
+                                     alt="new-arrivals images" />
+                                <div class="single-new-arrival-bg-overlay"></div>
+                                <div class="new-arrival-cart">
+                                    <p>
+                                        <span class="lnr lnr-cart"></span>
+                                        <a href="#">thêm <span>vào </span> giỏ</a>
+                                    </p>
+                                    <p class="arrival-review pull-right">
+                                        <span class="lnr lnr-heart"></span>
+                                        <span class="lnr lnr-frame-expand"></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <h4><a href="#">PEX Pipe</a></h4>
+                            <p class="arrival-product-price">$40.00</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4">
+                        <div class="single-new-arrival">
+                            <div class="single-new-arrival-bg">
+                                <img src="Contnet2/assets/images/change/images (3).jfif"
+                                     alt="new-arrivals images" />
+                                <div class="single-new-arrival-bg-overlay"></div>
+                                <div class="sale bg-1">
+                                    <p>sale</p>
+                                </div>
+                                <div class="new-arrival-cart">
+                                    <p>
+                                        <span class="lnr lnr-cart"></span>
+                                        <a href="#">thêm <span>vào </span> giỏ</a>
+                                    </p>
+                                    <p class="arrival-review pull-right">
+                                        <span class="lnr lnr-heart"></span>
+                                        <span class="lnr lnr-frame-expand"></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <h4><a href="#">ABS Pipe</a></h4>
+                            <p class="arrival-product-price">$100.00</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4">
+                        <div class="single-new-arrival">
+                            <div class="single-new-arrival-bg">
+                                <img src="Contnet2/assets/images/change/images (2).jfif"
+                                     alt="new-arrivals images" />
+                                <div class="single-new-arrival-bg-overlay"></div>
+                                <div class="new-arrival-cart">
+                                    <p>
+                                        <span class="lnr lnr-cart"></span>
+                                        <a href="#">thêm <span>vào </span> giỏ</a>
+                                    </p>
+                                    <p class="arrival-review pull-right">
+                                        <span class="lnr lnr-heart"></span>
+                                        <span class="lnr lnr-frame-expand"></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <h4><a href="#">CPVC Pipe</a></h4>
+                            <p class="arrival-product-price">$120.00</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4">
+                        <div class="single-new-arrival">
+                            <div class="single-new-arrival-bg">
+                                <img src="Contnet2/assets/images/change/upvc-iso-9.jpg"
+                                     alt="new-arrivals images" />
+                                <div class="single-new-arrival-bg-overlay"></div>
+                                <div class="sale bg-1">
+                                    <p>sale</p>
+                                </div>
+                                <div class="new-arrival-cart">
+                                    <p>
+                                        <span class="lnr lnr-cart"></span>
+                                        <a href="#">thêm <span>vào </span> giỏ</a>
+                                    </p>
+                                    <p class="arrival-review pull-right">
+                                        <span class="lnr lnr-heart"></span>
+                                        <span class="lnr lnr-frame-expand"></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <h4><a href="#">PPR Pipe</a></h4>
+                            <p class="arrival-product-price">$140.00</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4">
+                        <div class="single-new-arrival">
+                            <div class="single-new-arrival-bg">
+                                <img src="Contnet2/assets/images/change/tải xuống.jfif"
+                                     alt="new-arrivals images" />
+                                <div class="single-new-arrival-bg-overlay"></div>
+                                <div class="sale bg-2">
+                                    <p>sale</p>
+                                </div>
+                                <div class="new-arrival-cart">
+                                    <p>
+                                        <span class="lnr lnr-cart"></span>
+                                        <a href="#">thêm <span>vào </span> giỏ</a>
+                                    </p>
+                                    <p class="arrival-review pull-right">
+                                        <span class="lnr lnr-heart"></span>
+                                        <span class="lnr lnr-frame-expand"></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <h4><a href="#">PE Pipe</a></h4>
+                            <p class="arrival-product-price">$90.00</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4">
+                        <div class="single-new-arrival">
+                            <div class="single-new-arrival-bg">
+                                <img src="Contnet2/assets/images/change/images (10).jfif"
+                                     alt="new-arrivals images" />
+                                <div class="single-new-arrival-bg-overlay"></div>
+                                <div class="new-arrival-cart">
+                                    <p>
+                                        <span class="lnr lnr-cart"></span>
+                                        <a href="#">thêm <span>vào </span> giỏ</a>
+                                    </p>
+                                    <p class="arrival-review pull-right">
+                                        <span class="lnr lnr-heart"></span>
+                                        <span class="lnr lnr-frame-expand"></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <h4><a href="#">PVC Pipe</a></h4>
+                            <p class="arrival-product-price">$140.00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/.container-->
+    </section>
+    <!--/.new-arrivals-->
+    <!--new-arrivals end -->
+    <!--sofa-collection start -->
+    <!--/.sofa-collection-->
+    <!--sofa-collection end -->
+    <!--feature start -->
+    <section id="feature" class="feature">
+        <div class="container">
+            <div class="section-header">
+                <h2>sản phẩm nổi bật</h2>
+            </div>
+            <!--/.section-header-->
+            <div class="feature-content">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div style="display: flex; flex-direction: column"
+                             class="single-feature">
+                            <img style="height: 300px"
+                                 src="https://5.imimg.com/data5/SELLER/Default/2023/1/VV/DT/QA/114450227/upvc-plumbing-pipes-500x500.jpg"
+                                 alt="feature image" />
+                            <div class="single-feature-txt text-center">
+                                <p>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <span class="spacial-feature-icon">
+                                        <i class="fa fa-star"></i>
+                                    </span>
+                                    <span class="feature-review">(45 review)</span>
+                                </p>
+                                <h3><a href="#">thiết kế </a></h3>
+                                <h5>$160.00</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div style="display: flex; flex-direction: column"
+                             class="single-feature">
+                            <img style="height: 300px"
+                                 src="https://5.imimg.com/data5/SELLER/Default/2022/11/XA/KC/IU/4034700/upvc-pipes-250x250.jpg"
+                                 alt="feature image" />
+                            <div class="single-feature-txt text-center">
+                                <p>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <span class="spacial-feature-icon">
+                                        <i class="fa fa-star"></i>
+                                    </span>
+                                    <span class="feature-review">(45 review)</span>
+                                </p>
+                                <h3><a href="#">loại </a></h3>
+                                <h5>$200.00</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/.container-->
+    </section>
+    <!--feature start -->
+    <section id="feature" class="feature">
+        <div class="container">
+            <div class="section-header">
+                <h2>sản phẩm nổi bật</h2>
+            </div>
+            <!--/.section-header-->
+            <div class="feature-content">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div style="display: flex; flex-direction: column"
+                             class="single-feature">
+                            <img style="height: 300px"
+                                 src="https://5.imimg.com/data5/SELLER/Default/2023/1/VV/DT/QA/114450227/upvc-plumbing-pipes-500x500.jpg"
+                                 alt="feature image" />
+                            <div class="single-feature-txt text-center">
+                                <p>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <span class="spacial-feature-icon">
+                                        <i class="fa fa-star"></i>
+                                    </span>
+                                    <span class="feature-review">(45 review)</span>
+                                </p>
+                                <h3><a href="#">thiết kế </a></h3>
+                                <h5>$160.00</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div style="display: flex; flex-direction: column"
+                             class="single-feature">
+                            <img style="height: 300px"
+                                 src="https://5.imimg.com/data5/SELLER/Default/2022/11/XA/KC/IU/4034700/upvc-pipes-250x250.jpg"
+                                 alt="feature image" />
+                            <div class="single-feature-txt text-center">
+                                <p>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <span class="spacial-feature-icon">
+                                        <i class="fa fa-star"></i>
+                                    </span>
+                                    <span class="feature-review">(45 review)</span>
+                                </p>
+                                <h3><a href="#">loại </a></h3>
+                                <h5>$200.00</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-sm-3">
+                      <div class="single-feature">
+                        <img style="height: 300px;" src="Contnet2/assets/images/features/f3.jpg" alt="feature image" />
+                        <div class="single-feature-txt text-center">
+                          <p>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <span class="spacial-feature-icon"
+                              ><i class="fa fa-star"></i
+                            ></span>
+                            <span class="feature-review">(45 review)</span>
+                          </p>
+                          <h3><a href="#">chair and table</a></h3>
+                          <h5>$100.00</h5>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-3">
+                      <div class="single-feature">
+                        <img style="height: 300px;" src="Contnet2/assets/images/features/f4.jpg" alt="feature image" />
+                        <div class="single-feature-txt text-center">
+                          <p>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <span class="spacial-feature-icon"
+                              ><i class="fa fa-star"></i
+                            ></span>
+                            <span class="feature-review">(45 review)</span>
+                          </p>
+                          <h3><a href="#">modern arm chair</a></h3>
+                          <h5>$299.00</h5>
+                        </div>
+                      </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <!--/.container-->
+    </section>
+    <!--/.feature-->
+    <!--feature end -->
+    <!--blog start -->
+    <section id="blog" class="blog">
+        <div class="container">
+            <div class="section-header">
+                <h2>bài đăng gần đây</h2>
+            </div>
+            <!--/.section-header-->
+            <div class="blog-content">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="single-blog">
+                            <div class="single-blog-img">
+                                <img style="height: 243px"
+                                     src="https://en.diendandoanhnghiep.vn/upload_images/12/8888/097767/hjjj/7yy/9gfjff/hhhh/Huu_nghi-_Chi_Lang.jpg"
+                                     alt="blog image" />
+                                <div class="single-blog-img-overlay"></div>
+                            </div>
+                            <div class="single-blog-txt">
+                                <h2>
+                                    <a href="#">Ai sẽ được hưởng lợi từ đầu tư công?</a>
+                                </h2>
+                                <h3>
+                                    của <a href="#">Ông Thăng</a> / Ngày 18 tháng 3 năm 2018
+                                </h3>
+                                <p>
+                                    Từ cuối năm 2022, đầu tư công có thể được đẩy nhanh. Hoạt
+                                    động này sẽ mang lại nhiều lợi ích kinh tế các ngành công
+                                    nghiệp ở Việt Nam.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="single-blog">
+                            <div class="single-blog-img">
+                                <img style="height: 243px"
+                                     src="https://en.diendandoanhnghiep.vn/upload_images/12/8888/097767/hjjj/7yy/9gfjff/hhhh/Untitled_2.jpg"
+                                     alt="blog image" />
+                                <div class="single-blog-img-overlay"></div>
+                            </div>
+                            <div class="single-blog-txt">
+                                <h2>
+                                    <a href="#">Trưởng phòng Vĩ mô & Chiến lược tại KB Securities</a>
+                                </h2>
+                                <h3>
+                                    của <a href="#">Ông Liêm</a> / Ngày 18 tháng 3 năm 2018
+                                </h3>
+                                <p>
+                                    Theo quan điểm của ông Trần Đức Anh, các ngành được hưởng
+                                    lợi từ chính sách công chi tiêu bao gồm người hưởng lợi trực
+                                    tiếp (vật liệu xây dựng và xây dựng cơ sở hạ tầng) và người
+                                    hưởng lợi gián tiếp (bất động sản dân dụng và công nghiệp).
+                                    Cụ thể, Ngành thép sẽ được hưởng lợi từ việc thúc đẩy Dự án
+                                    cơ sở hạ tầng....
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="single-blog">
+                            <div class="single-blog-img">
+                                <img style="height: 243px"
+                                     src="Contnet2/assets/images/blog/b3.jpg"
+                                     alt="blog image" />
+                                <div class="single-blog-img-overlay"></div>
+                            </div>
+                            <div class="single-blog-txt">
+                                <h2>
+                                    <a href="#">
+                                        Tại sao các thương hiệu lại nhìn vào ngôn ngữ địa
+                                        phương
+                                    </a>
+                                </h2>
+                                <h3>
+                                    Của <a href="#">Bà Long</a> / Ngày 18 tháng 3 năm 2018
+                                </h3>
+                                <p>
+                                    Ngành ống nhựa có triển vọng tươi sáng trong thời gian tới
+                                    kỳ vọng sản lượng tăng và tỷ suất lợi nhuận được cải thiện
+                                    nhờ giá PVC, nguyên liệu đầu vào chính giảm mạnh và tiệm cận
+                                    mức trước đại dịch và ống nhựa gia tăng giá từ cuối năm
+                                    2021...
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/.container-->
+    </section>
+    <!--/.blog-->
+    <!--blog end -->
+    <!-- clients strat -->
+    <section id="clients" class="clients">
+        <div class="container">
+            <div class="owl-carousel owl-theme" id="client">
+                <div class="item">
+                    <a href="#">
+                        <img src="https://vattu365.com/wp-content/uploads/2020/11/logo-dat-hoa_0f9ef3f7a7004501af115c6cae4e0243-2.png"
+                             alt="brand-image" />
+                    </a>
+                </div>
+                <!--/.item-->
+                <div class="item">
+                    <a href="#">
+                        <img src="https://phanphoiongnhuatienphong.vn/Data/images/logo-nhua-tien-phong-mau-1.png"
+                             alt="brand-image" />
+                    </a>
+                </div>
+                <!--/.item-->
+                <div class="item">
+                    <a href="#">
+                        <img src="https://cdn.haitrieu.com/wp-content/uploads/2023/09/Logo-Cong-Ty-CP-Nhua-Binh-Minh.png"
+                             alt="brand-image" />
+                    </a>
+                </div>
+                <!--/.item-->
+                <div class="item">
+                    <a href="#">
+                        <img src="https://dnpcorp.vn/wp-content/uploads/2018/09/Nhua-Dong-Nai-01-800x200.png"
+                             alt="brand-image" />
+                    </a>
+                </div>
+                <!--/.item-->
+                <div class="item">
+                    <a href="#">
+                        <img src="https://vpphongha.com.vn/wp-content/uploads/2021/10/6.10.6.png"
+                             alt="brand-image" />
+                    </a>
+                </div>
+                <!--/.item-->
+            </div>
+            <!--/.owl-carousel-->
+        </div>
+        <!--/.container-->
+    </section>
+    <!--/.clients-->
+    <!-- clients end -->
+    <!--newsletter strat -->
+    <section id="newsletter" class="newsletter">
+        <div class="container">
+            <div class="hm-footer-details">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="hm-footer-widget">
+                            <div class="hm-foot-title">
+                                <h4>Thông tin</h4>
+                            </div>
+                            <!--/.hm-foot-title-->
+                            <div class="hm-foot-menu">
+                                <ul>
+                                    <li><a href="#">Về chúng tôi</a></li>
+                                    <!--/li-->
+                                    <li><a href="#">Liên hệ</a></li>
+                                    <!--/li-->
+                                    <li><a href="#">Bản tin</a></li>
+                                    <!--/li-->
+                                    <li><a href="#">Của hàng</a></li>
+                                    <!--/li-->
+                                </ul>
+                                <!--/ul-->
+                            </div>
+                            <!--/.hm-foot-menu-->
+                        </div>
+                        <!--/.hm-footer-widget-->
+                    </div>
+                    <!--/.col-->
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="hm-footer-widget">
+                            <div class="hm-foot-title">
+                                <h4>Bộ sản phẩm</h4>
+                            </div>
+                            <!--/.hm-foot-title-->
+                            <div class="hm-foot-menu">
+                                <ul>
+                                    <li><a href="#">Ống nhựa</a></li>
+                                    <!--/li-->
+                                    <li><a href="#">Ống đồng</a></li>
+                                    <!--/li-->
+                                    <li><a href="#">Van</a></li>
+                                </ul>
+                                <!--/ul-->
+                            </div>
+                            <!--/.hm-foot-menu-->
+                        </div>
+                        <!--/.hm-footer-widget-->
+                    </div>
+                    <!--/.col-->
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="hm-footer-widget">
+                            <div class="hm-foot-title">
+                                <h4>Tài khoản</h4>
+                            </div>
+                            <!--/.hm-foot-title-->
+                            <div class="hm-foot-menu">
+                                <ul>
+                                    <li><a href="#">tài khoản của tôi</a></li>
+                                    <!--/li-->
+                                    <!--/li-->
+                                    <li><a href="#">công đồng</a></li>
+                                    <!--/li-->
+                                    <li><a href="#">lịch sử mua</a></li>
+                                    <!--/li-->
+                                    <!--/li-->
+                                </ul>
+                                <!--/ul-->
+                            </div>
+                            <!--/.hm-foot-menu-->
+                        </div>
+                        <!--/.hm-footer-widget-->
+                    </div>
+                    <!--/.col-->
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="hm-footer-widget">
+                            <div class="hm-foot-title">
+                                <h4>bản tin</h4>
+                            </div>
+                            <!--/.hm-foot-title-->
+                            <div class="hm-foot-para">
+                                <p>
+                                    Đăng ký để nhận tin tức, cập nhật và thông tin mới nhất.
+                                </p>
+                            </div>
+                            <!--/.hm-foot-para-->
+                            <div class="hm-foot-email">
+                                <div class="foot-email-box">
+                                    <input type="text"
+                                           class="form-control"
+                                           placeholder="Nhập Email...." />
+                                </div>
+                                <!--/.foot-email-box-->
+                                <div class="foot-email-subscribe">
+                                    <span><i class="fa fa-location-arrow"></i></span>
+                                </div>
+                                <!--/.foot-email-icon-->
+                            </div>
+                            <!--/.hm-foot-email-->
+                        </div>
+                        <!--/.hm-footer-widget-->
+                    </div>
+                    <!--/.col-->
+                </div>
+                <!--/.row-->
+            </div>
+            <!--/.hm-footer-details-->
+        </div>
+        <!--/.container-->
+    </section>
+    <!--/newsletter-->
+    <!--newsletter end -->
+    <!--footer start-->
+    <footer id="footer" class="footer">
+        <div class="container">
+            <div class="hm-footer-copyright text-center">
+                <div class="footer-social">
+                    <a href="#"><i class="fa fa-facebook"></i></a>
+                    <a href="#"><i class="fa fa-instagram"></i></a>
+                    <a href="#"><i class="fa fa-linkedin"></i></a>
+                    <a href="#"><i class="fa fa-pinterest"></i></a>
+                    <a href="#"><i class="fa fa-behance"></i></a>
+                </div>
+                <!--/p-->
+            </div>
+            <!--/.text-center-->
+        </div>
+        <!--/.container-->
+
+        <div id="scroll-Top">
+            <div class="return-to-top">
+                <i class="fa fa-angle-up"
+                   id="scroll-top"
+                   data-toggle="tooltip"
+                   data-placement="top"
+                   title=""
+                   data-original-title="Back to Top"
+                   aria-hidden="true"></i>
+            </div>
+        </div>
+        <!--/.scroll-Top-->
+    </footer>
+    @*<div id="preloder">
+    <div class="loader"></div>
+    </div>*@
+    <!-- Hero Section End -->
+    <!-- Banner Section Begin -->
+    <!-- Banner Section End -->
+    <!-- Product Section Begin -->
+    @* <div id="partialProductsHot">
+    </div>
+    <div id="partialNews">
+    </div> *@
+    <script src="~/Content/js/jsHome/bootstrap.min.js"></script>
+    <script src="~/Content/js/jsHome/jquery-3.3.1.min.js"></script>
+    <script src="~/Content/js/jsHome/jquery.countdown.min.js"></script>
+    <script src="~/Content/js/jsHome/jquery.magnific-popup.min.js"></script>
+    <script src="~/Content/js/jsHome/jquery.nice-select.min.js"></script>
+    <script src="~/Content/js/jsHome/jquery.nicescroll.min.js"></script>
+    <script src="~/Content/js/jsHome/jquery.slicknav.js"></script>
+    <script src="~/Content/js/jsHome/main.js"></script>
+    <script src="~/Content/js/jsHome/owl.carousel.min.js"></script>
+    <script src="~/Content/js/jsHome/mixitup.min.js"></script>
+</body>

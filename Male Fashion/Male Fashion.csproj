@@ -32,4 +32,8 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Contnet2\" />
+  </ItemGroup>
+
 </Project>

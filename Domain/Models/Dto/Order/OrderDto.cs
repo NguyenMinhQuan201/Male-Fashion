@@ -25,6 +25,11 @@ namespace Domain.Models.Dto.Order
         public decimal ChartPrice { get; set; }
         public decimal Month { get; set; }
     }
+    public class ChartColDay
+    {
+        public decimal ChartPrice { get; set; }
+        public decimal Day { get; set; }
+    }
     public class ChartRadius
     {
         public decimal ChartPrice { get; set; }

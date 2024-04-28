@@ -10,6 +10,7 @@ using Infrastructure.Reponsitories.OrderReponsitory;
 using Infrastructure.Reponsitories.ProductDetailReponsitories;
 using Infrastructure.Reponsitories.ProductImageReponsitories;
 using Infrastructure.Reponsitories.ProductReponsitories;
+using Infrastructure.Reponsitories.RatingReponsitories;
 using Infrastructure.Reponsitories.RoleOperationReponsitories;
 using Infrastructure.Reponsitories.RoleOperationRepository;
 using Infrastructure.Reponsitories.SupplierReponsitories;
@@ -38,7 +39,8 @@ namespace Library.Extensions.ExtensionServices
             services.AddTransient<IUserOperationRepository, UserOperationReponsitories>();
             services.AddTransient<IBlogRepository, BlogRepository>();
             services.AddTransient<IImportInvoiceDetailsRepository, ImportInvoiceDetailsReponsitories>();
-            services.AddTransient<IImportInvoiceRepository, ImportInvoiceRepository>();
+            //services.AddTransient<IImportInvoiceRepository, ImportInvoiceRepository>();
+            services.AddTransient<IRatingRepository, RatingRepository>();
 
             return services;
             

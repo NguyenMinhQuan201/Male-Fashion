@@ -15,6 +15,7 @@ namespace Domain.Models.Dto.Order
         public int Quantity { get; set; }
         public string?NameProduct { get; set; }
         public string? Img { get; set; }
+        public int IsRating { get; set; }
     }
     public class OrderDetailRequest
     {

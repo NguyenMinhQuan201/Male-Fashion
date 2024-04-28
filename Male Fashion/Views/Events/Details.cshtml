@@ -20,6 +20,16 @@
         $('#MoreToYou').load("/Events/MoreToYou")
     </script>
 }
+<style>
+    .title-rating{
+        font-size: 22px;
+        font-weight: 600;
+    }
+    .under-rating{
+        margin: 25px;
+        border-bottom: solid 1px;
+    }
+</style>
 <link rel="stylesheet" type="text/css" href="~/Content/css/Chi-tiet-hang1.css">
 <section class="shop-details">
     <div class="product__details__pic">
@@ -135,6 +145,40 @@
                         </div>*@
                     </div>
                 </div>
+            </div>
+            <div class="bak-rating">
+                <div class="title-rating">
+                    Đánh giá khách hàng
+                </div>
+                @if (Model.Rating.Count()>0)
+                {
+                    @foreach (var item in Model.Rating)
+                    {
+                        <div class="under-rating">
+                            <div class="header-rating">
+                                <div class="name-cus">
+                                    @item.Name - Ngày: @item.DateCreate.ToString("dd/MM/yyyy")
+                                </div>
+                                <div class="stars-rating">
+                                    @for (int i = 0; i < item.Stars; i++)
+                                    {
+                                        <i class="fa fa-star"></i>
+                                    }
+                                </div>
+                            </div>
+                            <div class="des-rating">
+                                <span>
+                                    @item.Des
+                                </span>
+                            </div>
+                        </div>
+                    }
+                }
+                else{
+                    <div style="text-align: center;">
+                            Chưa có đánh giá
+                    </div>
+                }
             </div>
         </div>
     </div>

@@ -3,6 +3,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
+    .rating {
+        display: block;
+        width: 175px;
+        height: 45px;
+        margin: 15px;
+        background-color: aquamarine;
+    }
+
     .modal-content {
         position: absolute;
         display: -ms-flexbox;
@@ -19,11 +27,11 @@
         outline: 0;
     }
     /*body {
-                                    display: flex;
-                                    flex-direction: column;
-                                    align-items: center;
-                                    font-family: 'Roboto', sans-serif;
-                                }*/
+                                            display: flex;
+                                            flex-direction: column;
+                                            align-items: center;
+                                            font-family: 'Roboto', sans-serif;
+                                        }*/
     .contain-5 {
         display: flex;
         align-items: center;
@@ -89,13 +97,16 @@
     .search__input-box:focus {
         outline: none;
     }
-    .ml-left{
-        margin-left:24px;
+
+    .ml-left {
+        margin-left: 24px;
     }
+
     .purchase {
-        width:100%;
+        width: 100%;
         display: flex;
-        margin-top:24px;
+        margin-top: 24px;
+        justify-content: space-between;
     }
 
     .purchase__icon-background {
@@ -116,10 +127,11 @@
         margin: auto 0;
     }
 
-    .purchase__title{
+    .purchase__title {
         font-size: 16px;
         font-weight: 600;
     }
+
     .purchase__title,
     .purchase__date {
         margin: 0;
@@ -132,8 +144,17 @@
     }
 
     .purchase__price {
-        align-self: center;
-        margin-left: auto;
+        /* align-self: center;
+                margin-left: auto;
+                text-align: center; */
+        margin: 0;
+    }
+
+    .col-rating {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 
     .purchase__details-btn {
@@ -154,9 +175,10 @@
             border-radius: 10px;
         }
 
-    #change-by-phone-detail{
+    #change-by-phone-detail {
         flex-direction: column;
     }
+
     @@media (min-width: 750px) {
         .history-page {
             width: 750px;
@@ -164,20 +186,87 @@
     }
 
 </style>
+<style>
+    /* Style The Dropdown Button */
+    .dropbtn {
+        background-color: gray;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 160px;
+    }
+
+    /* The container <div> - needed to position the dropdown content */
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    /* Dropdown Content (Hidden by Default) */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+        /* Links inside the dropdown */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+            /* Change color of dropdown links on hover */
+            .dropdown-content a:hover {
+                background-color: #f1f1f1
+            }
+
+    /* Show the dropdown menu on hover */
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    /* Change the background color of the dropdown button when the dropdown content is shown */
+    .dropdown:hover .dropbtn {
+        background-color: #3e8e41;
+    }
+</style>
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="exampleModalLabel">Đánh giá</h5>
+                <button style="border: none;" type="button" class="btn-close" data-bs-dismiss="modal">Đóng</button>
             </div>
             <div class="modal-body">
-                ...
+                <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">Ý kiến khách hàng:</label>
+                    <input type="text" class="form-control" id="recipient-name">
+                </div>
+                <div class="dropdown">
+                    <button id="show-star" class="dropbtn">Đánh giá sao</button>
+                    <div class="dropdown-content">
+                        <a class="click-star" data-id="5" href="#">5 sao (☆☆☆☆☆)</a>
+                        <a class="click-star" data-id="4" href="#">4 sao (☆☆☆☆)</a>
+                        <a class="click-star" data-id="3" href="#">3 sao (☆☆☆)</a>
+                        <a class="click-star" data-id="2" href="#">2 sao (☆☆)</a>
+                        <a class="click-star" data-id="1" href="#">1 sao (☆)</a>
+
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Understood</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" onclick="Send()" class="btn btn-primary">Gửi</button>
             </div>
         </div>
     </div>
@@ -196,7 +285,6 @@
         </div>
         <div class="history-page__purchases">
             <div id="change-by-phone" class="purchase">
-                
             </div>
             <div id="change-by-phone-detail" class="purchase">
             </div>
@@ -205,11 +293,72 @@
 </div>
 <script src="https://code.iconify.design/1/1.0.3/iconify.min.js"></script>
 <script>
+    var star;
+    var idpro;
+
+    document.addEventListener('DOMContentLoaded', function () {
+        $('.click-star').on('click', function () {
+            var dataId = $(this).data('id');
+            star = dataId;
+            var textContent = $(this).text();
+            $('#show-star').html(textContent);
+        });
+    });
     function addCommas(number) {
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
+    function GetStatusOrder(status) {
+        switch (status) {
+            case 0:
+                return "Đã hủy";
+                break;
+            case 1:
+                return "Đang giao";
+                break;
+            case 2:
+                return "Đã hoàn thành";
+                break;
+        }
+    }
+    function Bind(obj) {
+        idpro = obj;
+    }
+    function Send() {
+        console.log("mess:", mess);
+        console.log("star:", star);
+        console.log("idpro:", idpro);
+        var obj = {
+            Id: idpro,
+            Stars: star,
+            Name: mess.nameCustomer,
+            SDT: mess.phone,
+            Des: $('#recipient-name').val(),
+            DateCreate:Date.now,
+            IdOrder: mess.idOrder,
+        }
+        console.log("obj:", obj)
+        $.ajax({
+            url: "@ViewBag.MyUrl" + `/api/Order/create-rating-pro`,
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify(obj),
+            type: "POST",
+            success: function (response) {
+                var newButton = document.createElement("button");
+                newButton.type = "button";
+                newButton.classList.add("btn", "rating");
+                newButton.textContent = "Đã đánh giá";
+                // Lấy ra phần tử button cũ
+                var oldButton = document.getElementById(`product-${obj.Id}`);
+                // Thay thế button cũ bằng button mới
+                oldButton.parentNode.replaceChild(newButton, oldButton);
+                $('#exampleModal').modal('hide');
+            }
+        })
+    }
+    var mess;
     function GetOrders() {
-        var str="";
+        var str = "";
         var str2 = "";
         var inputElement = document.getElementById("id-search");
         var id = inputElement.value;
@@ -218,32 +367,53 @@
             dataType: "json",
             type: "GET",
             success: function (response) {
-                var obj = response.resultObj.orderDetailDto
+                var obj = response.resultObj.orderDetailDto;
+                mess = obj;
                 str +=
-                `<div class="purchase">
-                    <div class="purchase__info">
-                            <p class="purchase__title">Tên khách: ${obj.nameCustomer}</p>
-                            <p class="purchase__date">Email: ${obj.email}</p>
-                            <p class="purchase__date">Địa chỉ: ${obj.address}</p>
-                            <p class="purchase__date">SĐT: 0${obj.phone}</p>
-                            <p class="purchase__date">Tạo ngày ${chuyenDoiNgayThang(obj.createdAt)}</p>
-                            <p class="purchase__date">Trạng thái: Đang giao</p>
-                            <p class="purchase__date">Tổng: ${addCommas(obj.sumPrice)}đ</p>
-                </div>`
+                    `<div class="purchase">
+                            <div class="purchase__info">
+                                    <p class="purchase__title">Tên khách: ${obj.nameCustomer}</p>
+                                    <p class="purchase__date">Email: ${obj.email}</p>
+                                    <p class="purchase__date">Địa chỉ: ${obj.address}</p>
+                                    <p class="purchase__date">SĐT: 0${obj.phone}</p>
+                                    <p class="purchase__date">Tạo ngày ${chuyenDoiNgayThang(obj.createdAt)}</p>
+                                    <p class="purchase__date">Trạng thái: ${GetStatusOrder(obj.status)}</p>
+                                    <p class="purchase__date">Tổng: ${addCommas(obj.sumPrice)}đ</p>
+                        </div>`
                 $("#change-by-phone").html(str);
                 response.resultObj.getOrderDto.forEach(function (item) {
-                    str2 += `<div class="purchase">
-                                    <img style="width: 60px;" src="https://localhost:7179/user_content/${item.img}"/>
-                                        <div class="purchase__info" style="margin-left: 32px;">
-                                    <p class="purchase__title">${item.nameProduct}</p>
-                                    <p class="purchase__date">Số lượng${item.quantity}</p>
-                                                </div><p class="purchase__price">Giá ${addCommas(item.price)}đ</p>
-                    </div>`
+                    if (item.isRating == 1) {
+                        str2 += `<div class="purchase">
+                                                <img style="width: 60px;" src="https://localhost:7179/user_content/${item.img}"/>
+                                                    <div class="purchase__info" style="margin-left: 32px;">
+                                                        <p class="purchase__title">${item.nameProduct}</p>
+                                                        <p class="purchase__date">Số lượng${item.quantity}</p>
+                                                    </div>
+                                                <div class="col-rating">
+                                                    <p class="purchase__price">Giá ${addCommas(item.price)}đ</p>
+                                                    <button id="product-${item.idProduct}" data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" onclick="Bind('${item.idProduct}')" class="btn rating isRating-${item.isRating}">Đánh giá sản phẩm</button>
+                                                </div>
+                                        </div>`
+                    }
+                    else {
+                        str2 += `<div class="purchase">
+                                                <img style="width: 60px;" src="https://localhost:7179/user_content/${item.img}"/>
+                                                    <div class="purchase__info" style="margin-left: 32px;">
+                                                        <p class="purchase__title">${item.nameProduct}</p>
+                                                        <p class="purchase__date">Số lượng${item.quantity}</p>
+                                                    </div>
+                                                <div class="col-rating">
+                                                    <p class="purchase__price">Giá ${addCommas(item.price)}đ</p>
+                                                    <button id="product2-${item.idProduct}" type="button" class="btn rating canpo-${item.idProduct}">Đã đánh giá</button>
+                                                </div>
+                                        </div>`
+                    }
                 });
                 $("#change-by-phone-detail").html(str2);
+                // $(`.isRating-0`).hide();
             }
         })
-        
+
     }
     function chuyenDoiNgayThang(dateTimeString) {
         // Tạo một đối tượng Date từ chuỗi đầu vào

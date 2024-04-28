@@ -8,6 +8,7 @@ using Infrastructure.Entities;
 using Infrastructure.Reponsitories.OrderDetailReponsitory;
 using Infrastructure.Reponsitories.OrderReponsitory;
 using Infrastructure.Reponsitories.ProductReponsitories;
+using Infrastructure.Reponsitories.RatingReponsitories;
 using Microsoft.AspNetCore.SignalR;
 using System.Linq.Expressions;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
@@ -16,18 +17,20 @@ namespace Domain.Features.Order
 {
     public class OrderService : IOrderService
     {
+        private readonly IRatingRepository _ratingRepository;
         private readonly IHubContext<NotiHub> _hubContext;
         private readonly IOrderDetailRepository _orderDetailReponsitory;
         private readonly IOrderRepository _orderReponsitory;
         private readonly IProductRepository _productReponsitory;
         private readonly IMapper _mapper;
-        public OrderService(IHubContext<NotiHub> hubContext, IOrderRepository orderReponsitory, IOrderDetailRepository orderDetailReponsitory, IProductRepository productRepository, IMapper mapper)
+        public OrderService( IRatingRepository ratingRepository, IHubContext<NotiHub> hubContext, IOrderRepository orderReponsitory, IOrderDetailRepository orderDetailReponsitory, IProductRepository productRepository, IMapper mapper)
         {
             _mapper = mapper;
             _orderDetailReponsitory = orderDetailReponsitory;
             _orderReponsitory = orderReponsitory;
             _productReponsitory = productRepository;
             _hubContext= hubContext;
+            _ratingRepository= ratingRepository;
         }
         public void SendNotification()
         {
@@ -62,6 +65,7 @@ namespace Domain.Features.Order
                         Price = orderDetail.Price,
                         Quantity = orderDetail.Quantity,
                     };
+                    //sửa sản phẩm trong kho
                     temp.Add(_productOrder);
                 }
                 order.OrderDetails = temp;
@@ -297,6 +301,13 @@ namespace Domain.Features.Order
                     findobj.FinishAt = DateTime.Now;
                 }
                 await _orderReponsitory.UpdateAsync(findobj);
+                var orderDetail = await _orderDetailReponsitory.GetByCondition(x=>x.IdOrder == id);
+                foreach(var item in orderDetail)
+                {
+                    var pro = await _productReponsitory.GetByProductID(item.IdProduct);
+                    pro.Quantity = pro.Quantity - item.Quantity;
+                    await _productReponsitory.UpdateAsync(pro);
+                }
                 return new ApiSuccessResult<bool>(true);
             }
             return new ApiErrorResult<bool>("Lỗi tham số chuyền về null hoặc trống");
@@ -368,6 +379,8 @@ namespace Domain.Features.Order
             var orderDetail = await _orderDetailReponsitory.GetByCondition(expression);
             var lst = orderDetail.Select(x => new OrderDetailDto()
             {
+                IsRating = _ratingRepository.GetByCondition(y=>y.IdOrder == idOrder&& y.Id== x.IdProduct).Result.Count()>0? 0:1,
+                IdProduct = x.IdProduct,
                 Price = x.Price,
                 NameProduct= _productReponsitory.GetByProductID(x.IdProduct).Result.Name,
                 Quantity = x.Quantity,
@@ -381,9 +394,20 @@ namespace Domain.Features.Order
             return new ApiSuccessResult<dynamic>(obj);
         }
 
-        public Task<IEnumerable<ChartCol>> GetAllByDay(int month)
+        public async Task<IEnumerable<ChartColDay>> GetAllByDay(int year,int month)
         {
-            throw new NotImplementedException();
+            var lst = new List<ChartColDay>();
+
+            var getAll = _orderReponsitory.GetAll().Result.Where(x => x.CreatedAt.Year == year && x.CreatedAt.Month== month).ToList();
+            foreach (var item in getAll) { 
+                var obj = new ChartColDay()
+                {
+                    ChartPrice = getAll.Where(x => x.CreatedAt.Year == year && x.CreatedAt.Month == month && x.CreatedAt.Day == item.CreatedAt.Day).Sum(x => x.SumPrice),
+                    Day = item.CreatedAt.Day,
+                };
+                lst.Add(obj);
+            }
+            return lst;
         }
     }
 }

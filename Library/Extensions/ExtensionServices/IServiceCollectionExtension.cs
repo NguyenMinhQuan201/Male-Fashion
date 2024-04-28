@@ -7,6 +7,7 @@ using Domain.Features.Product;
 using Domain.Features.Role;
 using Domain.Features.Supplier;
 using Domain.IServices.User;
+using Infrastructure.Reponsitories.RatingReponsitories;
 using Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -31,6 +32,8 @@ namespace Library.Extensions.ExtensionServices
             services.AddTransient<IUserOperationService, UserOperationService>();*/
             services.AddTransient<IImportInvoiceDetailsService, ImportInvoiceDetailsService>();
             services.AddTransient<IImportInvoiceService, ImportInvoiceService>();
+            services.AddTransient<IRatingService, RatingService>();
+
             return services;
         }
     }

@@ -34,6 +34,7 @@ namespace Infrastructure.EF
             modelBuilder.ApplyConfiguration(new PromotionConfiguration());
             modelBuilder.ApplyConfiguration(new QAConfiguration());
             modelBuilder.ApplyConfiguration(new SupplierConfiguration());
+            modelBuilder.ApplyConfiguration(new RatingConfiguration());
             //Tạo bảng được cung cấp từ Identity
             modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims");
             modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles").HasKey(x => new { x.UserId, x.RoleId });
@@ -62,6 +63,7 @@ namespace Infrastructure.EF
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<Module> Modules { get; set; }
         public DbSet<Notifi> Notifis { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
         public virtual DbSet<UserRefreshTokens> UserRefreshToken { get; set; }
 
         /*public override async Task<int> SaveChangesAsync()
