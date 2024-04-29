@@ -696,7 +696,7 @@ class CartController {
     height: 64px;
     width: 64px; ">
 </div>
-<span class="span-for-total"> ${cart.quantity}</span>   <span> ${cart.price}</span> <span style="margin-right: 2%">${cart.name}</span></li>
+<span class="span-for-total"> ${cart.quantity}</span>   <span> ${cart.price}</span> <span style="margin-right: 2%;width: 64px;">${cart.name}</span></li>
                     `
                     }
                 }
