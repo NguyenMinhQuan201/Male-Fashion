@@ -172,7 +172,7 @@ namespace API.Controllers
                 var result = await _importInvoiceDetailsService.GetByName(pageSize, pageIndex, name);
                 if (result.IsSuccessed)
                 {
-                    return Ok(result.ResultObj);
+                    return Ok(result);
                 }
 
             }
