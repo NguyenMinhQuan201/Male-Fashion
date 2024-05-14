@@ -20,9 +20,50 @@
     <link rel="stylesheet" href="~/Content/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="~/Content/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="~/Content/css/style.css" type="text/css">
-</head>
+    <style>
+        .mini_cart {
+            position: absolute;
+            height: auto;
+            background-color: black;
+            right: 0;
+            width: 396px;
+            z-index: 3;
+            display: none;
+            border-radius: 5px;
+        }
 
+        .header__top {
+            overflow-x: hidden;
+            background: #9CC6DE !important;
+        }
+
+        @@keyframes slide {
+            0% {
+                transform: translateX(-100%);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100%);
+                opacity: 1;
+                display:none;
+            }
+        }
+
+        .animated-text {
+            white-space: nowrap;
+            overflow: hidden;
+            animation: slide 20s linear infinite;
+        }
+
+        .header__top__left p {
+            color: black !important;
+            font-weight: 600 !important;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
 <body>
+
     <div style="position:relative;">
         <div id="get_blur">
         </div>
@@ -57,53 +98,26 @@
             <div id="mobile-menu-wrap">
             </div>
             <div class="offcanvas__text">
-                <p>Uy tín tạo nên chất lượng.</p>
+                <p>Địa chỉ:Số nhà 117,Đường 419,KCNTT_HN.</p>
             </div>
         </div>
         <!-- Offcanvas Menu End -->
         <!-- Header Section Begin -->
         <header class="header">
             <div class="header__top">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-7">
-                            <div class="header__top__left">
-                                <p>Uy tín tạo nên chất lượng.</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-5">
-                            <div class="header__top__right">
-                                <div class="header__top__links">
-                                    @*@if (@User.Identity.Name == "")
-                                    {
-                                    <a href="@Url.Action("Index", "Authen")">Sign in</a>
-                                    }
-                                    else
-                                    {
-                                    <a href="">Hello: @User.Identity.Name</a>
-                                    <span style=" margin-right: 28px">@Html.ActionLink("Đăng Xuất", "Logout", "Authen")</span>
-                                    }*@
-                                    @*<a href="@Url.Action("Index", "Authen")">Sign in</a>*@
-                                    @*<a href="#">FAQs</a>*@
-                                </div>
-                                @*<div class="header__top__hover">
-                                <span>Usd <i class="fa fa-arrow-down"></i></span>
-                                <ul>
-                                <li>USD</li>
-                                <li>EUR</li>
-                                <li>USD</li>
-                                </ul>
-                                </div>*@
-                            </div>
+                @*<div class="container">*@
+                    <div class="col-lg-12 col-md-12">
+                        <div class="header__top__left text-nowrap animated-text">
+                            <p>Vật tư xây dựng Sằn Liên. Chuyên vật tư ngành nước , đồ cứu hỏa ,ống thép mạ kẽm. Địa chỉ: Số nhà 117 - Đường 419 - KCNTT_HN.</p>
                         </div>
                     </div>
-                </div>
+                @*</div>*@
             </div>
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3 col-md-3">
                         <div class="header__logo">
-                            <a href="@Url.Action("Index", "Home")"><img src="/content/img/logo.jpg" alt=""></a>
+                            <a href="@Url.Action("Index", "Home")"><img src="/Content/img/logo.jpg" alt=""></a>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
@@ -169,7 +183,7 @@
         </div>
         <!-- THIS THING -->
         <!-- Footer Section Begin -->
-        @* <footer class="footer">
+        <footer class="footer">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3 col-md-6 col-sm-6">
@@ -223,13 +237,13 @@
                                 <script>
                                     document.write(new Date().getFullYear());
                                 </script>
-                                All rights reserved 
+                                All rights reserved
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
-        </footer> *@
+        </footer>
         <!-- Footer Section End -->
         <!-- Search Begin -->
         <div class="search-model">

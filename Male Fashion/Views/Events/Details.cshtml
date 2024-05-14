@@ -21,13 +21,61 @@
     </script>
 }
 <style>
-    .title-rating{
+    .product__details__breadcrumb{
+        text-align:left!important;
+    }
+    .product__details__text h3{
+        font-weight: 600!important;
+    }
+    .title-rating {
         font-size: 22px;
         font-weight: 600;
+        margin-left:16px;
     }
-    .under-rating{
+
+    .under-rating {
         margin: 25px;
         border-bottom: solid 1px;
+    }
+
+    .product__details__option {
+        margin-bottom: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: baseline;
+        padding-left: 260px;
+    }
+
+    .product__details__text {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: normal;
+    }
+
+    .custum-po-p{
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+    }
+    .ul-imgs{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 100%!important;
+        margin-top: 35px!important;
+    }
+    .order-po{
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .product__details__pic .nav-tabs .nav-item{
+        margin-bottom: 10px;
+        margin-left: 24px!important;
     }
 </style>
 <link rel="stylesheet" type="text/css" href="~/Content/css/Chi-tiet-hang1.css">
@@ -43,9 +91,9 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-3 col-md-3">
-                    <ul class="nav nav-tabs" role="tablist">
+            <div class="row order-po">
+                <div class="col-lg-9 col-md-9 custum-po-p">
+                    <ul class="ul-imgs nav nav-tabs" role="tablist">
                         @for (int i = 0; i < @Model.ProductImgs.Count(); i++)
                         {
                             if (i == 0)
@@ -103,10 +151,10 @@
                 <div class="col-lg-8">
                     <div class="product__details__text">
 
-                        <h3>@Model.Price đ</h3>
-                        <p>
-                            Áo khoác có lớp lót bông và mũ trùm đầu có thể điều chỉnh. Nổi bật với tay áo dài với các tab vòng bít có thể điều chỉnh, viền bất đối xứng có thể điều chỉnh với các tab bên co giãn và khóa kéo phía trước có túi.
-                        </p>
+                        <h3>Giá: @Model.Price.ToString("#,##0").Replace(',','.') đ</h3>
+                        @*<p>
+                        Áo khoác có lớp lót bông và mũ trùm đầu có thể điều chỉnh. Nổi bật với tay áo dài với các tab vòng bít có thể điều chỉnh, viền bất đối xứng có thể điều chỉnh với các tab bên co giãn và khóa kéo phía trước có túi.
+                        </p>*@
                         <div class="product__details__option">
                             <div class="product__details__option__size">
                                 <span>Size:</span>
@@ -146,11 +194,12 @@
                     </div>
                 </div>
             </div>
+            <div id="MoreToYou"></div>
             <div class="bak-rating">
                 <div class="title-rating">
                     Đánh giá khách hàng
                 </div>
-                @if (Model.Rating.Count()>0)
+                @if (Model.Rating.Count() > 0)
                 {
                     @foreach (var item in Model.Rating)
                     {
@@ -174,9 +223,10 @@
                         </div>
                     }
                 }
-                else{
+                else
+                {
                     <div style="text-align: center;">
-                            Chưa có đánh giá
+                        Chưa có đánh giá
                     </div>
                 }
             </div>
@@ -185,5 +235,5 @@
 </section>
 <!-- Shop Details Section End -->
 <!-- Related Section Begin -->
-<div id="MoreToYou"></div>
+
 <!-- Related Section End -->
