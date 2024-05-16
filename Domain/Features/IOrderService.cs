@@ -26,6 +26,7 @@ namespace Domain.Features
         public Task<List<NotifiDto>> GetAllNotifiDto();
         public Task<bool> Readed(long id);
         public Task<ApiResult<dynamic>> GetAllByPhone(int idOrder, int phone);
+        public Task<List<GetOrderDto>> GetAllDone();
 
     }
 }
