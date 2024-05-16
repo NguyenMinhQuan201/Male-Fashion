@@ -47,6 +47,9 @@
             var containerEl = document.querySelector('.product__filter');
             var mixer = mixitup(containerEl);
         }
+        function formatNumber(number) {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
         if (localStorage) {
             var cartsDataAsJson = localStorage.getItem("Carts")
             var carts = JSON.parse(cartsDataAsJson);
@@ -73,7 +76,7 @@
             }
             $('.cart-sub-render').html(rows);
             $('.conut-number').html(tongSoLuong);
-            $('.price').html(tongGia + "đ");
+            $('.price').html(formatNumber(tongGia) + " đ");
             $(".button-remove-cart-sub").off('click').on('click', function () {
                 console.log("YOLO")
                 var tongtien = 0;

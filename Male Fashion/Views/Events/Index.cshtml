@@ -20,11 +20,21 @@
         url = str;
     }
 }
-
 <head>
     <link rel="stylesheet" type="text/css" href="~/Content/css/Trang-chu.css">
 @*     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" integrity="sha512-siarrzI1u3pCqFG2LEzi87McrBmq6Tp7juVsdmGY1Dr8Saw+ZBAzDzrGwX3vgxX1NkioYNCFOVC0GpDPss10zQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
  *@</head>
+ <style>
+    .product__item__text h5{
+        font-size: 16px;
+    }
+    .product__item__pic{
+        height: 260px!important;
+    }
+    .breadcrumb-option{
+        background-color: #9CC6DE !important;
+    }
+ </style>
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-option">
     <div class="container">
@@ -34,7 +44,7 @@
                     <h4>Mua sắm</h4>
                     <div class="breadcrumb__links">
                         <a href="./index.html">Trang chủ</a>
-                        <span>Mua sắm</span>
+                        <span style="color:unset!important">Mua sắm</span>
                     </div>
                 </div>
             </div>
@@ -90,10 +100,10 @@
                                         <div class="shop__sidebar__brand">
                                             <ul>
                                                 <li><a href="@Url.Action("Index", "Events", new { idCate = cate })">All</a></li>
-                                                <li><a href="@Url.Action("Index", "Events", new { idCate = cate,branding="Louis Vuitton",priceMin=priceMinSS,priceMax=priceMaxSS })">Louis Vuitton</a></li>
-                                                <li><a href="@Url.Action("Index", "Events", new { idCate = cate,branding="Chanel",priceMin=priceMinSS,priceMax=priceMaxSS })">Chanel</a></li>
-                                                <li><a href="@Url.Action("Index", "Events", new { idCate = cate,branding="Hermes",priceMin=priceMinSS,priceMax=priceMaxSS })">Hermes</a></li>
-                                                <li><a href="@Url.Action("Index", "Events", new { idCate = cate,branding="Gucci",priceMin=priceMinSS,priceMax=priceMaxSS })">Gucci</a></li>
+                                                <li><a href="@Url.Action("Index", "Events", new { idCate = cate,branding="Hòa Phát",priceMin=priceMinSS,priceMax=priceMaxSS })">Hòa Phát</a></li>
+                                                <li><a href="@Url.Action("Index", "Events", new { idCate = cate,branding="Hoa Sen",priceMin=priceMinSS,priceMax=priceMaxSS })">Hoa Sen</a></li>
+                                                <li><a href="@Url.Action("Index", "Events", new { idCate = cate,branding="Tiền Phong",priceMin=priceMinSS,priceMax=priceMaxSS })">Tiền Phong</a></li>
+                                                <li><a href="@Url.Action("Index", "Events", new { idCate = cate,branding="Dismy",priceMin=priceMinSS,priceMax=priceMaxSS })">Dismy</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -146,7 +156,7 @@
                                         @*<a href="" class="add-cart"> =>Go Detail</a>*@
                                         <a class="add-cart" href="@Url.Action("Details", "Events", new { id = item.IdProduct })">=> Xem chi tiết </a>
 
-                                        <h5>@Html.DisplayFor(modelItem => item.Price)</h5>
+                                        <h5>@item.Price.ToString("#,##0").Replace(',','.') đ</h5>
 
                                     </div>
                                 </div>
@@ -161,7 +171,7 @@
                                 }
                                 else
                                 {
-                                    <a href="@Url.Action("Index",new { pageIndex = 1,serach="" })">F</a>
+                                    <a href="@Url.Action("Index",new { pageIndex = 1,serach="" })"><i class="fa fa-arrow-left"></i></a>
                                     <a href="@Url.Action("Index",new { pageIndex = (Model.PageCount < Model.PageIndex ? 0 : Model.PageIndex - 1),serach="" })"> @(Model.PageCount < Model.PageIndex ? 0 : Model.PageIndex - 1)</a>
                                 }
                                 @if (Model.PageCount != 1 && Model.PageCount != 0)
@@ -176,7 +186,7 @@
                                 else
                                 {
                                     <a href="@Url.Action("Index",new { pageIndex = (Model.PageCount < Model.PageIndex ? 0 : Model.PageIndex + 1),serach="" })"> @(Model.PageCount < Model.PageIndex ? 0 : Model.PageIndex + 1)</a>
-                                    <a href="@Url.Action("Index",new { pageIndex = Model.PageCount,serach="" })">L</a>
+                                    <a href="@Url.Action("Index",new { pageIndex = Model.PageCount,serach="" })"><i class="fa fa-arrow-right"></i></a>
                                 }
                             </div>
                         </div>

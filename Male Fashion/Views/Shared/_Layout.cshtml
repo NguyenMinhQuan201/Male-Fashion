@@ -8,7 +8,7 @@
     <meta name="keywords" content="Male_Fashion, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Male-Fashion | Template</title>
+    <title>DangKhoa | Template</title>
 
     <!-- Google Font -->
     <link rel="stylesheet" href="~/Asset/font-awesome-4.7.0/css/font-awesome.min.css">
@@ -20,9 +20,50 @@
     <link rel="stylesheet" href="~/Content/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="~/Content/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="~/Content/css/style.css" type="text/css">
-</head>
+    <style>
+        .mini_cart {
+            position: absolute;
+            height: auto;
+            background-color: black;
+            right: 0;
+            width: 396px;
+            z-index: 3;
+            display: none;
+            border-radius: 5px;
+        }
 
+        .header__top {
+            overflow-x: hidden;
+            background: #9CC6DE !important;
+        }
+
+        @@keyframes slide {
+            0% {
+                transform: translateX(-100%);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100%);
+                opacity: 1;
+                display:none;
+            }
+        }
+
+        .animated-text {
+            white-space: nowrap;
+            overflow: hidden;
+            animation: slide 20s linear infinite;
+        }
+
+        .header__top__left p {
+            color: black !important;
+            font-weight: 600 !important;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
 <body>
+
     <div style="position:relative;">
         <div id="get_blur">
         </div>
@@ -57,60 +98,33 @@
             <div id="mobile-menu-wrap">
             </div>
             <div class="offcanvas__text">
-                <p>Miễn phí vận chuyển, đảm bảo hoàn trả hoặc hoàn tiền trong 30 ngày.</p>
+                <p>Địa chỉ:Số nhà 117,Đường 419,KCNTT_HN.</p>
             </div>
         </div>
         <!-- Offcanvas Menu End -->
         <!-- Header Section Begin -->
         <header class="header">
             <div class="header__top">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-7">
-                            <div class="header__top__left">
-                                <p>Miễn phí vận chuyển, đảm bảo hoàn trả hoặc hoàn tiền trong 30 ngày.</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-5">
-                            <div class="header__top__right">
-                                <div class="header__top__links">
-                                    @*@if (@User.Identity.Name == "")
-                                    {
-                                    <a href="@Url.Action("Index", "Authen")">Sign in</a>
-                                    }
-                                    else
-                                    {
-                                    <a href="">Hello: @User.Identity.Name</a>
-                                    <span style=" margin-right: 28px">@Html.ActionLink("Đăng Xuất", "Logout", "Authen")</span>
-                                    }*@
-                                    @*<a href="@Url.Action("Index", "Authen")">Sign in</a>*@
-                                    @*<a href="#">FAQs</a>*@
-                                </div>
-                                @*<div class="header__top__hover">
-                                <span>Usd <i class="fa fa-arrow-down"></i></span>
-                                <ul>
-                                <li>USD</li>
-                                <li>EUR</li>
-                                <li>USD</li>
-                                </ul>
-                                </div>*@
-                            </div>
+                @*<div class="container">*@
+                    <div class="col-lg-12 col-md-12">
+                        <div class="header__top__left text-nowrap animated-text">
+                            <p>Vật tư xây dựng Sằn Liên. Chuyên vật tư ngành nước , đồ cứu hỏa ,ống thép mạ kẽm. Địa chỉ: Số nhà 117 - Đường 419 - KCNTT_HN.</p>
                         </div>
                     </div>
-                </div>
+                @*</div>*@
             </div>
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3 col-md-3">
                         <div class="header__logo">
-                            <a href="@Url.Action("Index", "Home")"><img src="Content/img/logo.png" alt=""></a>
+                            <a href="@Url.Action("Index", "Home")"><img src="/Content/img/logo.jpg" alt=""></a>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <nav class="header__menu mobile-menu">
                             <ul>
                                 <li><a href="/Home">Trang chủ</a></li>
-                                <li><a href="/Events">Mua sắm</a></li>
+                                <li><a href="/Events">Sản Phẩm</a></li>
                                 <li>
                                     <a href="#">Trang</a>
                                     <ul class="dropdown">
@@ -169,7 +183,7 @@
         </div>
         <!-- THIS THING -->
         <!-- Footer Section Begin -->
-        @* <footer class="footer">
+        <footer class="footer">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3 col-md-6 col-sm-6">
@@ -185,10 +199,10 @@
                         <div class="footer__widget">
                             <h6>Shopping</h6>
                             <ul>
-                                <li><a href="#">Cửa hàng quần áo</a></li>
-                                <li><a href="#">Quần áo hiện đại</a></li>
-                                <li><a href="#">Phụ kiện</a></li>
-                                <li><a href="#">Giảm giá</a></li>
+                                <li><a href="#">Ống nhựa</a></li>
+                                <li><a href="#">Ống Kẽm</a></li>
+                                <li><a href="#">Phụ kiện gia dụng</a></li>
+                                <li><a href="#">Đồ điện tử</a></li>
                             </ul>
                         </div>
                     </div>
@@ -207,7 +221,7 @@
                         <div class="footer__widget">
                             <h6>NewLetter</h6>
                             <div class="footer__newslatter">
-                                <p>BHãy là người đầu tiên biết về hàng mới, sách tra cứu, khuyến mại và khuyến mãi!</p>
+                                <p>Hãy là người đầu tiên biết về hàng mới, sách tra cứu, khuyến mại và khuyến mãi!</p>
                                 <form action="#">
                                     <input type="text" placeholder="Your email">
                                 </form>
@@ -223,13 +237,13 @@
                                 <script>
                                     document.write(new Date().getFullYear());
                                 </script>
-                                All rights reserved 
+                                All rights reserved
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
-        </footer> *@
+        </footer>
         <!-- Footer Section End -->
         <!-- Search Begin -->
         <div class="search-model">

@@ -371,7 +371,7 @@ class CartController {
                         $('.cart-sub-render').html(rows2);
                         new CartController();
                         $('.conut-number').html(tongSoLuong);
-                        $('.price').html(tongGia + "$");
+                        $('.price').html(formatNumber(tongGia) + " đ");
                         $("#mini_cart_id").slideDown();
                         document.getElementById("get_blur").style.display = "block";
                     }
@@ -380,6 +380,9 @@ class CartController {
 
 
         });
+        function formatNumber(number) {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
         $('#paypal').off('click').on('click', function () {
             var check = true;
             var AddRess = $('#DC').val();
@@ -507,6 +510,7 @@ class CartController {
             }
         });
         $('#make_order').off('click').on('click', function () {
+            console.log("đã vào");
             var check = true;
             var AddRess = $('#DC').val();
             var Phone = $('#SDT').val();
@@ -622,7 +626,7 @@ class CartController {
                                         </div>
                                     </div>
                                 </td>
-                                <td class="cart__price" id="total-price-${cart.prime}">$ ${cart.tong}</td>
+                                <td class="cart__price" id="total-price-${cart.prime}"> ${cart.tong} đ</td>
                                 <td class="cart__close" data-id="${cart.prime}"><i class="fa fa-close"></i></td>
                             </tr>
                                         `
@@ -696,7 +700,7 @@ class CartController {
     height: 64px;
     width: 64px; ">
 </div>
-<span class="span-for-total"> ${cart.quantity}</span>   <span> ${cart.price}</span> <span style="margin-right: 2%">${cart.name}</span></li>
+<span class="span-for-total"> ${cart.quantity}</span>   <span> ${cart.price}</span> <span style="margin-right: 2%;width: 64px;">${cart.name}</span></li>
                     `
                     }
                 }
@@ -756,7 +760,7 @@ class CartController {
                                         </div>
                                     </div>
                                 </td>
-                                <td class="cart__price" id="total-price-${cart.id}">$ ${cart.totalPrice}</td>
+                                <td class="cart__price" id="total-price-${cart.id}"> ${cart.totalPrice} đ</td>
                                 <td class="cart__close" data-id="${cart.id}"><i class="fa fa-close"></i></td>
                             </tr>
                     `
@@ -800,7 +804,7 @@ class CartController {
                                         </div>
                                     </div>
                                 </td>
-                                <td class="cart__price" id="total-price-${cart.id}">$ ${cart.totalPrice}</td>
+                                <td class="cart__price" id="total-price-${cart.id}"> ${cart.totalPrice} đ</td>
                                 <td class="cart__close" data-id="${cart.id}"><i class="fa fa-close"></i></td>
                             </tr>
                     `
@@ -948,7 +952,7 @@ class CartController {
                                         </div>
                                     </div>
                                 </td>
-                                <td class="cart__price" id="total-price-${cart.id}">$ ${cart.totalPrice}</td>
+                                <td class="cart__price" id="total-price-${cart.id}"> ${cart.totalPrice} đ</td>
                                 <td class="cart__close" data-id="${cart.id}"><i class="fa fa-close"></i></td>
                             </tr>
                                         `
