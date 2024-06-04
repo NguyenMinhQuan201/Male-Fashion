@@ -53,7 +53,9 @@ namespace Infrastructure.Reponsitories.BaseReponsitory
 
         public async Task CreateAsync(T entity)
         {
+            //thay cho insert into
             _db.Set<T>().Add(entity);
+            // Tracking dữ liệu
             await _db.SaveChangesAsync();
         }
 
@@ -82,6 +84,7 @@ namespace Infrastructure.Reponsitories.BaseReponsitory
 
         public async Task<IEnumerable<T>> GetAll()
         {
+            // select All
             var query = _db.Set<T>().ToList();
             return query;
         }

@@ -18,6 +18,7 @@ namespace Api.Controllers
         {
             _userService = userService;
         }
+        
         [HttpPost("renewToken")]
         public async Task<IActionResult> RenewToken(TokenRequestDto request)
         {
@@ -124,6 +125,7 @@ namespace Api.Controllers
             return Ok(products);
         }
         //[Authorize(Policy = "admin")]
+        [Authorize]
         [HttpGet("get-by-id")]
         public async Task<IActionResult> GetById(Guid Id)
         {

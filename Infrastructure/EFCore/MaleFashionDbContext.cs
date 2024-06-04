@@ -16,6 +16,7 @@ namespace Infrastructure.EF
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //Configure using Fluent API
+            //Lấy từ trong folder configution 
             modelBuilder.ApplyConfiguration(new AppRoleConfiguration());
             modelBuilder.ApplyConfiguration(new AppUserConfiguration());
             modelBuilder.ApplyConfiguration(new BlogConfiguration());

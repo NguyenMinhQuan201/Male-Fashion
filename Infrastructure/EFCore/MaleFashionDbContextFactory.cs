@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Infrastructureta2.EF
 {
+    // File này để tạo kết nối với sql thông qua file appsetting
     public class MaleFashionDbContextFactory : IDesignTimeDbContextFactory<MaleFashionDbContext>
     {
         public MaleFashionDbContext CreateDbContext(string[] args)

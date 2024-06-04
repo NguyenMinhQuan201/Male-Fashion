@@ -13,7 +13,6 @@ namespace API.Controllers
         public ProductController(IProductService productService)
         {
             _productService = productService;
-
         }
         [HttpPost("post")]
         public async Task<IActionResult> Create([FromForm] ProductDto request)
