@@ -409,5 +409,31 @@ namespace Domain.Features.Order
             }
             return lst;
         }
+
+        public async Task<ApiResult<dynamic>> GetAllSale()
+        {
+            var orderDetails = await _orderDetailReponsitory.GetAll();
+            var products = await _productReponsitory.GetAll();
+
+            var result = orderDetails
+                .GroupBy(x => x.IdProduct)
+                .Select(g => new
+                {
+                    IdProduct = g.Key,
+                    TotalValue = g.Sum(x => x.Price * x.Quantity)
+                })
+                .Join(
+                    products,
+                    od => od.IdProduct,
+                    p => p.IdProduct,
+                    (od, p) => new
+                    {
+                        p.Name,
+                        od.TotalValue
+                    })
+                .ToList();
+
+            return new ApiSuccessResult<dynamic>(result);
+        }
     }
 }

@@ -165,5 +165,10 @@ namespace API.Controllers
         {
             return Ok(await _ratinggService.Create(rate));
         }
+        [HttpGet("get-col-sale")]
+        public async Task<IActionResult> ColSale()
+        {
+            return Ok(await _orderService.GetAllSale());
+        }
     }
 }
