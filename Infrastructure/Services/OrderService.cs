@@ -9,6 +9,7 @@ using Infrastructure.Reponsitories.OrderDetailReponsitory;
 using Infrastructure.Reponsitories.OrderReponsitory;
 using Infrastructure.Reponsitories.ProductReponsitories;
 using Infrastructure.Reponsitories.RatingReponsitories;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.SignalR;
 using System.Linq.Expressions;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
@@ -407,6 +408,27 @@ namespace Domain.Features.Order
                 };
                 lst.Add(obj);
             }
+            return lst;
+        }
+
+        public async Task<List<GetOrderDto>> GetAllDone()
+        {
+            var orders = await _orderReponsitory.GetAll();
+            var lst = orders.Where(x=>x.Status==2).Select(x => new GetOrderDto()
+            {
+                IdOrder = x.IdOrder,
+                Status = x.Status,
+                SumPrice = x.SumPrice,
+                NameCustomer = x.NameCustomer,
+                Address = x.Address,
+                Phone = x.Phone,
+                Email = x.Email,
+                CreatedAt = x.CreatedAt,
+                DeliveryAt = x.DeliveryAt,
+                FinishAt = x.FinishAt,
+                Note = x.Note,
+                Payments = x.Payments,
+            }).ToList();
             return lst;
         }
 

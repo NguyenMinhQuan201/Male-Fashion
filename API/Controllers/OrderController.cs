@@ -165,6 +165,11 @@ namespace API.Controllers
         {
             return Ok(await _ratinggService.Create(rate));
         }
+        [HttpGet("get-by-date")]
+        public async Task<IActionResult> GetAll()
+        {
+            return Ok(await _orderService.GetAllDone());
+        }
         [HttpGet("get-col-sale")]
         public async Task<IActionResult> ColSale()
         {

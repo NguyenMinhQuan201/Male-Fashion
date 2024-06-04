@@ -36,7 +36,7 @@ namespace Infrastructure.Reponsitories.OrderReponsitory
 
         public async Task<List<Notifi>> GetAllNoti()
         {
-            return _db.Notifis.ToList();
+            return _db.Notifis.OrderByDescending(x=>x.Id).ToList();
         }
 
         public async Task<bool> UpdateNoti(Notifi obj)

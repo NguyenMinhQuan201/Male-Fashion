@@ -12,6 +12,10 @@
             margin-bottom: 16px;
         }
     }
+
+    .cart__total-chck {
+        float:unset!important;
+    }
 </style>
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-option">
@@ -74,8 +78,20 @@
                 <div class="cart__total">
                     <h6>Tổng đơn hàng</h6>
                     <ul>
-                        <li>Đơn giá <span class="total-checkout"></span> <span>$</span></li>
-                        <li>Tổng  <span class="total-checkout"></span> <span>$</span></li>
+                        <li style="display:flex;justify-content: space-between;">
+                            Đơn giá
+                            <span class="cart__total-chck">
+                                <span class="total-checkout cart__total-chck"></span>
+                                <span>đ</span>
+                            </span>
+                        </li>
+                        <li style="display:flex;justify-content: space-between;">
+                            Tổng
+                            <span class="cart__total-chck">
+                                <span class="total-checkout cart__total-chck"></span>
+                                <span>đ</span>
+                            </span>
+                            </li>
                     </ul>
                     <button id="checkout" class="primary-btn">THANH TOÁN</button>
                 </div>

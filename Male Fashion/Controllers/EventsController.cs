@@ -32,7 +32,7 @@ namespace Male_Fashion.Controllers
             TempData["branding"] = branding;
             TempData["priceMin"] = priceMin;
             TempData["priceMax"] = priceMax;
-            var data = await _productService.GetProductWithCatePagings(4, pageIndex, idCate, search, branding, priceMin, priceMax);
+            var data = await _productService.GetProductWithCatePagings(6, pageIndex, idCate, search, branding, priceMin, priceMax);
             return View(data.ResultObj);
             //if (idCate > 0 || Convert.ToInt32(val)>0 )
             //{
