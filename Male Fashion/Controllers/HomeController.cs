@@ -34,8 +34,8 @@ namespace Male_Fashion.Controllers
         public async Task<ActionResult> ProductsHot2()
         {
             ViewBag.url = _configuration["BaseAddress"];
-            var lst = await _productService.GetSanPhamPagings(8, 2, "");
-            return PartialView("ProductsHot2", lst.ResultObj.Items);
+            var lst = await _productService.GetSanPhamHot();
+            return PartialView("ProductsHot2", lst);
         }
         public async Task<ActionResult> News()
         {

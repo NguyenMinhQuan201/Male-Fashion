@@ -463,5 +463,10 @@ namespace Domain.Features.Order
 
             return new ApiSuccessResult<dynamic>(result);
         }
+
+        public Task<ApiResult<dynamic>> GetAllSale(int year, int month)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
