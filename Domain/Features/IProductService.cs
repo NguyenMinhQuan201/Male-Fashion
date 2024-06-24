@@ -34,7 +34,7 @@ namespace Domain.Features
         Task<ApiResult<PagedResult<ImageDto>>> GetListImages(int productId);
         Task<ImageDto> GetImageByID(int imageId);
         Task<ApiResult<PagedResult<GetProductDto>>> GetAllbyCategoryId(int? pageSize, int? pageIndex, int? id, string? search, string? branding, long priceMin, long priceMax);
-        Task<List<ProductDto>> GetAll(string languageId);
+        Task<List<GetProductDto>> GetAllHot();
         public Task<ApiResult<bool>> AddImage(int productId, List<IFormFile> request);
         public Task<int> RemoveImage(int imageId);
         public Task<ApiResult<bool>> RestoreProduct(int id);

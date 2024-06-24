@@ -17,6 +17,7 @@ namespace Male_Fashion.Services
         Task<List<Color>> ListAllColor(List<ProductDetailDto> pro);
         Task<List<Size>> ListAllSize(List<ProductDetailDto> pro);
         Task<IEnumerable<CategoryRequestDto>> GetAllCate();
+        Task<List<GetProductDto>> GetSanPhamHot();
     }
     public class ProductService : IProductService
     {
@@ -148,7 +149,23 @@ namespace Male_Fashion.Services
             var sanpham = JsonConvert.DeserializeObject<ApiSuccessResult<PagedResult<GetProductDto>>>(body);
             return sanpham;
         }
-
+        public async Task<List<GetProductDto>> GetSanPhamHot()
+        {
+            var client = ClientC();
+            try
+            {
+                client.BaseAddress = new Uri(_configuration["BaseAddress"]);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            var response = await client.GetAsync
+                ($"/api/Product/get-all-hot");
+            var body = await response.Content.ReadAsStringAsync();
+            var sanpham = JsonConvert.DeserializeObject<List<GetProductDto>>(body);
+            return sanpham;
+        }
         public async Task<PagedResult<GetProductDto>> GetSanPhamPagingsByIdLoaiSanPham(int id)
         {
             throw new NotImplementedException();

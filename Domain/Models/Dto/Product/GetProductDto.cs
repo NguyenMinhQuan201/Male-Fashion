@@ -18,6 +18,7 @@ namespace Domain.Models.Dto.Product
         public DateTime? UpdatedAt { get; set; }
         public int IdCategory { get; set; }
         public List<ImageDto>? ProductImgs { get; set; }
+        public dynamic? ProductImgs2 { get; set; }
         public List<Rating>? Rating { get; set; }
     }
     public class Rating

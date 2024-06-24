@@ -243,5 +243,15 @@ namespace API.Controllers
             if (result.IsSuccessed == false) return BadRequest();
             return Ok(result);
         }
+        [HttpGet("get-all-hot")]
+        public async Task<IActionResult> GetAllProductHot()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var result = await _productService.GetAllHot();
+            return Ok(result);
+        }
     }
 }

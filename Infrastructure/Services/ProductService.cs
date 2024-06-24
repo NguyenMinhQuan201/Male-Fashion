@@ -5,6 +5,7 @@ using Domain.Common.FileStorage;
 using Domain.Models.Dto.Product;
 using Infrastructure.Entities;
 using Infrastructure.Reponsitories.CategoryReponsitories;
+using Infrastructure.Reponsitories.OrderDetailReponsitory;
 using Infrastructure.Reponsitories.ProductDetailReponsitories;
 using Infrastructure.Reponsitories.ProductImageReponsitories;
 using Infrastructure.Reponsitories.ProductReponsitories;
@@ -18,14 +19,17 @@ namespace Domain.Features.Product
     public class ProductService : IProductService
     {
         private readonly IRatingRepository _ratingRepository;
+        private readonly IOrderDetailRepository _orderDetailReponsitory;
+
         private readonly IProductRepository _productReponsitories;
         private readonly IProductDetailReponsitories _productDetailReponsitories;
         private readonly ICategoryRepository _categoryReponsitories;
         private readonly IStorageService _storageService;
         private readonly IProductImageRepository _productImageRepository;
         private readonly IMapper _mapper;
-        public ProductService(IRatingRepository ratingRepository,IProductImageRepository productImageRepository, IMapper mapper, ICategoryRepository categoryReponsitories, IProductImageRepository productImageReponsitories, IProductRepository productReponsitories, IStorageService storageService, IProductDetailReponsitories productDetailReponsitories)
+        public ProductService(IOrderDetailRepository orderDetailReponsitory,IRatingRepository ratingRepository,IProductImageRepository productImageRepository, IMapper mapper, ICategoryRepository categoryReponsitories, IProductImageRepository productImageReponsitories, IProductRepository productReponsitories, IStorageService storageService, IProductDetailReponsitories productDetailReponsitories)
         {
+            _orderDetailReponsitory = orderDetailReponsitory;
             _productDetailReponsitories = productDetailReponsitories;
             _productReponsitories = productReponsitories;
             _storageService = storageService;
@@ -167,9 +171,24 @@ namespace Domain.Features.Product
             return new ApiErrorResult<bool>("Lỗi tham số chuyền về null hoặc trống");
         }
 
-        public Task<List<ProductDto>> GetAll(string languageId)
+        public async Task<List<GetProductDto>> GetAllHot()
         {
-            throw new NotImplementedException();
+            var products = await _productReponsitories.GetAll();
+            var proructImg = await _productImageRepository.GetAll();
+            var orderDetails = await _orderDetailReponsitory.GetAll();
+            var result = (from p in products
+                          join od in orderDetails on p.IdProduct equals od.IdProduct
+                          group od by new { od.IdProduct } into g
+                          select new GetProductDto
+                          {
+                              IdProduct = g.Key.IdProduct,
+                              Name = products.Where(x => x.IdProduct == g.Key.IdProduct).First().Name,
+                              Quantity = products.Where(x => x.IdProduct == g.Key.IdProduct).First().Quantity,
+                              Price = products.Where(x => x.IdProduct == g.Key.IdProduct).First().Price,
+                              ProductImgs = proructImg.Where(x => x.ProductId == g.Key.IdProduct).Select(x => new ImageDto { ImagePath = x.ImagePath }).ToList(),
+
+                          }).ToList();
+            return result;
         }
 
         public async Task<IEnumerable<GetProductDto>> GetAll()
