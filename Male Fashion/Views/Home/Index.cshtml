@@ -6,148 +6,52 @@
     <script>
         $('#partialNews').load("/Home/News")
         $('#partialProductsHot').load("/Home/ProductsHot")
+        $('#partialProductsHot2').load("/Home/ProductsHot2")
+
     </script>
 }
-    <head>
-        <meta charset="UTF-8">
-        <meta name="description" content="Vật Liệu Xây Dựng">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Vật Liệu Xây Dựng">
     <meta name="keywords" content="Vật Liệu Xây Dựng, unica, creative, html">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-        <!-- Google Font -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
           rel="stylesheet">
 
-        <!-- Css Styles -->
-        <link href="~/Content/css/HomeCss/bootstrap.min.css" rel="stylesheet" />
-        <link href="~/Content/css/HomeCss/font-awesome.min.css" rel="stylesheet" />
-        <link href="~/Content/css/HomeCss/elegant-icons.css" rel="stylesheet" />
-        <link href="~/Content/css/HomeCss/magnific-popup.css" rel="stylesheet" />
-        <link href="~/Content/css/HomeCss/nice-select.css" rel="stylesheet" />
-        <link href="~/Content/css/HomeCss/owl.carousel.min.css" rel="stylesheet" />
-        <link href="~/Content/css/HomeCss/slicknav.min.css" rel="stylesheet" />
-        <link href="~/Content/css/HomeCss/style.css" rel="stylesheet" />
+    <!-- Css Styles -->
+    <link href="~/Content/css/HomeCss/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/css/HomeCss/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/css/HomeCss/elegant-icons.css" rel="stylesheet" />
+    <link href="~/Content/css/HomeCss/magnific-popup.css" rel="stylesheet" />
+    <link href="~/Content/css/HomeCss/nice-select.css" rel="stylesheet" />
+    <link href="~/Content/css/HomeCss/owl.carousel.min.css" rel="stylesheet" />
+    <link href="~/Content/css/HomeCss/slicknav.min.css" rel="stylesheet" />
+    <link href="~/Content/css/HomeCss/style.css" rel="stylesheet" />
 
-    </head>
-    @*<div style="background-image:url('~/Content/img/hero/hero-1.jpg');"></div>*@
-    <body>
-        @*<div id="preloder">
-    <div class="loader"></div>
-    </div>*@
-    <section class="hero">
-        <div class="hero__slider owl-carousel">
-            <div class="hero__items set-bg" data-setbg="/Content/img/hero/logo-1.jpg" @*style="background-image:url('~/Content/img/hero/hero-1.jpg');"*@>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-xl-5 col-lg-7 col-md-8">
-                                <div class="hero__text">
-                                    <h2>Kẽm Hòa Phát</h2>
-                                    <p>
-                                    Một nhãn hiệu chuyên tạo ra những sản phẩm thiết yếu. Được tạo ra một cách có đạo đức với một thái độ kiên định
-                                    cam kết chất lượng vượt trội với hơn 25 năm xây dựng và phát triển.
-                                    </p>
-                                    <a href="#" class="primary-btn">Xem ngay <span class="fa fa-arrow-right"></span></a>
-                                    <div class="hero__social">
-                                        <a href="#"><i class="fa fa-facebook"></i></a>
-                                        <a href="#"><i class="fa fa-twitter"></i></a>
-                                        <a href="#"><i class="fa fa-pinterest"></i></a>
-                                        <a href="#"><i class="fa fa-instagram"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                </div>
-            </div>
-            <div class="hero__items set-bg" data-setbg="/Content/img/hero/logo-1.jpg">
-                <div class="container">
-      
-                        <div class="row">
-                            <div class="col-xl-5 col-lg-7 col-md-8">
-                                <div class="hero__text">
-                                    <h2>Nhựa Tiền Phong</h2>
-                                    <p>
-                                        Một nhãn hiệu chuyên tạo ra những sản phẩm thiết yếu sang trọng. Được tạo ra một cách có đạo đức với một thái độ kiên định
-                                        cam kết chất lượng vượt trội.
-                                    </p>
-                                    <a href="#" class="primary-btn">Xem ngay <span class="fa fa-arrow-right"></span></a>
-                                    <div class="hero__social">
-                                        <a href="#"><i class="fa fa-facebook"></i></a>
-                                        <a href="#"><i class="fa fa-twitter"></i></a>
-                                        <a href="#"><i class="fa fa-pinterest"></i></a>
-                                        <a href="#"><i class="fa fa-instagram"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Hero Section End -->
-        <!-- Banner Section Begin -->
-        @*<section class="banner spad">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-7 offset-lg-4">
-                        <div class="banner__item">
-                            <div class="banner__item__pic">
-                            <img src="~/content/img/hero/hero-1.jpg" alt="">
-                            </div>
-                            <div class="banner__item__text">
-                                <h2>Sản phẩm bán chạy</h2>
-                                <a href="#">Xem ngay</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-5">
-                        <div class="banner__item banner__item--middle">
-                            <div class="banner__item__pic">
-                                <img src="~/Content/img/banner/banner-2.jpg" alt="">
-                            </div>
-                            <div class="banner__item__text">
-                                <h2>Phụ kiện</h2>
-                                <a href="#">Xem ngay</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-7">
-                        <div class="banner__item banner__item--last">
-                            <div class="banner__item__pic">
-                                <img src="~/Content/img/banner/banner-3.jpg" alt="">
-                            </div>
-                            <div class="banner__item__text">
-                                <h2>Xuân 2023</h2>
-                                <a href="#">Xem ngay</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>*@
-        <!-- Banner Section End -->
-        <!-- Product Section Begin -->
-        <div id="partialProductsHot">
-        </div>
-        @*@Html.Action("ProductsHot", "Home")*@
+</head>
+@*<div style="background-image:url('~/Content/img/hero/hero-1.jpg');"></div>*@
+<body>
+    <div id="partialProductsHot">
+    </div>
+    <div id="partialProductsHot2">
+    </div>
+    <div id="partialNews">
+    </div>
 
 
-        <!-- Product Section End -->
-        <!-- Latest Blog Section Begin -->
-        <div id="partialNews">
-        </div>
+    <!-- Latest Blog Section End -->
 
-
-        <!-- Latest Blog Section End -->
-
-        <script src="~/Content/js/jsHome/bootstrap.min.js"></script>
-        <script src="~/Content/js/jsHome/jquery-3.3.1.min.js"></script>
-        <script src="~/Content/js/jsHome/jquery.countdown.min.js"></script>
-        <script src="~/Content/js/jsHome/jquery.magnific-popup.min.js"></script>
-        <script src="~/Content/js/jsHome/jquery.nice-select.min.js"></script>
-        <script src="~/Content/js/jsHome/jquery.nicescroll.min.js"></script>
-        <script src="~/Content/js/jsHome/jquery.slicknav.js"></script>
-        <script src="~/Content/js/jsHome/main.js"></script>
-        <script src="~/Content/js/jsHome/owl.carousel.min.js"></script>
-        <script src="~/Content/js/jsHome/mixitup.min.js"></script>
-    </body>
+    <script src="~/Content/js/jsHome/bootstrap.min.js"></script>
+    <script src="~/Content/js/jsHome/jquery-3.3.1.min.js"></script>
+    <script src="~/Content/js/jsHome/jquery.countdown.min.js"></script>
+    <script src="~/Content/js/jsHome/jquery.magnific-popup.min.js"></script>
+    <script src="~/Content/js/jsHome/jquery.nice-select.min.js"></script>
+    <script src="~/Content/js/jsHome/jquery.nicescroll.min.js"></script>
+    <script src="~/Content/js/jsHome/jquery.slicknav.js"></script>
+    <script src="~/Content/js/jsHome/main.js"></script>
+    <script src="~/Content/js/jsHome/owl.carousel.min.js"></script>
+    <script src="~/Content/js/jsHome/mixitup.min.js"></script>
+</body>

@@ -19,8 +19,8 @@ namespace Infrastructure.Reponsitories.OrderReponsitory
         }
         public async Task<Order> CreateAsyncFLByOrder(Order entity)
         {
-            _db.Orders.Add(entity);
-            await _db.SaveChangesAsync();
+            _db.Orders.Add(entity); //lưu order vào sql
+            await _db.SaveChangesAsync();//lưu vào sql
             var noti = new Notifi
             {
                 IsRead = false,
@@ -30,7 +30,7 @@ namespace Infrastructure.Reponsitories.OrderReponsitory
                 Time = DateTime.Now,
             };
             _db.Notifis.Add(noti);
-            await _db.SaveChangesAsync();
+            await _db.SaveChangesAsync();//lưu thông báo vào sql
             return entity;
         }
 

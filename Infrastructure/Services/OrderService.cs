@@ -39,6 +39,7 @@ namespace Domain.Features.Order
         }
         public async Task<ApiResult<OrderDto>> Create(OrderDto request)
         {
+            //set up dữ liệu trc khi cho vào bảng
             var order = new Infrastructure.Entities.Order()
             {
                 Status = request.Status,
@@ -73,9 +74,9 @@ namespace Domain.Features.Order
             }
             try
             {
-                var result = await _orderReponsitory.CreateAsyncFLByOrder(order);
+                var result = await _orderReponsitory.CreateAsyncFLByOrder(order);//thêm vào sql
                 request.Id = request.Id;
-                SendNotification();
+                SendNotification();// bắn thông báo theo thời gian thực
             }
             catch (Exception ex)
             {
@@ -281,7 +282,7 @@ namespace Domain.Features.Order
         }
 
         public async Task<ApiResult<bool>> Update(int id, OrderDto request)
-        {
+            {
             if (id != null)
             {
                 var findobj = await _orderReponsitory.GetById(id);
@@ -302,12 +303,13 @@ namespace Domain.Features.Order
                     findobj.FinishAt = DateTime.Now;
                 }
                 await _orderReponsitory.UpdateAsync(findobj);
-                var orderDetail = await _orderDetailReponsitory.GetByCondition(x=>x.IdOrder == id);
+                //xong hết phần update
+                var orderDetail = await _orderDetailReponsitory.GetByCondition(x=>x.IdOrder == id);//lấy ra order đã thanh toán
                 foreach(var item in orderDetail)
                 {
-                    var pro = await _productReponsitory.GetByProductID(item.IdProduct);
-                    pro.Quantity = pro.Quantity - item.Quantity;
-                    await _productReponsitory.UpdateAsync(pro);
+                    var pro = await _productReponsitory.GetByProductID(item.IdProduct);//lấy ra sản phẩm trong order
+                    pro.Quantity = pro.Quantity - item.Quantity;// công thức - đi sản phẩm
+                    await _productReponsitory.UpdateAsync(pro);//lưu lại
                 }
                 return new ApiSuccessResult<bool>(true);
             }
@@ -319,7 +321,7 @@ namespace Domain.Features.Order
             // Lấy năm từ ngày giờ hiện tại
             int currentYear = now.Year;
             var lst = new List<ChartCol>();
-
+            // lấy dữ liệu tháng theo năm
             var getAll = _orderReponsitory.GetAll().Result.Where(x => x.CreatedAt.Year == year).ToList();
             for (int i = 0; i < 12; i++)
             {
@@ -338,7 +340,7 @@ namespace Domain.Features.Order
             // Lấy năm từ ngày giờ hiện tại
             int currentYear = now.Year;
             var lst = new List<ChartRadius>();
-
+            //lấy dữ liệu các năm
             var getAllYear = _orderReponsitory.GetAll().Result.Select(x => x.CreatedAt.Year).Distinct().ToList();
             var getAll = _orderReponsitory.GetAll().Result.ToList();
             foreach (var item in getAllYear)
@@ -355,10 +357,11 @@ namespace Domain.Features.Order
 
         public async Task<List<NotifiDto>> GetAllNotifiDto()
         {
+            //lấy thông báo
             return _mapper.Map<List<NotifiDto>>(await _orderReponsitory.GetAllNoti());
         }
         public async Task<bool> Readed(long id)
-        {
+        {//đánh dấu đã ấn thông báo
             var getNos = await _orderReponsitory.GetAllNoti();
             var find = getNos.Where(x => x.Id == id).FirstOrDefault();
             if (find != null)
@@ -375,6 +378,7 @@ namespace Domain.Features.Order
 
         public async Task<ApiResult<dynamic>> GetAllByPhone(int idOrder, int phone)
         {
+            //lấy đơn theo sdt đăng ký
             Expression<Func<Infrastructure.Entities.OrderDetails, bool>> expression = x => x.IdOrder == idOrder;
             var order = await _orderReponsitory.GetById(idOrder);
             var orderDetail = await _orderDetailReponsitory.GetByCondition(expression);
@@ -397,6 +401,7 @@ namespace Domain.Features.Order
 
         public async Task<IEnumerable<ChartColDay>> GetAllByDay(int year,int month)
         {
+            //lấy ngày theo tháng với năm
             var lst = new List<ChartColDay>();
 
             var getAll = _orderReponsitory.GetAll().Result.Where(x => x.CreatedAt.Year == year && x.CreatedAt.Month== month).ToList();
@@ -411,8 +416,9 @@ namespace Domain.Features.Order
             return lst;
         }
 
+
         public async Task<List<GetOrderDto>> GetAllDone()
-        {
+        {//lấy đơn đã hoàn thành
             var orders = await _orderReponsitory.GetAll();
             var lst = orders.Where(x=>x.Status==2).Select(x => new GetOrderDto()
             {
